@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="15d7eabd-1bc4-4a6d-a258-bd01ca5970fd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:52944/ServicioCAE.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServicioCAE.xsd" MetadataType="Schema" ID="564a2f9e-5617-4d7e-8c1f-74e3f74e1060" SourceId="1" SourceUrl="http://localhost:52944/ServicioCAE.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServicioCAE1.disco" MetadataType="Disco" ID="9a819b63-6dd5-4d4b-bb59-0199a0bc1912" SourceId="1" SourceUrl="http://localhost:52944/ServicioCAE.svc?disco" />
+    <MetadataFile FileName="ServicioCAE1.xsd" MetadataType="Schema" ID="125055b5-c7fd-4384-8604-d9eced4fdc3c" SourceId="1" SourceUrl="http://localhost:52944/ServicioCAE.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServicioCAE2.xsd" MetadataType="Schema" ID="88fae265-298c-4503-92d9-b6fc0075899a" SourceId="1" SourceUrl="http://localhost:52944/ServicioCAE.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServicioCAE3.xsd" MetadataType="Schema" ID="6f64b94b-bc43-4be8-985a-763fcf26edad" SourceId="1" SourceUrl="http://localhost:52944/ServicioCAE.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServicioCAE.wsdl" MetadataType="Wsdl" ID="94c746f4-fac7-4518-a10e-f10274a77db5" SourceId="1" SourceUrl="http://localhost:52944/ServicioCAE.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

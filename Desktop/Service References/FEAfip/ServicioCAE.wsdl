@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServicioCAE" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WcfFactElect" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicioCAE_solicitar_InputMessage">
+    <wsdl:part name="parameters" element="tns:solicitar" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_solicitar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:solicitarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_obtenerUltimaSolicitudConError_InputMessage">
+    <wsdl:part name="parameters" element="tns:obtenerUltimaSolicitudConError" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_obtenerUltimaSolicitudConError_OutputMessage">
+    <wsdl:part name="parameters" element="tns:obtenerUltimaSolicitudConErrorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ObtenerUltimoAut_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimoAut" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ObtenerUltimoAut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimoAutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ConsultarCAE_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarCAE" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ConsultarCAE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarCAEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_EstadoServidores_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstadoServidores" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_EstadoServidores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstadoServidoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ObtenerMonHabilitadas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerMonHabilitadas" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ObtenerMonHabilitadas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerMonHabilitadasResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicioCAE">
+    <wsdl:operation name="solicitar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/solicitar" message="tns:IServicioCAE_solicitar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/solicitarResponse" message="tns:IServicioCAE_solicitar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerUltimaSolicitudConError">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/obtenerUltimaSolicitudConError" message="tns:IServicioCAE_obtenerUltimaSolicitudConError_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/obtenerUltimaSolicitudConErrorResponse" message="tns:IServicioCAE_obtenerUltimaSolicitudConError_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimoAut">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/ObtenerUltimoAut" message="tns:IServicioCAE_ObtenerUltimoAut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/ObtenerUltimoAutResponse" message="tns:IServicioCAE_ObtenerUltimoAut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCAE">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/ConsultarCAE" message="tns:IServicioCAE_ConsultarCAE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/ConsultarCAEResponse" message="tns:IServicioCAE_ConsultarCAE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EstadoServidores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/EstadoServidores" message="tns:IServicioCAE_EstadoServidores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/EstadoServidoresResponse" message="tns:IServicioCAE_EstadoServidores_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerMonHabilitadas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadas" message="tns:IServicioCAE_ObtenerMonHabilitadas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadasResponse" message="tns:IServicioCAE_ObtenerMonHabilitadas_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServicioCAE" type="tns:IServicioCAE">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="solicitar">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/solicitar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerUltimaSolicitudConError">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/obtenerUltimaSolicitudConError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimoAut">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/ObtenerUltimoAut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCAE">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/ConsultarCAE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstadoServidores">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/EstadoServidores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerMonHabilitadas">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioCAE">
+    <wsdl:port name="BasicHttpBinding_IServicioCAE" binding="tns:BasicHttpBinding_IServicioCAE">
+      <soap:address location="http://localhost:52944/ServicioCAE.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

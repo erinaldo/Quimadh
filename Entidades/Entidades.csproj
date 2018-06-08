@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4FC6FD5B-5E2E-47C3-BA92-91DC81BD8A3F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Entidades</RootNamespace>
+    <AssemblyName>Entidades</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Archivos.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticuloPlanta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticuloPlantaHistorico.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CabeceraRutina.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CabeceraRutinaFirmantes.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComposicionArticulos.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobante.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobante_Devolucion.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobante_Factura.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobante_Recargo.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobante_Recibo.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobante_Remito.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatosRutina.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Determinante.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeterminantesPlanta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entrada.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EstadoComprobante.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioUsuario.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ItemNota.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ItemRecibo.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Localidad.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Log.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Lote.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata.cs" />
+    <Compile Include="ModeloEntidades.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloEntidades.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloEntidades.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloEntidades.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloEntidades.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Moneda.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Muestra.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MuestraPlanta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parametros.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ParametroSistema.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Planta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PreciosAdicionales.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rel_Pv_Comprobante.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Salida.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SituacionFrenteIva.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoArticulo.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoUsuario.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Unidad.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VentaArticuloPlanta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="ModeloEntidades.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloEntidades.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModeloEntidades.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloEntidades.edmx</DependentUpon>
+      <LastGenOutput>ModeloEntidades.Context.cs</LastGenOutput>
+    </None>
+    <None Include="ModeloEntidades.edmx.diagram">
+      <DependentUpon>ModeloEntidades.edmx</DependentUpon>
+    </None>
+    <None Include="ModeloEntidades.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloEntidades.edmx</DependentUpon>
+      <LastGenOutput>ModeloEntidades.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModeloEntidades.edmx.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

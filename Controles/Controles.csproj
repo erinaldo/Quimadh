@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{81E3DEC7-DBE4-415E-9024-2D103460A2E9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Controles</RootNamespace>
+    <AssemblyName>Controles</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonQuimadh.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ButtonQuimadh.Designer.cs">
+      <DependentUpon>ButtonQuimadh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="Constantes.cs" />
+    <Compile Include="CustomComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomComboBox.Designer.cs">
+      <DependentUpon>CustomComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomListView.Designer.cs">
+      <DependentUpon>CustomListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseSinToolbar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseSinToolbar.Designer.cs">
+      <DependentUpon>FormBaseSinToolbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseConToolbar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBusqueda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBusqueda.Designer.cs">
+      <DependentUpon>FormBusqueda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LabelQuimadh.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LabelQuimadh.Designer.cs">
+      <DependentUpon>LabelQuimadh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewItemComparer.cs" />
+    <Compile Include="Mensaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mensaje.Designer.cs">
+      <DependentUpon>Mensaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxQuimadh.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextBoxQuimadh.Designer.cs">
+      <DependentUpon>TextBoxQuimadh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxNumerico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextBoxNumerico.Designer.cs">
+      <DependentUpon>TextBoxNumerico.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CustomComboBox.resx">
+      <DependentUpon>CustomComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomListView.resx">
+      <DependentUpon>CustomListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseConToolbar.resx">
+      <DependentUpon>FormBaseConToolbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseSinToolbar.resx">
+      <DependentUpon>FormBaseSinToolbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBusqueda.resx">
+      <DependentUpon>FormBusqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelQuimadh.resx">
+      <DependentUpon>LabelQuimadh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mensaje.resx">
+      <DependentUpon>Mensaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextBoxQuimadh.resx">
+      <DependentUpon>TextBoxQuimadh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextBoxNumerico.resx">
+      <DependentUpon>TextBoxNumerico.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QuimadhSplashScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\modificar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanelFondoBusqueda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanelFondoBusqueda1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanelFondoBusqueda2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanelFondoBusqueda3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanelFondoGrande.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\permiso.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\picoMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reportes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\seguridad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abajo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregarChico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alerta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arriba.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buscar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cambiosPendientes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancelar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\desloguearse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eliminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eliminarChico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grabar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\informacion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FondoPrincipalFreego1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FondoPrincipalFreego11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FondoPrincipalFreego111.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

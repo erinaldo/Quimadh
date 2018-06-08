@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://mariano/ServicioCAE.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://mariano/ServicioCAE.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WcfFactElect" />
+  <xs:element name="solicitar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tipoComp" type="xs:int" />
+        <xs:element minOccurs="0" name="pv" type="xs:int" />
+        <xs:element minOccurs="0" name="concepto" type="xs:int" />
+        <xs:element minOccurs="0" name="tdoc" type="xs:int" />
+        <xs:element minOccurs="0" name="ndoc" type="xs:long" />
+        <xs:element minOccurs="0" name="comp" type="xs:long" />
+        <xs:element minOccurs="0" name="fecha" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="total" type="xs:double" />
+        <xs:element minOccurs="0" name="neto" type="xs:double" />
+        <xs:element minOccurs="0" name="iva" type="xs:double" />
+        <xs:element minOccurs="0" name="mon" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cotiz" type="xs:double" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="arrayIva" nillable="true" type="q1:ArrayOfArrayOfdouble" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="compAsociados" nillable="true" type="q2:ArrayOfArrayOflong" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="solicitarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WcfFactElect" minOccurs="0" name="solicitarResult" nillable="true" type="q3:DTOSolicitud" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="obtenerUltimaSolicitudConError">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tipoComp" type="xs:int" />
+        <xs:element minOccurs="0" name="ptoVta" type="xs:int" />
+        <xs:element minOccurs="0" name="nroComp" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="obtenerUltimaSolicitudConErrorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WcfFactElect" minOccurs="0" name="obtenerUltimaSolicitudConErrorResult" nillable="true" type="q4:DTOSolicitud" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerUltimoAut">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tipoComp" type="xs:int" />
+        <xs:element minOccurs="0" name="ptoVta" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerUltimoAutResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerUltimoAutResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarCAE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tipoComp" type="xs:int" />
+        <xs:element minOccurs="0" name="ptoVta" type="xs:int" />
+        <xs:element minOccurs="0" name="nroComp" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarCAEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WcfFactElect" minOccurs="0" name="ConsultarCAEResult" nillable="true" type="q5:DTOSolicitud" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EstadoServidores">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EstadoServidoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EstadoServidoresResult" nillable="true" type="q6:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
