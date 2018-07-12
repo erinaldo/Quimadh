@@ -48,6 +48,8 @@
             this.labelQuimadh1 = new Controles.LabelQuimadh(this.components);
             this.labelQuimadh3 = new Controles.LabelQuimadh(this.components);
             this.ofdRutina = new System.Windows.Forms.OpenFileDialog();
+            this.txtNroInterno = new Controles.TextBoxNumerico();
+            this.labelQuimadh6 = new Controles.LabelQuimadh(this.components);
             this.gpbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRutina)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +63,8 @@
             // gpbDatos
             // 
             this.gpbDatos.BackColor = System.Drawing.Color.Transparent;
+            this.gpbDatos.Controls.Add(this.txtNroInterno);
+            this.gpbDatos.Controls.Add(this.labelQuimadh6);
             this.gpbDatos.Controls.Add(this.chkIncluirFirma);
             this.gpbDatos.Controls.Add(this.cboTipoRutina);
             this.gpbDatos.Controls.Add(this.txtObservaciones);
@@ -103,7 +107,7 @@
             "ANÁLISIS DE AGUA",
             "ANÁLISIS BACTERIOLÓGICO",
             "ANÁLISIS DE EFLUENTE"});
-            this.cboTipoRutina.Location = new System.Drawing.Point(10, 56);
+            this.cboTipoRutina.Location = new System.Drawing.Point(10, 82);
             this.cboTipoRutina.Name = "cboTipoRutina";
             this.cboTipoRutina.Size = new System.Drawing.Size(182, 21);
             this.cboTipoRutina.TabIndex = 43;
@@ -160,7 +164,7 @@
             this.txtNumeroRutina.Decimales = 0;
             this.txtNumeroRutina.Enteros = 18;
             this.txtNumeroRutina.EnterTabulacion = true;
-            this.txtNumeroRutina.Location = new System.Drawing.Point(99, 30);
+            this.txtNumeroRutina.Location = new System.Drawing.Point(99, 27);
             this.txtNumeroRutina.Name = "txtNumeroRutina";
             this.txtNumeroRutina.ReadOnly = true;
             this.txtNumeroRutina.Size = new System.Drawing.Size(93, 20);
@@ -172,11 +176,11 @@
             this.labelQuimadh2.AutoSize = true;
             this.labelQuimadh2.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh2.Location = new System.Drawing.Point(6, 33);
+            this.labelQuimadh2.Location = new System.Drawing.Point(13, 28);
             this.labelQuimadh2.Name = "labelQuimadh2";
-            this.labelQuimadh2.Size = new System.Drawing.Size(80, 16);
+            this.labelQuimadh2.Size = new System.Drawing.Size(73, 16);
             this.labelQuimadh2.TabIndex = 35;
-            this.labelQuimadh2.Text = "Nº Interno:";
+            this.labelQuimadh2.Text = "Id Rutina:";
             // 
             // dgvRutina
             // 
@@ -266,6 +270,29 @@
             this.ofdRutina.FileName = "Rutina";
             this.ofdRutina.Filter = "Archivos Excel (*.xls)|*.xls|Archivos Excel (*.xlsx)|*.xlsx";
             // 
+            // txtNroInterno
+            // 
+            this.txtNroInterno.Decimales = 0;
+            this.txtNroInterno.Enteros = 18;
+            this.txtNroInterno.EnterTabulacion = true;
+            this.txtNroInterno.Location = new System.Drawing.Point(99, 56);
+            this.txtNroInterno.Name = "txtNroInterno";
+            this.txtNroInterno.ReadOnly = true;
+            this.txtNroInterno.Size = new System.Drawing.Size(93, 20);
+            this.txtNroInterno.TabIndex = 46;
+            this.txtNroInterno.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // labelQuimadh6
+            // 
+            this.labelQuimadh6.AutoSize = true;
+            this.labelQuimadh6.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh6.Location = new System.Drawing.Point(13, 58);
+            this.labelQuimadh6.Name = "labelQuimadh6";
+            this.labelQuimadh6.Size = new System.Drawing.Size(80, 16);
+            this.labelQuimadh6.TabIndex = 45;
+            this.labelQuimadh6.Text = "Nº Interno:";
+            // 
             // frmImportarRutina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -305,5 +332,7 @@
         private Controles.LabelQuimadh labelQuimadh5;
         private Controles.CustomComboBox cboTipoRutina;
         private System.Windows.Forms.CheckBox chkIncluirFirma;
+        private Controles.TextBoxNumerico txtNroInterno;
+        private Controles.LabelQuimadh labelQuimadh6;
     }
 }

@@ -119,6 +119,8 @@ namespace Desktop.Vistas.Analisis
             rutinaActual.fechaAnalisis = dtpAnalisis.Value;
             rutinaActual.fechaMuestreo = dtpMuestreo.Value;
             rutinaActual.idCabeceraRutinaFirmante = firmante == null ? 1 : firmante.id;
+            rutinaActual.numeroInterno = short.Parse(txtNroInterno.Text);
+            rutinaActual.fechaCargaSistema = DateTime.Now;
 
             string aux = "";
             try
@@ -707,6 +709,8 @@ namespace Desktop.Vistas.Analisis
                    Missing.Value, Missing.Value, Missing.Value);
             sheet = (Worksheet)book.Worksheets[1];
 
+            txtNroInterno.Text = (string)sheet.get_Range("A2", "A2").Value2;
+
             cboPlanta.SelectedIndex = cboPlanta.FindString((string)sheet.get_Range("A6", "A6").Value2);
 
             if (cboPlanta.SelectedIndex == -1)
@@ -852,6 +856,7 @@ namespace Desktop.Vistas.Analisis
                     cboPlanta.SelectedIndex = cboPlanta.FindStringExact(carga.Planta.nombre);
                     cboTipoRutina.SelectedIndex = cboTipoRutina.FindStringExact(carga.tipoRutina);
                     txtNumeroRutina.Text = carga.id.ToString();
+                    txtNroInterno.Text = carga.numeroInterno.ToString();
                     txtObservaciones.Text = carga.observaciones;
                 }
             }
