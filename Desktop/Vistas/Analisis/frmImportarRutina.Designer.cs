@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gpbDatos = new System.Windows.Forms.GroupBox();
+            this.txtNroInterno = new Controles.TextBoxNumerico();
+            this.labelQuimadh6 = new Controles.LabelQuimadh(this.components);
             this.chkIncluirFirma = new System.Windows.Forms.CheckBox();
             this.cboTipoRutina = new Controles.CustomComboBox(this.components);
             this.txtObservaciones = new Controles.TextBoxQuimadh();
@@ -48,8 +50,6 @@
             this.labelQuimadh1 = new Controles.LabelQuimadh(this.components);
             this.labelQuimadh3 = new Controles.LabelQuimadh(this.components);
             this.ofdRutina = new System.Windows.Forms.OpenFileDialog();
-            this.txtNroInterno = new Controles.TextBoxNumerico();
-            this.labelQuimadh6 = new Controles.LabelQuimadh(this.components);
             this.gpbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRutina)).BeginInit();
             this.SuspendLayout();
@@ -87,6 +87,28 @@
             this.gpbDatos.TabIndex = 3;
             this.gpbDatos.TabStop = false;
             this.gpbDatos.Text = "Datos";
+            // 
+            // txtNroInterno
+            // 
+            this.txtNroInterno.Decimales = 0;
+            this.txtNroInterno.Enteros = 18;
+            this.txtNroInterno.EnterTabulacion = true;
+            this.txtNroInterno.Location = new System.Drawing.Point(99, 56);
+            this.txtNroInterno.Name = "txtNroInterno";
+            this.txtNroInterno.Size = new System.Drawing.Size(93, 20);
+            this.txtNroInterno.TabIndex = 46;
+            this.txtNroInterno.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // labelQuimadh6
+            // 
+            this.labelQuimadh6.AutoSize = true;
+            this.labelQuimadh6.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh6.Location = new System.Drawing.Point(13, 58);
+            this.labelQuimadh6.Name = "labelQuimadh6";
+            this.labelQuimadh6.Size = new System.Drawing.Size(80, 16);
+            this.labelQuimadh6.TabIndex = 45;
+            this.labelQuimadh6.Text = "Nº Interno:";
             // 
             // chkIncluirFirma
             // 
@@ -269,29 +291,6 @@
             // 
             this.ofdRutina.FileName = "Rutina";
             this.ofdRutina.Filter = "Archivos Excel (*.xls)|*.xls|Archivos Excel (*.xlsx)|*.xlsx";
-            // 
-            // txtNroInterno
-            // 
-            this.txtNroInterno.Decimales = 0;
-            this.txtNroInterno.Enteros = 18;
-            this.txtNroInterno.EnterTabulacion = true;
-            this.txtNroInterno.Location = new System.Drawing.Point(99, 56);
-            this.txtNroInterno.Name = "txtNroInterno";
-            this.txtNroInterno.ReadOnly = true;
-            this.txtNroInterno.Size = new System.Drawing.Size(93, 20);
-            this.txtNroInterno.TabIndex = 46;
-            this.txtNroInterno.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // labelQuimadh6
-            // 
-            this.labelQuimadh6.AutoSize = true;
-            this.labelQuimadh6.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh6.Location = new System.Drawing.Point(13, 58);
-            this.labelQuimadh6.Name = "labelQuimadh6";
-            this.labelQuimadh6.Size = new System.Drawing.Size(80, 16);
-            this.labelQuimadh6.TabIndex = 45;
-            this.labelQuimadh6.Text = "Nº Interno:";
             // 
             // frmImportarRutina
             // 
