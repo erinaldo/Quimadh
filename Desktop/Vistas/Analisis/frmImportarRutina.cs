@@ -121,13 +121,19 @@ namespace Desktop.Vistas.Analisis
             rutinaActual.idCabeceraRutinaFirmante = firmante == null ? 1 : firmante.id;
 
             short nroInt;
-            if (short.TryParse(txtNroInterno.Text, out nroInt))
-            {
-                rutinaActual.numeroInterno = short.Parse(txtNroInterno.Text);
-            }
-            else if(!string.IsNullOrWhiteSpace(txtNroInterno.Text))
+            if (!short.TryParse(txtNroInterno.Text, out nroInt))
             {
                 Mensaje mensaje = new Mensaje("Verifique N° Interno", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                mensaje.ShowDialog();
+                return false;
+            }
+
+            rutinaActual.numeroInterno = short.Parse(txtNroInterno.Text);
+
+            var existeNroInt = Global.Servicio.ExisteNroInternoRutina(rutinaActual);
+            if (existeNroInt)
+            {
+                Mensaje mensaje = new Mensaje("El N° Interno ya fue utilizado", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 mensaje.ShowDialog();
                 return false;
             }
