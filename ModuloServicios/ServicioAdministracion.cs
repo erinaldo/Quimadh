@@ -1509,7 +1509,7 @@ namespace ModuloServicios
 
         public List<Presentacion> obtenerTodosPresentaciones(int numeroRegistros)
         {
-            return _contexto.Presentacion.Take(numeroRegistros).ToList();
+            return _contexto.Presentacion.Take(numeroRegistros).OrderBy(p => p.litrosEnvase).ToList();
         }
 
         public Presentacion obtenerPresentacionPorLitros(int litros)
