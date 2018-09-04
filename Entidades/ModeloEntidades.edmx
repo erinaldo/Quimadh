@@ -47,6 +47,8 @@
           <Property Name="observaciones" Type="varchar" MaxLength="1024" />
           <Property Name="tipoRutina" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="idCabeceraRutinaFirmante" Type="int" Nullable="false" />
+          <Property Name="numeroInterno" Type="int" />
+          <Property Name="fechaCargaSistema" Type="datetime" />
         </EntityType>
         <EntityType Name="CabeceraRutinaFirmantes">
           <Key>
@@ -1753,6 +1755,8 @@
           <Property Name="tipoRutina" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idCabeceraRutinaFirmante" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CabeceraRutinaFirmantes" Relationship="QuimadhModel.FK_CabeceraRutina_CabeceraRutinaFirmantes" FromRole="CabeceraRutina" ToRole="CabeceraRutinaFirmantes" />
+          <Property Name="numeroInterno" Type="Int32" />
+          <Property Name="fechaCargaSistema" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -2930,7 +2934,9 @@
     <EntitySetMapping Name="CabeceraRutina">
       <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.CabeceraRutina)">
         <MappingFragment StoreEntitySet="CabeceraRutina">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fechaCargaSistema" ColumnName="fechaCargaSistema" />
+                <ScalarProperty Name="numeroInterno" ColumnName="numeroInterno" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idPlanta" ColumnName="idPlanta" />
           <ScalarProperty Name="fechaMuestreo" ColumnName="fechaMuestreo" />
           <ScalarProperty Name="fechaAnalisis" ColumnName="fechaAnalisis" />

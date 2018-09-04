@@ -120,6 +120,29 @@ namespace Desktop.Vistas.Analisis
             rutinaActual.fechaMuestreo = dtpMuestreo.Value;
             rutinaActual.idCabeceraRutinaFirmante = firmante == null ? 1 : firmante.id;
 
+            short nroInt;
+            if (!short.TryParse(txtNroInterno.Text, out nroInt))
+            {
+                Mensaje mensaje = new Mensaje("Verifique N° Interno", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                mensaje.ShowDialog();
+                return false;
+            }
+
+            rutinaActual.numeroInterno = short.Parse(txtNroInterno.Text);
+
+            var existeNroInt = Global.Servicio.ExisteNroInternoRutina(rutinaActual);
+            if (existeNroInt)
+            {
+                Mensaje mensaje = new Mensaje("El N° Interno ya fue utilizado", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                mensaje.ShowDialog();
+                return false;
+            }
+
+            if (Estado == Estados.Agregar)
+            {
+                rutinaActual.fechaCargaSistema = DateTime.Now;
+            }
+                
             string aux = "";
             try
             {
@@ -171,7 +194,7 @@ namespace Desktop.Vistas.Analisis
                 if (Estado == Estados.Agregar)
                 {
                     rutinaActual = Global.Servicio.agregarDatosRutina(rutinaActual, datosRutina, Global.DatosSesion);
-                    txtNumeroRutina.Text = rutinaActual.id.ToString();
+                    txtNumeroRutina.Text = rutinaActual.id.ToString();                    
                     cadenaMensaje = "Rutina dada de Alta exitosamente.";
                 }
                 else
@@ -707,6 +730,16 @@ namespace Desktop.Vistas.Analisis
                    Missing.Value, Missing.Value, Missing.Value);
             sheet = (Worksheet)book.Worksheets[1];
 
+            try
+            {
+                txtNroInterno.Text = ((decimal)sheet.get_Range("A2", "A2").Value2).ToString();
+            }
+            catch (Exception ex)
+            {
+                Mensaje unMensaje = new Mensaje("Verifique el número interno.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
+            }
+
             cboPlanta.SelectedIndex = cboPlanta.FindString((string)sheet.get_Range("A6", "A6").Value2);
 
             if (cboPlanta.SelectedIndex == -1)
@@ -852,6 +885,7 @@ namespace Desktop.Vistas.Analisis
                     cboPlanta.SelectedIndex = cboPlanta.FindStringExact(carga.Planta.nombre);
                     cboTipoRutina.SelectedIndex = cboTipoRutina.FindStringExact(carga.tipoRutina);
                     txtNumeroRutina.Text = carga.id.ToString();
+                    txtNroInterno.Text = carga.numeroInterno.ToString();
                     txtObservaciones.Text = carga.observaciones;
                 }
             }
