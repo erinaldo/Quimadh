@@ -100,6 +100,7 @@
         <AssociationConnector Association="QuimadhModel.FK_PreciosAdicionales_ArticuloPlanta" />
         <AssociationConnector Association="QuimadhModel.FK_PreciosAdicionales_Presentacion" />
         <EntityTypeShape EntityType="QuimadhModel.Archivos" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

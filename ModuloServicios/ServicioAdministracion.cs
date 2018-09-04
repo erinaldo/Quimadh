@@ -714,20 +714,11 @@ namespace ModuloServicios
         public ArticuloPlanta actualizarArticuloPlanta(ArticuloPlanta articuloPlanta, ArticuloPlantaHistorico aph, Metadata metadata)
         {
             ArticuloPlanta articuloGuardado = null;
-            ArticuloPlanta articuloBase = null;
-            //ArticuloPlantaHistorico aph = new ArticuloPlantaHistorico();
-            //QuimadhEntities newContext = new QuimadhEntities();
+            //ArticuloPlanta articuloBase = null;
 
             using (TransactionScope scope = new TransactionScope())
             {                
                 ValidarArticuloPlanta(articuloPlanta, Acciones.Log.MODIFICACION);
-
-                //articuloBase = newContext.ArticuloPlanta.Where(ap => ap.idArticulo == articuloPlanta.idArticulo && ap.idPlanta == articuloPlanta.idPlanta).First();                
-
-                //aph.ArticuloPlanta = articuloBase;
-                //aph.idMoneda = articuloBase.idMoneda;
-                //aph.precio = articuloBase.precio;
-                //aph.fechaCambio = articuloBase.fechaCambio;
 
                 _contexto.ArticuloPlantaHistorico.Add(aph);
 
@@ -1812,7 +1803,7 @@ namespace ModuloServicios
             {
                 //busca todos los lotes pero de los cerrados solo los últimos 2 años para que no se llenen los combos
                 DateTime fecha = DateTime.Now.AddYears(-2);
-                return _contexto.Lote.Where(l => l.TipoArticulo.id == tipoArt.id && l.numero.Substring(0, 3) != "MP-" && (l.fechaCierre == null || l.fechaInicio >= fecha)).ToList();
+                return _contexto.Lote.Where(l => l.TipoArticulo.id == tipoArt.id && l.numero.Substring(0, 3) != "MP-" && l.numero.Substring(0, 3) != "PF-" && (l.fechaCierre == null || l.fechaInicio >= fecha)).ToList();
             }
             else
                 return null;

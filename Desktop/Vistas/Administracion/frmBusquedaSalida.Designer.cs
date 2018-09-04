@@ -41,6 +41,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gpbFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +53,7 @@
             this.gpbFiltros.Controls.Add(this.dtpFechaD);
             this.gpbFiltros.Controls.Add(this.cboArticulo);
             this.gpbFiltros.Controls.Add(this.labelQuimadh6);
+            this.gpbFiltros.Size = new System.Drawing.Size(637, 113);
             this.gpbFiltros.Controls.SetChildIndex(this.labelQuimadh6, 0);
             this.gpbFiltros.Controls.SetChildIndex(this.cboArticulo, 0);
             this.gpbFiltros.Controls.SetChildIndex(this.dtpFechaD, 0);
@@ -59,15 +61,25 @@
             this.gpbFiltros.Controls.SetChildIndex(this.dtpFechaH, 0);
             this.gpbFiltros.Controls.SetChildIndex(this.labelQuimadh1, 0);
             // 
+            // cboNumeroRegistros
+            // 
+            this.cboNumeroRegistros.Location = new System.Drawing.Point(601, 203);
+            // 
+            // lblNumeroRegistros
+            // 
+            this.lblNumeroRegistros.Location = new System.Drawing.Point(560, 206);
+            // 
             // ltvBusqueda
             // 
             this.ltvBusqueda.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
+            this.columnHeader1,
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
+            this.ltvBusqueda.Size = new System.Drawing.Size(634, 317);
             // 
             // lblTitulo
             // 
@@ -163,11 +175,16 @@
             this.columnHeader7.Text = "Fecha";
             this.columnHeader7.Width = 70;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "N° Lote";
+            this.columnHeader1.Width = 75;
+            // 
             // frmBusquedaSalida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 587);
+            this.ClientSize = new System.Drawing.Size(661, 587);
             this.Name = "frmBusquedaSalida";
             this.gpbFiltros.ResumeLayout(false);
             this.gpbFiltros.PerformLayout();
@@ -190,5 +207,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

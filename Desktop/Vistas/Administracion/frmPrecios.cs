@@ -43,6 +43,8 @@ namespace Desktop.Vistas.Administracion
         {
             ArticuloPlanta = new ArticuloPlanta();
             limpiarControles(gpbPrecios);
+            dgvPrecios.Rows.Clear();
+            dgvPreciosHist.Rows.Clear();
             gpbPrecios.Enabled = true;
             dgvPrecios.Enabled = true;
             cboMoneda.SelectedIndex = 0;
@@ -61,6 +63,19 @@ namespace Desktop.Vistas.Administracion
 
         protected override bool guardar()
         {
+            if (cboPlanta.Text.ToLower() == "sin especificar" || cboPlanta.SelectedItem == null)
+            {
+                Mensaje mensaje = new Mensaje("Seleccione una planta", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                mensaje.ShowDialog();
+                return false;
+            }
+            if (cboArticulo.Text.ToLower() == "sin especificar" || cboArticulo.SelectedItem == null)
+            {
+                Mensaje mensaje = new Mensaje("Seleccione un artículo", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                mensaje.ShowDialog();
+                return false;
+            }
+
             ArticuloPlantaHistorico aph = new ArticuloPlantaHistorico();
             if (Estado == Estados.Modificar)
             {
@@ -75,8 +90,7 @@ namespace Desktop.Vistas.Administracion
             ArticuloPlanta.idMoneda = cboMoneda.SelectedItem != null ? ((Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value).id : -1;
             ArticuloPlanta.precio = decimal.Parse(txtPrecioInicial.Text);
             ArticuloPlanta.fechaCambio = DateTime.Now;
-            //if (validar<ArticuloPlanta>(ArticuloPlanta, errProvider)) // Si tuvo éxito la validación
-            //{
+
             try
             {
                 string cadenaMensaje = "";
@@ -106,11 +120,12 @@ namespace Desktop.Vistas.Administracion
                 }
                 else
                 {
-                    Global.Servicio.actualizarArticuloPlanta(ArticuloPlanta, aph, Global.DatosSesion);
+                    Global.Servicio.actualizarArticuloPlanta(ArticuloPlanta, aph, Global.DatosSesion);                    
                     cadenaMensaje = "Precio Modificado con éxito.";                    
-                }                
-
+                }
+                
                 lblUltimaModificacion.Text = "Última modificación: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+                CargarPreciosHist();
 
                 // Mostramos mensaje de éxito
                 Mensaje mensaje = new Mensaje(cadenaMensaje, Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
@@ -133,7 +148,6 @@ namespace Desktop.Vistas.Administracion
                     unMensaje.ShowDialog();
                 }
             }
-            //}
 
             return false;
         }
@@ -181,9 +195,6 @@ namespace Desktop.Vistas.Administracion
                 limpiarControles(gpbPrecios);
                 lblUltimaModificacion.Text = "Última modificación: ";
             }
-            // Limpia los mensajes de error
-            //errProvider.Clear();
-            // Fija los campos para consulta
             gpbPrecios.Enabled = false;
             dgvPrecios.Enabled = false;
         }
@@ -221,8 +232,6 @@ namespace Desktop.Vistas.Administracion
                 foreach(PreciosAdicionales pa in ArticuloPlanta.PreciosAdicionales)
                 {
                     dgvPrecios.Rows.Add();
-                    //dgvPrecios.Rows[i].Tag = pa;
-                    //Presentacion present = Global.Servicio.obtenerPresentacion(pa.idPresentacion);
                     dgvPrecios.Rows[i].Cells["clmPresent"].Value = "x " + pa.Presentacion.litrosEnvase.ToString();
                     dgvPrecios.Rows[i].Cells["clmPresent"].Tag = pa.Presentacion;
                     dgvPrecios.Rows[i].Cells["clmPrecio"].Value = pa.precio.ToString("0.00");
@@ -230,10 +239,28 @@ namespace Desktop.Vistas.Administracion
                     i++;
                 }
 
+                CargarPreciosHist();
+
                 return true;
             }
 
             return false;
+        }
+
+        private void CargarPreciosHist()
+        {
+            int j = 0;
+            var preciosHist = ArticuloPlanta.ArticuloPlantaHistorico.OrderByDescending(ap => ap.fechaCambio).Take(2).ToList();
+            dgvPreciosHist.Rows.Clear();
+            foreach (ArticuloPlantaHistorico ph in preciosHist)
+            {
+                dgvPreciosHist.Rows.Add();
+                dgvPreciosHist.Rows[j].Cells["clmFecha"].Value = ph.fechaCambio;
+                dgvPreciosHist.Rows[j].Cells["clmMoneda"].Value = ph.Moneda.simbologia;
+                dgvPreciosHist.Rows[j].Cells["clmPrecioHist"].Value = ph.precio;
+
+                j++;
+            }
         }
 
         private bool validar()
