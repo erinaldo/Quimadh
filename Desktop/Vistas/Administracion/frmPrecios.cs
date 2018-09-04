@@ -287,7 +287,6 @@ namespace Desktop.Vistas.Administracion
         private void cboPlanta_SelectedIndexChanged(object sender, EventArgs e)
         {
             long idPlanta = cboPlanta.SelectedItem != null && !cboPlanta.SelectedItem.ToString().Equals("Sin especificar") ? ((Planta)((ComboBoxItem)cboPlanta.SelectedItem).Value).id : -1;
-            //long idPlanta = cboPlanta.SelectedItem != null ? ((Planta)((ComboBoxItem)cboPlanta.SelectedItem).Value).id : -1;
             if (idPlanta != -1)
                 txtNumero.Text = Global.Servicio.obtenerProximoNumero(idPlanta).ToString();
             else
