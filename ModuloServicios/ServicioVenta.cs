@@ -365,8 +365,8 @@ namespace ModuloServicios
 
             string codigoAfip = factura.tipo == "A" ? "01" : "06";
             string codBarras = "30678363673" + codigoAfip + factura.pv.ToString("0000") + factura.cae + ((DateTime)factura.fecVtoCae).ToString("yyyyMMdd");
-            string codBarrasSinCod = codBarras;
-            codBarras = CodificarI2Of5(codBarras);
+            string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
+            codBarras = CodificarI2Of5(codBarrasSinCod);
 
             graf.DrawString(factura.pv.ToString("0000") + " - " + factura.numero.ToString("00000000"), printFontG, printSolid, new RectangleF(x + 500, y + 105, 500, 500));
 
@@ -510,9 +510,8 @@ namespace ModuloServicios
         //    return ms; //.ToArray();
         //}
 
-        private string CodificarI2Of5(string codigo)
+        private string AgregarDigitoVerificador(string codigo)
         {
-            
             int checksum = 0;
 
             int i = codigo.Length - 1;
@@ -531,6 +530,32 @@ namespace ModuloServicios
             //System.Diagnostics.Debug.Write((10 - (checksum % 10)) % 10);
             codigo = codigo + ((10 - (checksum % 10)) % 10);
 
+            return codigo;
+        }
+
+        private string CodificarI2Of5(string codigo)
+        {
+
+            //int checksum = 0;
+
+            //int i = codigo.Length - 1;
+            //while (i >= 0)
+            //{
+            //    checksum = checksum + System.Int32.Parse(codigo.Substring(i, 1));
+            //    i = i - 2;
+            //}
+            //checksum = checksum * 3;
+            //i = codigo.Length - 2;
+            //while (i >= 0)
+            //{
+            //    checksum = checksum + System.Int32.Parse(codigo.Substring(i, 1));
+            //    i = i - 2;
+            //}
+            ////System.Diagnostics.Debug.Write((10 - (checksum % 10)) % 10);
+            //codigo = codigo + ((10 - (checksum % 10)) % 10);
+            
+            //codigo = AgregarDigitoVerificador(codigo);
+            int i = 0;
             string codificacion = "NnNn";
             for (i = 0; i <= codigo.Length - 1; i += 2)
             {
