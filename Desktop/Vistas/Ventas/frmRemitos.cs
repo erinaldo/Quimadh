@@ -695,6 +695,8 @@ namespace Desktop.Vistas.Ventas
                 Global.Servicio.imprimirRemito(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
                 Global.Servicio.imprimirRemito(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
                 Global.Servicio.imprimirRemito(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
+
+                Global.Servicio.imprimirRemitoDigital(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
             }
             else
             {
