@@ -56,7 +56,8 @@ namespace Desktop.Vistas.Administracion
                 // Listamos los clientes
                 foreach (Salida ent in resultado)
                 {
-                    string[] datos = new string[] { ent.Lote.TipoArticulo.nombre, ent.cantidad.ToString(), ent.Presentacion == null ? "":"x " + ent.Presentacion.litrosEnvase.ToString(), ent.Cliente == null ? "" : ent.Cliente.razonSocial, ent.nombreVendedor, ((DateTime)ent.fecha).ToString("dd/MM/yyyy") };
+                    string nroLote = ent.nroLote.Substring(0, 3) == "PF-" || ent.nroLote.Substring(0, 3) == "MP-" ? "" : ent.nroLote;
+                    string[] datos = new string[] { ent.Lote.TipoArticulo.nombre, ent.cantidad.ToString(), ent.Presentacion == null ? "":"x " + ent.Presentacion.litrosEnvase.ToString(), nroLote, ent.Cliente == null ? "" : ent.Cliente.razonSocial, ent.nombreVendedor, ((DateTime)ent.fecha).ToString("dd/MM/yyyy")};
                     ListViewItem item = new ListViewItem(datos);
                     item.Tag = ent;
                     ltvBusqueda.Items.Add(item);

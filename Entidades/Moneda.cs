@@ -22,6 +22,7 @@ namespace Entidades
             this.Comprobante_Comprobante_Remito = new HashSet<Comprobante_Remito>();
             this.VentaArticuloPlanta = new HashSet<VentaArticuloPlanta>();
             this.ArticuloPlanta = new HashSet<ArticuloPlanta>();
+            this.ArticuloPlantaHistorico = new HashSet<ArticuloPlantaHistorico>();
         }
     
         public int id { get; set; }
@@ -36,5 +37,6 @@ namespace Entidades
         public virtual ICollection<Comprobante_Remito> Comprobante_Comprobante_Remito { get; set; }
         public virtual ICollection<VentaArticuloPlanta> VentaArticuloPlanta { get; set; }
         public virtual ICollection<ArticuloPlanta> ArticuloPlanta { get; set; }
+        public virtual ICollection<ArticuloPlantaHistorico> ArticuloPlantaHistorico { get; set; }
     }
 }

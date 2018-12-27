@@ -55,8 +55,14 @@
             this.clmPresent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelQuimadh11 = new Controles.LabelQuimadh(this.components);
+            this.labelQuimadh12 = new Controles.LabelQuimadh(this.components);
+            this.dgvPreciosHist = new System.Windows.Forms.DataGridView();
+            this.clmFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmMoneda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPrecioHist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpbPrecios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrecios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPreciosHist)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -340,9 +346,9 @@
             this.dgvPrecios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmPresent,
             this.clmPrecio});
-            this.dgvPrecios.Location = new System.Drawing.Point(218, 370);
+            this.dgvPrecios.Location = new System.Drawing.Point(51, 392);
             this.dgvPrecios.Name = "dgvPrecios";
-            this.dgvPrecios.Size = new System.Drawing.Size(240, 130);
+            this.dgvPrecios.Size = new System.Drawing.Size(259, 130);
             this.dgvPrecios.TabIndex = 4;
             this.dgvPrecios.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrecios_CellLeave);
             this.dgvPrecios.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvPrecios_EditingControlShowing);
@@ -362,18 +368,66 @@
             this.labelQuimadh11.AutoSize = true;
             this.labelQuimadh11.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh11.Location = new System.Drawing.Point(61, 370);
+            this.labelQuimadh11.Location = new System.Drawing.Point(48, 373);
             this.labelQuimadh11.Name = "labelQuimadh11";
             this.labelQuimadh11.Size = new System.Drawing.Size(151, 16);
             this.labelQuimadh11.TabIndex = 22;
             this.labelQuimadh11.Text = "Precios Adicionales:";
+            // 
+            // labelQuimadh12
+            // 
+            this.labelQuimadh12.AutoSize = true;
+            this.labelQuimadh12.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh12.Location = new System.Drawing.Point(348, 373);
+            this.labelQuimadh12.Name = "labelQuimadh12";
+            this.labelQuimadh12.Size = new System.Drawing.Size(140, 16);
+            this.labelQuimadh12.TabIndex = 23;
+            this.labelQuimadh12.Text = "Precios Anteriores:";
+            // 
+            // dgvPreciosHist
+            // 
+            this.dgvPreciosHist.AllowUserToAddRows = false;
+            this.dgvPreciosHist.AllowUserToDeleteRows = false;
+            this.dgvPreciosHist.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPreciosHist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPreciosHist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmFecha,
+            this.clmMoneda,
+            this.clmPrecioHist});
+            this.dgvPreciosHist.Location = new System.Drawing.Point(351, 392);
+            this.dgvPreciosHist.Name = "dgvPreciosHist";
+            this.dgvPreciosHist.ReadOnly = true;
+            this.dgvPreciosHist.Size = new System.Drawing.Size(317, 130);
+            this.dgvPreciosHist.TabIndex = 24;
+            // 
+            // clmFecha
+            // 
+            this.clmFecha.HeaderText = "Fecha";
+            this.clmFecha.Name = "clmFecha";
+            this.clmFecha.Width = 90;
+            // 
+            // clmMoneda
+            // 
+            this.clmMoneda.HeaderText = "Moneda";
+            this.clmMoneda.Name = "clmMoneda";
+            this.clmMoneda.ReadOnly = true;
+            this.clmMoneda.Width = 90;
+            // 
+            // clmPrecioHist
+            // 
+            this.clmPrecioHist.HeaderText = "Precio";
+            this.clmPrecioHist.Name = "clmPrecioHist";
+            this.clmPrecioHist.Width = 90;
             // 
             // frmPrecios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Tile;
-            this.ClientSize = new System.Drawing.Size(680, 515);
+            this.ClientSize = new System.Drawing.Size(680, 526);
+            this.Controls.Add(this.dgvPreciosHist);
+            this.Controls.Add(this.labelQuimadh12);
             this.Controls.Add(this.labelQuimadh11);
             this.Controls.Add(this.dgvPrecios);
             this.Controls.Add(this.gpbPrecios);
@@ -383,9 +437,12 @@
             this.Controls.SetChildIndex(this.gpbPrecios, 0);
             this.Controls.SetChildIndex(this.dgvPrecios, 0);
             this.Controls.SetChildIndex(this.labelQuimadh11, 0);
+            this.Controls.SetChildIndex(this.labelQuimadh12, 0);
+            this.Controls.SetChildIndex(this.dgvPreciosHist, 0);
             this.gpbPrecios.ResumeLayout(false);
             this.gpbPrecios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrecios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPreciosHist)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,5 +476,10 @@
         private Controles.LabelQuimadh labelQuimadh11;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmPresent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmPrecio;
+        private Controles.LabelQuimadh labelQuimadh12;
+        private System.Windows.Forms.DataGridView dgvPreciosHist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmFecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmMoneda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmPrecioHist;
     }
 }

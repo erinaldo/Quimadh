@@ -22,5 +22,6 @@ namespace Entidades
         public System.DateTime fechaCambio { get; set; }
     
         public virtual ArticuloPlanta ArticuloPlanta { get; set; }
+        public virtual Moneda Moneda { get; set; }
     }
 }

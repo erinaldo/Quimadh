@@ -194,9 +194,9 @@ namespace Desktop.Vistas.Ventas
                 }
                                 
                 dgvItems.Rows[i].Cells["clmMon"].Value = ((Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value).simbologia;
-                dgvItems.Rows[i].Cells["clmPrecio"].Value = precioCalc;//Global.Servicio.ConviertePrecio(itemRem.precio,itemRem.Moneda,Global.Servicio.obtenerMoneda("$")).ToString("0.00");
+                dgvItems.Rows[i].Cells["clmPrecio"].Value = precioCalc;
                 dgvItems.Rows[i].Cells["clmPrecio"].Tag = itemRem.precio;
-                dgvItems.Rows[i].Cells["clmImp"].Value = (itemRem.cantidad * precioCalc);//decimal.Parse(dgvItems.Rows[i].Cells["clmPrecio"].Value.ToString())).ToString("0.00");
+                dgvItems.Rows[i].Cells["clmImp"].Value = (itemRem.cantidad * precioCalc);
 
                 i++;
             }
@@ -337,7 +337,7 @@ namespace Desktop.Vistas.Ventas
                     dgvItems.EditingControl.Text = artPla.TipoArticulo.nombre;
                     dgvItems[dgvItems.Columns["clmUnidad"].Index, e.RowIndex].Value = artPla.TipoArticulo.Unidad.abreviatura;
                     dgvItems[dgvItems.Columns["clmMon"].Index, e.RowIndex].Value = ((Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value).simbologia;
-                    dgvItems[dgvItems.Columns["clmPrecio"].Index, e.RowIndex].Value = Global.Servicio.ConviertePrecio(artPla.precio, artPla.Moneda, Global.Servicio.obtenerMoneda("$"));
+                    dgvItems[dgvItems.Columns["clmPrecio"].Index, e.RowIndex].Value = Global.Servicio.ConviertePrecio(artPla.precio, artPla.Moneda, (Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value);
                     dgvItems.Rows[e.RowIndex].Cells["clmPrecio"].Tag = null;
 
                     calcularPeso();
@@ -695,6 +695,8 @@ namespace Desktop.Vistas.Ventas
                 Global.Servicio.imprimirRemito(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
                 Global.Servicio.imprimirRemito(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
                 Global.Servicio.imprimirRemito(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
+
+                Global.Servicio.imprimirRemitoDigital(remito, txtEnviarA.Text, chkImprimirPrecios.Checked);
             }
             else
             {

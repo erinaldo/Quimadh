@@ -448,6 +448,8 @@ namespace Desktop.Vistas.Ventas
             {
                 Global.Servicio.imprimirRecibo(recibo);
                 Global.Servicio.imprimirRecibo(recibo);
+
+                Global.Servicio.imprimirReciboDigital(recibo);
             }
             else
             {

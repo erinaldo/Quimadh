@@ -515,6 +515,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ArticuloPlantaHistorico_Moneda">
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="ArticuloPlantaHistorico" Type="Self.ArticuloPlantaHistorico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ArticuloPlantaHistorico">
+              <PropertyRef Name="idMoneda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CabeceraRutina_CabeceraRutinaFirmantes">
           <End Role="CabeceraRutinaFirmantes" Type="Self.CabeceraRutinaFirmantes" Multiplicity="1" />
           <End Role="CabeceraRutina" Type="Self.CabeceraRutina" Multiplicity="*" />
@@ -1258,6 +1270,10 @@
             <End Role="ArticuloPlanta" EntitySet="ArticuloPlanta" />
             <End Role="ArticuloPlantaHistorico" EntitySet="ArticuloPlantaHistorico" />
           </AssociationSet>
+          <AssociationSet Name="FK_ArticuloPlantaHistorico_Moneda" Association="Self.FK_ArticuloPlantaHistorico_Moneda">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="ArticuloPlantaHistorico" EntitySet="ArticuloPlantaHistorico" />
+          </AssociationSet>
           <AssociationSet Name="FK_CabeceraRutina_CabeceraRutinaFirmantes" Association="Self.FK_CabeceraRutina_CabeceraRutinaFirmantes">
             <End Role="CabeceraRutinaFirmantes" EntitySet="CabeceraRutinaFirmantes" />
             <End Role="CabeceraRutina" EntitySet="CabeceraRutina" />
@@ -1740,6 +1756,10 @@
             <End Role="PreciosAdicionales" EntitySet="PreciosAdicionales" />
           </AssociationSet>
           <EntitySet Name="Archivos" EntityType="QuimadhModel.Archivos" />
+          <AssociationSet Name="FK_ArticuloPlantaHistorico_Moneda" Association="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="ArticuloPlantaHistorico" EntitySet="ArticuloPlantaHistorico" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CabeceraRutina">
           <Key>
@@ -1939,6 +1959,7 @@
           <NavigationProperty Name="Comprobante_Comprobante_Remito" Relationship="QuimadhModel.FK_Comprobante_Comprobante_Remito_Moneda" FromRole="Moneda" ToRole="Comprobante_Comprobante_Remito" />
           <NavigationProperty Name="VentaArticuloPlanta" Relationship="QuimadhModel.FK_VentaArticuloPlanta_Moneda" FromRole="Moneda" ToRole="VentaArticuloPlanta" />
           <NavigationProperty Name="ArticuloPlanta" Relationship="QuimadhModel.FK_ArticuloPlanta_Moneda" FromRole="Moneda" ToRole="ArticuloPlanta" />
+          <NavigationProperty Name="ArticuloPlantaHistorico" Relationship="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" FromRole="Moneda" ToRole="ArticuloPlantaHistorico" />
         </EntityType>
         <EntityType Name="Muestra">
           <Key>
@@ -2828,6 +2849,7 @@
           <Property Name="precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="ArticuloPlanta" Relationship="QuimadhModel.FK_ArticuloPlantaHistorico_ArticuloPlanta" FromRole="ArticuloPlantaHistorico" ToRole="ArticuloPlanta" />
+          <NavigationProperty Name="Moneda" Relationship="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" FromRole="ArticuloPlantaHistorico" ToRole="Moneda" />
         </EntityType>
         <Association Name="FK_ArticuloPlanta_Moneda">
           <End Type="QuimadhModel.Moneda" Role="Moneda" Multiplicity="1" />
@@ -2925,6 +2947,18 @@
           <Property Name="idRutina" Type="Int64" Nullable="false" />
           <Property Name="extension" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
+        <Association Name="FK_ArticuloPlantaHistorico_Moneda">
+          <End Type="QuimadhModel.Moneda" Role="Moneda" Multiplicity="1" />
+          <End Type="QuimadhModel.ArticuloPlantaHistorico" Role="ArticuloPlantaHistorico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ArticuloPlantaHistorico">
+              <PropertyRef Name="idMoneda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

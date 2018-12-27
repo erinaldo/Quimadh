@@ -357,21 +357,29 @@ namespace ModuloServicios
 
             Font printFont = new Font("Arial", 20);
             Font printFontG = new Font("Arial", 20, FontStyle.Bold);
+            Font printFontCBNro = new Font("Arial", 15);
+            Font printFontCB = new Font("Dobson2OF5", 25, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Millimeter, 0);//, ((byte)(0))
             SolidBrush printSolid = new SolidBrush(Color.Black);
             string fecha = factura.fechaIngreso.Day.ToString("00") + "      " + factura.fechaIngreso.Month.ToString("00") + "     " + factura.fechaIngreso.Year.ToString();
             decimal precio;
-            
+
+            //if (! string.IsNullOrEmpty(factura.cae))
+            //{
+                
+            //}                       
+
             graf.DrawString(factura.pv.ToString("0000") + " - " + factura.numero.ToString("00000000"), printFontG, printSolid, new RectangleF(x + 500, y + 105, 500, 500));
 
             graf.DrawString(fecha, printFont, printSolid, new Rectangle(x + 686, y + 192, 2000, 2000));
-            graf.DrawString(factura.Planta.Cliente.razonSocial, printFont, printSolid, new Rectangle(x - 300 , y + 363, 500, 500));
+            graf.DrawString(factura.Planta.Cliente.razonSocial, printFont, printSolid, new Rectangle(x - 350 , y + 363, 500, 500));
             graf.DrawString(factura.Planta.Cliente.direccion, printFont, printSolid, new Rectangle(x + 440, y + 366, 500, 500));
             graf.DrawString(factura.Planta.Cliente.Localidad.nombre, printFont, printSolid, new Rectangle(x + 440, y + 450, 500, 500));
-            graf.DrawString(factura.Planta.Cliente.SituacionFrenteIva.nombre, printFont, printSolid, new Rectangle(x - 320, y + 520, 500, 500));
+            graf.DrawString(factura.Planta.Cliente.SituacionFrenteIva.nombre, printFont, printSolid, new Rectangle(x - 350, y + 510, 500, 500));
             if (remitos != "")
-                graf.DrawString("Rto: " + remitos + " / oc: " + factura.ordenCompra, printFont, printSolid, new Rectangle(x - 30, y + 500, 500, 500));
-            graf.DrawString(factura.Planta.Cliente.cuit, printFont, printSolid, new Rectangle(x - 320, y + 550, 200, 200));
-            graf.DrawString(factura.condVta, printFont, printSolid, new Rectangle(x - 225, y + 591, 200, 200));
+                graf.DrawString("Rto: " + remitos + " / oc: " + factura.ordenCompra, printFont, printSolid, new Rectangle(x + 230, y + 500, 550, 550));
+            graf.DrawString(factura.Planta.Cliente.cuit, printFont, printSolid, new Rectangle(x - 340, y + 550, 200, 200));
+            graf.DrawString(factura.condVta, printFont, printSolid, new Rectangle(x - 225, y + 591, 500, 500));            
+
             y += 695;
             foreach (VentaArticuloPlanta venta in factura.VentaArticuloPlanta)
             {
@@ -419,15 +427,20 @@ namespace ModuloServicios
                 graf.DrawString("0.00", printFont, printSolid, new Rectangle(x + 728, y + 272, 500, 500));
             }
 
-            //if (factura.Moneda.simbologia != "$")
-            //{                
-            //    graf.DrawString(factura.Moneda.simbologia, printFontG, printSolid, new Rectangle(x + 670, y + 334, 500, 500));
-            //}
-
             graf.DrawString(factura.Moneda.simbologia + " " + total.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 720, y + 334, 500, 500));
             
-            if (factura.pv == 3)
+            if (factura.pv == 3 && !string.IsNullOrEmpty(factura.cae))
             {
+                string codigoAfip = factura.tipo == "A" ? "01" : "06";
+                string codBarras = "30678363673" + codigoAfip + factura.pv.ToString("0000") + factura.cae + ((DateTime)factura.fecVtoCae).ToString("yyyyMMdd");
+                string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
+                codBarras = CodificarI2Of5(codBarrasSinCod);
+
+                //graf.DrawString(codBarras, printFontCB, printSolid, new Rectangle(x + 180, y + 500, 1000, 200));
+                var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
+                graf.DrawImage(imagenCB, x - 450, y + 420);
+                graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300 , y + 480, 500, 500));
+
                 graf.DrawString("CAE: " + factura.cae, printFontG, printSolid, new Rectangle(x + 480, y + 430, 500, 500));
                 graf.DrawString("VENC.: " + ((DateTime)factura.fecVtoCae).ToString("dd/MM/yyyy"), printFontG, printSolid, new Rectangle(x + 480, y + 465, 500, 500));
             }            
@@ -445,13 +458,6 @@ namespace ModuloServicios
             if (factura.pv == 3)
             {
                 ParametroSistema paramImpresora = obtenerParametroSistemaPorNombre("Impresora " + System.Environment.MachineName);
-                //Process printjob = new Process();
-                //printjob.StartInfo.FileName = directorio + "/" + factura.numero.ToString() + "-" + factura.tipo + ".png";
-                //printjob.StartInfo.UseShellExecute = true;
-                //printjob.StartInfo.CreateNoWindow = true;                
-                //printjob.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                //printjob.StartInfo.Verb = "print";
-                //printjob.Start();
 
                 PrintDocument pd = new PrintDocument();
                 pd.PrintPage += delegate(object sender, PrintPageEventArgs e)
@@ -471,27 +477,120 @@ namespace ModuloServicios
             }
         }
 
+        public static MemoryStream GenerateImage(string fontName, string stringText) //byte[]
+        {
+            System.Drawing.Graphics oGraphics;
+            System.Drawing.SizeF barcodeSize;
+            System.IO.MemoryStream ms;
+
+            using (System.Drawing.Font font = new System.Drawing.Font(new System.Drawing.FontFamily(fontName), 80))
+            {
+                using (System.Drawing.Bitmap tmpBitmap = new System.Drawing.Bitmap(1, 1, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                {
+                    oGraphics = System.Drawing.Graphics.FromImage(tmpBitmap);
+                    oGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+                    barcodeSize = oGraphics.MeasureString(stringText, font);
+                    oGraphics.Dispose();
+                }
+
+                using (System.Drawing.Bitmap newBitmap = new System.Drawing.Bitmap((int)barcodeSize.Width, (int)(barcodeSize.Width / 15), System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                {
+                    oGraphics = System.Drawing.Graphics.FromImage(newBitmap);
+                    oGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+
+                    using (System.Drawing.SolidBrush oSolidBrushWhite = new System.Drawing.SolidBrush(System.Drawing.Color.White))
+                    {
+                        using (System.Drawing.SolidBrush oSolidBrushBlack = new System.Drawing.SolidBrush(System.Drawing.Color.Black))
+                        {
+                            oGraphics.FillRectangle(oSolidBrushWhite, new System.Drawing.Rectangle(0, 0, (int)barcodeSize.Width, (int)(barcodeSize.Width / 15)));
+                            oGraphics.DrawString(stringText, font, oSolidBrushBlack, 0, 0);
+                        }
+                    }
+
+                    ms = new System.IO.MemoryStream();
+                    newBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+
+            return ms; //.ToArray();
+        }
+
+        private string AgregarDigitoVerificador(string codigo)
+        {
+            int checksum = 0;
+
+            int i = codigo.Length - 1;
+            while (i >= 0)
+            {
+                checksum = checksum + System.Int32.Parse(codigo.Substring(i, 1));
+                i = i - 2;
+            }
+            checksum = checksum * 3;
+            i = codigo.Length - 2;
+            while (i >= 0)
+            {
+                checksum = checksum + System.Int32.Parse(codigo.Substring(i, 1));
+                i = i - 2;
+            }
+            //System.Diagnostics.Debug.Write((10 - (checksum % 10)) % 10);
+            codigo = codigo + ((10 - (checksum % 10)) % 10);
+
+            return codigo;
+        }
+
+        private string CodificarI2Of5(string codigo)
+        {
+            int i = 0;
+            string codificacion = "NnNn";
+            for (i = 0; i <= codigo.Length - 1; i += 2)
+            {
+                string par = codigo.Substring(i, 2);
+                string digito1Codif = Reemplaza(par[0]);
+                string digito2Codif = Reemplaza(par[1]).ToLower();
+                string parCodificado = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}", digito1Codif[0], digito2Codif[0], digito1Codif[1], digito2Codif[1], digito1Codif[2], digito2Codif[2], digito1Codif[3], digito2Codif[3], digito1Codif[4], digito2Codif[4]);
+                codificacion = codificacion + parCodificado;
+            }
+
+            codificacion = codificacion + "WnN";
+
+            return codificacion;
+        }
+
+        private string Reemplaza(char digito)
+        {
+            switch (digito)
+            {
+                case '0':
+                    return "NNWWN";
+                case '1':
+                    return "WNNNW";
+                case '2':
+                    return "NWNNW";
+                case '3':
+                    return "WWNNN";
+                case '4':
+                    return "NNWNW";
+                case '5':
+                    return "WNWNN";
+                case '6':
+                    return "NWWNN";
+                case '7':
+                    return "NNNWW";
+                case '8':
+                    return "WNNWN";
+                case '9':
+                    return "NWNWN";
+                default:
+                    return "";
+            }
+        }
+
         public decimal ConviertePrecio(decimal importe, Moneda monedaVenta, Moneda monedaAConvertir)
         {
             //decimal dolar = Math.Round(obtenerCotizacionDolar(),2);
             decimal cotizOrigen = Math.Round(obtenerCotizacionMoneda(monedaVenta.id), 2);
             decimal cotizDestino = Math.Round(obtenerCotizacionMoneda(monedaAConvertir.id), 2);
             importe = Math.Round(importe, 2);
-
-            //if (monedaAConvertir.id == 0)
-            //{
-            //    if (monedaVenta.id == 0)
-            //        return importe;
-            //    else
-            //        return Math.Round(importe * dolar, 2);
-            //}
-            //else
-            //{
-            //    if (monedaVenta.id == 0)
-            //        return Math.Round(importe / dolar, 2);
-            //    else
-            //        return importe;
-            //}
 
             if (monedaAConvertir.id == monedaVenta.id)
             {
@@ -1312,8 +1411,20 @@ namespace ModuloServicios
             }
             graf.DrawString(nota.Moneda.simbologia + " " + nota.importe.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 690, y + 320, 500, 500));
 
-            if (nota.pv == 3)
+            if (nota.pv == 3 && !string.IsNullOrEmpty(nota.cae))
             {
+                Font printFontCBNro = new Font("Arial", 15);
+
+                string codigoAfip = nota.tipo == "A" ? "03" : "08";
+                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("0000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
+                string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
+                codBarras = CodificarI2Of5(codBarrasSinCod);
+
+                //graf.DrawString(codBarras, printFontCB, printSolid, new Rectangle(x + 180, y + 500, 1000, 200));
+                var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
+                graf.DrawImage(imagenCB, x - 450, y + 405);
+                graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300, y + 465, 500, 500));
+
                 graf.DrawString("CAE: " + nota.cae, printFontG, printSolid, new Rectangle(x + 480, y + 400, 500, 500));
                 graf.DrawString("VENC.: " + ((DateTime)nota.fecVtoCae).ToString("dd/MM/yyyy"), printFontG, printSolid, new Rectangle(x + 480, y + 440, 500, 500));
             }   
@@ -1323,7 +1434,7 @@ namespace ModuloServicios
             string directorio = paramCarpeta.valor + "/Notas Credito";
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
-            bm.Save(directorio + "/" + nota.pv.ToString() + "-" + nota.numero.ToString() + ".png");
+            bm.Save(directorio + "/" + nota.pv.ToString() + "-" + nota.numero.ToString() + "-" + nota.tipo + ".png");
             graf.Dispose();
 
             if (nota.pv == 3)
@@ -1400,8 +1511,20 @@ namespace ModuloServicios
             }
             graf.DrawString(nota.Moneda.simbologia + " " + nota.importe.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 690, y + 320, 500, 500));
 
-            if (nota.pv == 3)
+            if (nota.pv == 3 && !string.IsNullOrEmpty(nota.cae))
             {
+                Font printFontCBNro = new Font("Arial", 15);
+
+                string codigoAfip = nota.tipo == "A" ? "02" : "07";
+                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("0000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
+                string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
+                codBarras = CodificarI2Of5(codBarrasSinCod);
+
+                //graf.DrawString(codBarras, printFontCB, printSolid, new Rectangle(x + 180, y + 500, 1000, 200));
+                var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
+                graf.DrawImage(imagenCB, x - 450, y + 415);
+                graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300, y + 475, 500, 500));
+
                 graf.DrawString("CAE: " + nota.cae, printFontG, printSolid, new Rectangle(x + 480, y + 400, 500, 500));
                 graf.DrawString("VENC.: " + ((DateTime)nota.fecVtoCae).ToString("dd/MM/yyyy"), printFontG, printSolid, new Rectangle(x + 480, y + 440, 500, 500));
             }  
@@ -1411,7 +1534,7 @@ namespace ModuloServicios
             string directorio = paramCarpeta.valor + "/Notas Debito";
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
-            bm.Save(directorio + "/" + nota.pv.ToString() + "-" + nota.numero.ToString() + ".png");
+            bm.Save(directorio + "/" + nota.pv.ToString() + "-" + nota.numero.ToString() + "-"+ nota.tipo + ".png");
             graf.Dispose();
 
             if (nota.pv == 3)
