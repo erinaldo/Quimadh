@@ -498,26 +498,6 @@ namespace Desktop.Vistas.Analisis
 
                 if (!copiaLocalValida)
                 {
-                    //byte[] rutinaArchivo = Global.Servicio.recuperarArchivo(idRutina);
-
-                    //if (rutinaArchivo == null)
-                    //    return false;
-
-                    ////---------zip
-                    //string zipPath = @"C:\Quimadh\Reportes\Comprimidos\" + idRutina.ToString() + ".zip";
-                    //using (Stream zipFile = File.OpenWrite(zipPath))
-                    //{
-                    //    zipFile.Write(rutinaArchivo, 0, rutinaArchivo.Length);
-                    //}
-
-                    //ZipFile.ExtractToDirectory(zipPath, fileName.Replace(".doc",""));
-                    ////------------
-
-                    //using (Stream file = File.OpenWrite(fileName))
-                    //{
-                    //    file.Write(rutinaArchivo, 0, rutinaArchivo.Length);
-                    //}
-
                     bool existeArchivo = Global.Servicio.existeArchivo(idRutina);
                     if (!existeArchivo)
                         return false;
@@ -623,7 +603,7 @@ namespace Desktop.Vistas.Analisis
                                 lFinal = cr.Planta.Cliente.Localidad.codigoPostal == null ? "" : ("(" + cr.Planta.Cliente.Localidad.codigoPostal + ") - ");
                                 lFinal += cr.Planta.Cliente.Localidad.nombre.Trim();
                             }
-                            d.Words[i].Text = lFinal;
+                            d.Words[i].Text = lFinal + Environment.NewLine;
                         }
                         break;
                     case "contacto":
@@ -652,7 +632,8 @@ namespace Desktop.Vistas.Analisis
                         {
                             ingresosCampos["Analisis"] = true;
                             foreach (Muestra m in cr.DatosRutina.ToList().Select(mu => mu.Muestra).Distinct())
-                                finalAux += "(" + m.Codigo.Trim() + ") - " + m.Descripcion.Trim() + ": " + Environment.NewLine;
+                                finalAux += m.Descripcion.Trim() + ": " + Environment.NewLine;
+                            //finalAux += "(" + m.Codigo.Trim() + ") - " + m.Descripcion.Trim() + ": " + Environment.NewLine;
                             d.Words[i].Text = finalAux;
                         }
                         break;
