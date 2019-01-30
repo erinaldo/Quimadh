@@ -1189,7 +1189,7 @@ namespace ModuloServicios
 
         public bool ExisteNroInternoRutina(CabeceraRutina rutina)
         {
-            return _contexto.CabeceraRutina.Where(r => r.id != rutina.id && r.numeroInterno == rutina.numeroInterno).Any();
+            return _contexto.CabeceraRutina.Where(r => r.id != rutina.id && r.numeroInterno == rutina.numeroInterno && rutina.fechaMuestreo == r.fechaMuestreo).Any();
         }
 
         public CabeceraRutina actualizarDatosRutina(CabeceraRutina rutina, List<DatosRutina> datosRutina, Metadata metadata)
