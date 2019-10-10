@@ -4,8 +4,8 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WcfFactElect" />
+      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfFactElect" />
+      <xsd:import schemaLocation="http://localhost:52944/ServicioCAE.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IServicioCAE_solicitar_InputMessage">
@@ -44,6 +44,12 @@
   <wsdl:message name="IServicioCAE_ObtenerMonHabilitadas_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerMonHabilitadasResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioCAE_ConsultarSujetoObligado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarSujetoObligado" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_ConsultarSujetoObligado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarSujetoObligadoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioCAE">
     <wsdl:operation name="solicitar">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/solicitar" message="tns:IServicioCAE_solicitar_InputMessage" />
@@ -68,6 +74,10 @@
     <wsdl:operation name="ObtenerMonHabilitadas">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadas" message="tns:IServicioCAE_ObtenerMonHabilitadas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadasResponse" message="tns:IServicioCAE_ObtenerMonHabilitadas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSujetoObligado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado" message="tns:IServicioCAE_ConsultarSujetoObligado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligadoResponse" message="tns:IServicioCAE_ConsultarSujetoObligado_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServicioCAE" type="tns:IServicioCAE">
@@ -119,6 +129,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerMonHabilitadas">
       <soap:operation soapAction="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSujetoObligado">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

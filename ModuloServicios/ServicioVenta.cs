@@ -2,18 +2,12 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlTypes;
-using System.Transactions;
+using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
-using System.Diagnostics;
-
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Transactions;
 
 namespace ModuloServicios
 {
@@ -21,9 +15,8 @@ namespace ModuloServicios
     {
         #region Factura
 
-        public Comprobante_Factura buscarFactura(long numComp, string tipo, int pv)
+        public Comprobante_Factura buscarFactura(long numComp, string tipo, int pv, bool ceMipyme)
         {
-            //_contexto.Configuration.LazyLoadingEnabled = false;
             IQueryable<Comprobante_Factura> queryF;
 
             queryF = _contexto.Comprobante.OfType<Comprobante_Factura>();
@@ -34,12 +27,13 @@ namespace ModuloServicios
             if (numComp != 0)
                 queryF = queryF.Where(c => c.numero == numComp);
 
+            queryF = queryF.Where(c => c.CE_MiPyme == ceMipyme);
+
             return queryF.FirstOrDefault();
         }
 
         public List<Comprobante> buscarComprobantes(string codPlanta, string nomPlanta, long numComp, string tipo, int pv, string nomCliente, int numeroRegistros)
         {
-            //_contexto.Configuration.LazyLoadingEnabled = false;
             IQueryable<Comprobante> query;
             IQueryable<Comprobante_Factura> queryF;
             IQueryable<Comprobante_Remito> queryRem;
@@ -158,6 +152,7 @@ namespace ModuloServicios
                                where f.numero.Equals(factura.numero) 
                                where f.tipo.Equals(factura.tipo)
                                where f.pv.Equals(factura.pv)
+                               where f.CE_MiPyme == factura.CE_MiPyme
                                select f).Any();
             
                 if (existe)
@@ -180,17 +175,6 @@ namespace ModuloServicios
                     if (remito == null)
                         throw new ExcepcionValidacion("Algúno de los remitos cargados no existe");
                 }
-
-                //*************************LIMPIADOR DE ENTITY FRAMEWORK***********************************
-                //var manager = ((IObjectContextAdapter)_contexto).ObjectContext;
-                //var objectStateEntries = manager.ObjectStateManager.GetObjectStateEntries(EntityState.Added);
-
-                //foreach (var objectStateEntry in objectStateEntries)
-                //{
-                //    if (objectStateEntry.Entity != null)
-                //        manager.Detach(objectStateEntry.Entity);
-                //}
-                //*************************LIMPIADOR DE ENTITY FRAMEWORK***********************************
 
                 facturaGuardada = (Comprobante_Factura)_contexto.Comprobante.Add(factura);                
 
@@ -229,11 +213,11 @@ namespace ModuloServicios
             return facturaGuardada;
         }
 
-        public long BuscarNroFactura(string tipo, int pv)
+        public long BuscarNroFactura(string tipo, int pv, bool creditoElectronicoMiPyme)
         {
-            long numero=0;
-            
-            numero = _contexto.Comprobante.OfType<Comprobante_Factura>().Where(f => f.tipo == tipo).Where(f => f.pv == pv).Any() ? _contexto.Comprobante.OfType<Comprobante_Factura>().Where(f => f.tipo == tipo).Where(f => f.pv == pv).Max(f => f.numero) : 0;            
+            long numero;
+            var comprobantes = _contexto.Comprobante.OfType<Comprobante_Factura>().Where(f => f.tipo == tipo && f.pv == pv && f.CE_MiPyme == creditoElectronicoMiPyme);
+            numero = comprobantes.Any() ? comprobantes.Max(f => f.numero) : 0;            
             return numero + 1;
         }
 
@@ -1041,10 +1025,11 @@ namespace ModuloServicios
 
         #region Notas
 
-        public long BuscarNroNotaCred(string tipo, int pv)
+        public long BuscarNroNotaCred(string tipo, int pv, bool creditoElectronicoMiPyme)
         {
             long numero;
-            numero = _contexto.Comprobante.OfType<Comprobante_Devolucion>().Where(n => n.tipo == tipo).Where(n => n.pv == pv).Any() ? _contexto.Comprobante.OfType<Comprobante_Devolucion>().Where(n => n.tipo == tipo).Where(n => n.pv == pv).Max(nc => nc.numero) : 0;
+            var comprobantes = _contexto.Comprobante.OfType<Comprobante_Devolucion>().Where(n => n.tipo == tipo && n.pv == pv && n.CE_MiPyme == creditoElectronicoMiPyme);
+            numero = comprobantes.Any() ? comprobantes.Max(n => n.numero) : 0;
             return numero + 1;
         }
 
@@ -1134,13 +1119,13 @@ namespace ModuloServicios
             return _contexto.Comprobante.OfType<Comprobante_Recargo>().Take(numeroRegistros).ToList();
         }
 
-        public long BuscarNroNotaDeb(string tipo, int pv)
+        public long BuscarNroNotaDeb(string tipo, int pv, bool creditoElectronicoMiPyme)
         {
             long numero;
-            numero = _contexto.Comprobante.OfType<Comprobante_Recargo>().Where(n => n.tipo == tipo).Where(n => n.pv == pv).Any() ? _contexto.Comprobante.OfType<Comprobante_Recargo>().Where(n => n.tipo == tipo).Where(n => n.pv == pv).Max(nd => nd.numero) : 0;
+            var comprobantes = _contexto.Comprobante.OfType<Comprobante_Recargo>().Where(n => n.tipo == tipo && n.pv == pv && n.CE_MiPyme == creditoElectronicoMiPyme);
+            numero = comprobantes.Any() ? comprobantes.Max(n => n.numero) : 0;
             return numero + 1;
         }
-
 
         public Comprobante_Recargo agregarNotaDeb(Comprobante_Recargo notaDeb, Metadata metadata)
         {

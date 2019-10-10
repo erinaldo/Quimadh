@@ -102,6 +102,7 @@
           <Property Name="totalIva" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="anulado" Type="bit" />
           <Property Name="estadoCarga" Type="int" Nullable="false" />
+          <Property Name="CE_MiPyme" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Devolucion">
           <Key>
@@ -1820,6 +1821,7 @@
           <NavigationProperty Name="Comprobante_DevolucionAnul" Relationship="QuimadhModel.FK_Comprobante_Devolucion_Comprobante" FromRole="Comprobante" ToRole="Comprobante_Devolucion" />
           <NavigationProperty Name="Comprobante_RecargoAnul" Relationship="QuimadhModel.FK_Comprobante_Recargo_Comprobante" FromRole="Comprobante" ToRole="Comprobante_Recargo" />
           <NavigationProperty Name="VentaArticuloPlanta" Relationship="QuimadhModel.FK_VentaArticuloPlanta_Comprobante" FromRole="Comprobante" ToRole="VentaArticuloPlanta" />
+          <Property Name="CE_MiPyme" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante_Devolucion" BaseType="QuimadhModel.Comprobante">
           <Property Name="motivo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -3004,7 +3006,8 @@
     <EntitySetMapping Name="Comprobante">
       <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Comprobante)">
         <MappingFragment StoreEntitySet="Comprobante">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CE_MiPyme" ColumnName="CE_MiPyme" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="importe" ColumnName="importe" />
           <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
           <ScalarProperty Name="debe" ColumnName="debe" />

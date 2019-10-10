@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Controles;
+﻿using Controles;
 using Desktop.Vistas.Administracion;
 using Entidades;
 using Frontend.Controles;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Desktop.Vistas.Ventas
 {
@@ -22,6 +17,13 @@ namespace Desktop.Vistas.Ventas
         private Cliente cliente;
         private Planta planta;
 
+        private FEAfip.DTOConsultaObligadoRespuesta sujetoObligado;
+        private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
+        private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
+
+        private long nroNotaComun = 0;
+        private long nroNotaMiPyme = 0;
+
         public frmNotaDebCred()
         {
             InitializeComponent();
@@ -29,13 +31,16 @@ namespace Desktop.Vistas.Ventas
 
         protected override void cargar()
         {
+            sujetoObligado = null;
+            nroNotaMiPyme = 0;
+            nroNotaComun = 0;
+
             Cargador.cargarMonedas(cboMoneda);
             cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");   
             txtSubtotal.Text = "0";
             txtIVA.Text = "0";
             txtTotal.Text = "0";
             Cargador.cargarNombresClientes(txtRazonSocial);
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
             gpbDatosNota.Enabled = false;
             gpbDatos.Enabled = false;
             gpbTotales.Enabled = false;
@@ -59,7 +64,6 @@ namespace Desktop.Vistas.Ventas
             gpbDatosNota.Enabled = true;
             gpbTotales.Enabled = true;
             cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
             cboTipoNota_SelectedIndexChanged(new object(),new EventArgs());
             txtNroCompAsoc.Tag = null;
             dtpFecVtoCAE.Format = DateTimePickerFormat.Custom;
@@ -100,8 +104,7 @@ namespace Desktop.Vistas.Ventas
             gpbDatosNota.Enabled = true;
             gpbTotales.Enabled = true;
             dgvItems.Enabled = true;
-            txtDomicilio.Focus();
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");            
+            txtDomicilio.Focus();       
         }
 
         protected override bool eliminar()
@@ -177,6 +180,10 @@ namespace Desktop.Vistas.Ventas
             notaCred = null;
             notaDeb = null;
 
+            sujetoObligado = null;
+            nroNotaMiPyme = 0;
+            nroNotaComun = 0;
+
             limpiarControles(gpbDatos);
             limpiarControles(gpbDatosNota);
             limpiarControles(gpbTotales);
@@ -185,8 +192,7 @@ namespace Desktop.Vistas.Ventas
             gpbDatos.Enabled = false;
             gpbDatosNota.Enabled = false;
             gpbTotales.Enabled = false;
-            dgvItems.Enabled = false;
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
+            dgvItems.Enabled = false;            
             txtNroCompAsoc.Tag = null;
         }
 
@@ -386,38 +392,48 @@ namespace Desktop.Vistas.Ventas
                 cliente = frmBusquedaCliente.clienteSeleccionado;
                 completarCamposCliente(cliente);
                 planta = null;
-                completarDatosPlanta(planta);
-                //ObtenerNroNota();                
+                completarDatosPlanta(planta);                              
             }
         }
 
-        private void ObtenerNroNota()
+        private long ObtenerNroNota(bool creditoElectronicoMiPyme = false, bool usarNumeracionCacheada = false)
         {
+            long numeroNota = 0;
+
             if (cliente != null)
-            { 
+            {
+                string tipo;
+                if (cliente.SituacionFrenteIva.id == 4)
+                {
+                    tipo = "A";
+                }
+                else
+                {
+                    tipo = "B";
+                }
+
                 switch (cboTipoNota.Text)
                 {
                     case "Nota Crédito":
-                        if (cliente.SituacionFrenteIva.id == 4)
-                            txtNroNota.Text = Global.Servicio.BuscarNroNotaCred("A", int.Parse(cboPtoVta.Text)).ToString();
-                        else
-                            txtNroNota.Text = Global.Servicio.BuscarNroNotaCred("B", int.Parse(cboPtoVta.Text)).ToString();
+                        numeroNota = Global.Servicio.BuscarNroNotaCred(tipo, int.Parse(cboPtoVta.Text), creditoElectronicoMiPyme);
                         break;
                     case "Nota Débito":
-                        if (cliente.SituacionFrenteIva.id == 4)
-                            txtNroNota.Text = Global.Servicio.BuscarNroNotaDeb("A", int.Parse(cboPtoVta.Text)).ToString();
-                        else
-                            txtNroNota.Text = Global.Servicio.BuscarNroNotaDeb("B", int.Parse(cboPtoVta.Text)).ToString();
+                        numeroNota = Global.Servicio.BuscarNroNotaDeb(tipo, int.Parse(cboPtoVta.Text), creditoElectronicoMiPyme);
                         break;
                     default:
-                        txtNroNota.Text = "";
+                        numeroNota = 0;
                         break;
                 }
             }
             else
             {
-                txtNroNota.Text = "";
+                numeroNota = 0;
             }
+
+            txtNroNota.Text = numeroNota == 0 ? string.Empty : numeroNota.ToString();
+
+            return numeroNota;
+            
         }
 
         private void completarCamposCliente(Cliente cliente)
@@ -427,7 +443,20 @@ namespace Desktop.Vistas.Ventas
             txtRazonSocial.Text = cliente == null ? "" : cliente.razonSocial;
             txtDomicilio.Text = cliente == null ? "" : cliente.direccion;
             txtLocalidad.Text = cliente == null ? "" : cliente.Localidad.nombre;
-            txtSitIva.Text = cliente == null ? "" : cliente.SituacionFrenteIva.nombre;            
+            txtSitIva.Text = cliente == null ? "" : cliente.SituacionFrenteIva.nombre;
+
+            sujetoObligado = null;
+
+            if (cliente != null)
+            {
+                using (var feClient = new FEAfip.ServicioCAEClient())
+                {
+                    var requestConsulta = new FEAfip.DTOConsultaObligadoSolicitud();
+                    requestConsulta.Cuit = long.Parse(cliente.cuit);
+                    requestConsulta.FechaEmision = dtpFecha.Value;
+                    sujetoObligado = feClient.ConsultarSujetoObligado(requestConsulta);
+                }
+            }
         }
 
         private void completarDatosPlanta(Planta planta)
@@ -553,9 +582,7 @@ namespace Desktop.Vistas.Ventas
                                         if (i[0] == (double)item.iva)
                                         {
                                             i[1] += (double)Math.Round((decimal)(Math.Round((decimal)item.importe,2) * item.cantidad),2); 
-                                            i[2] += (double)Math.Round((decimal)(Math.Round((decimal)item.importe,2) * item.cantidad * (item.iva / 100)),2);
-                                            //i[1] += (double)Math.Round((decimal)(Global.Servicio.ConviertePrecio(item.importe, notaCred.Moneda, notaCred.Moneda) * Math.Round((decimal)item.cantidad, 2)), 2);
-                                            //i[2] += (double)Math.Round((decimal)(Global.Servicio.ConviertePrecio(item.importe, notaCred.Moneda, notaCred.Moneda) * Math.Round((decimal)item.cantidad,2) * (item.iva / 100)), 2);
+                                            i[2] += (double)Math.Round((decimal)(Math.Round((decimal)item.importe,2) * item.cantidad * (item.iva / 100)),2);                                            
                                         }
                                     }
                                 }
@@ -564,9 +591,7 @@ namespace Desktop.Vistas.Ventas
                                     double[] itemIva = new double[3];
                                     itemIva[0] = (double)item.iva;
                                     itemIva[1] = (double)Math.Round((decimal)(Math.Round((decimal)item.importe,2) * item.cantidad),2); 
-                                    itemIva[2] = (double)Math.Round((decimal)(Math.Round((decimal)item.importe,2) * item.cantidad * (item.iva / 100)),2); 
-                                    //itemIva[1] = (double)Math.Round((Global.Servicio.ConviertePrecio(item.importe, notaCred.Moneda, notaCred.Moneda) * Math.Round((decimal)item.cantidad, 2)), 2);
-                                    //itemIva[2] = (double)Math.Round((Global.Servicio.ConviertePrecio(item.importe, notaCred.Moneda, notaCred.Moneda) * Math.Round((decimal)item.cantidad, 2) * (decimal)(item.iva / 100)), 2);
+                                    itemIva[2] = (double)Math.Round((decimal)(Math.Round((decimal)item.importe,2) * item.cantidad * (item.iva / 100)),2);                                     
                                     arregloIva.Add(itemIva);
                                     ivaUsados.Add((decimal)item.iva);
                                 }
@@ -625,7 +650,24 @@ namespace Desktop.Vistas.Ventas
                                     arregloComAsoc[0][1] = tipo;
                                     arregloComAsoc[0][2] = long.Parse(txtNroCompAsoc.Text);
                                 }
-                                rtaAfip = service.solicitar(tipo, 3, 1, 80, long.Parse(notaCred.Planta.Cliente.cuit), notaCred.numero, notaCred.fechaIngreso.ToString("yyyyMMdd"), (double)notaCred.importe, Math.Round(neto, 2), totIva, notaCred.Moneda.abrevAfip, (double)notaCred.Moneda.cotizacion, arregloIva2, arregloComAsoc);
+
+                                var solicitud = new FEAfip.SolicitudRequest();
+                                solicitud.tipoComp = tipo;
+                                solicitud.puntoVenta = 3;
+                                solicitud.concepto = 1;
+                                solicitud.tdoc = 80;
+                                solicitud.ndoc = long.Parse(notaCred.Planta.Cliente.cuit);
+                                solicitud.nroComp = notaCred.numero;
+                                solicitud.fecha = notaCred.fechaIngreso.ToString("yyyyMMdd");
+                                solicitud.total = (double)notaCred.importe;
+                                solicitud.neto = Math.Round(neto, 2);
+                                solicitud.iva = totIva;
+                                solicitud.mon = notaCred.Moneda.abrevAfip;
+                                solicitud.cotiz = (double)notaCred.Moneda.cotizacion;
+                                solicitud.arrayIva = arregloIva2;
+                                solicitud.compAsociados = arregloComAsoc;
+                                //rtaAfip = service.solicitar(tipo, 3, 1, 80, long.Parse(notaCred.Planta.Cliente.cuit), notaCred.numero, notaCred.fechaIngreso.ToString("yyyyMMdd"), (double)notaCred.importe, Math.Round(neto, 2), totIva, notaCred.Moneda.abrevAfip, (double)notaCred.Moneda.cotizacion, arregloIva2, arregloComAsoc);
+                                rtaAfip = service.solicitar(solicitud);
 
                                 if (rtaAfip.respuesta != "A")
                                 {
@@ -808,8 +850,24 @@ namespace Desktop.Vistas.Ventas
                                     arregloComAsoc[0][2] = long.Parse(txtNroCompAsoc.Text);
                                 }
 
-                                rtaAfip = service.solicitar(tipo, 3, 1, 80, long.Parse(notaDeb.Planta.Cliente.cuit), notaDeb.numero, notaDeb.fechaIngreso.ToString("yyyyMMdd"), (double)notaDeb.importe, Math.Round(neto, 2), totIva, notaDeb.Moneda.abrevAfip, (double)notaDeb.Moneda.cotizacion, arregloIva2, arregloComAsoc);
-
+                                var solicitud = new FEAfip.SolicitudRequest();
+                                solicitud.tipoComp = tipo;
+                                solicitud.puntoVenta = 3;
+                                solicitud.concepto = 1;
+                                solicitud.tdoc = 80;
+                                solicitud.ndoc = long.Parse(notaDeb.Planta.Cliente.cuit);
+                                solicitud.nroComp = notaDeb.numero;
+                                solicitud.fecha = notaDeb.fechaIngreso.ToString("yyyyMMdd");
+                                solicitud.total = (double)notaDeb.importe;
+                                solicitud.neto = Math.Round(neto, 2);
+                                solicitud.iva = totIva;
+                                solicitud.mon = notaDeb.Moneda.abrevAfip;
+                                solicitud.cotiz = (double)notaDeb.Moneda.cotizacion;
+                                solicitud.arrayIva = arregloIva2;
+                                solicitud.compAsociados = arregloComAsoc;
+                                //rtaAfip = service.solicitar(tipo, 3, 1, 80, long.Parse(notaDeb.Planta.Cliente.cuit), notaDeb.numero, notaDeb.fechaIngreso.ToString("yyyyMMdd"), (double)notaDeb.importe, Math.Round(neto, 2), totIva, notaDeb.Moneda.abrevAfip, (double)notaDeb.Moneda.cotizacion, arregloIva2, arregloComAsoc);
+                                rtaAfip = service.solicitar(solicitud);
+                                
                                 if (rtaAfip.respuesta != "A")
                                 {
                                     throw new Exception("Solicitud Rechazada, no se pudo obtener CAE");
@@ -973,7 +1031,7 @@ namespace Desktop.Vistas.Ventas
                 txtSubtotal.Text = sumaSinIva.ToString("0.00");
                 txtIVA.Text = Math.Round((sumaConIva - sumaSinIva),2).ToString("0.00");
                 txtTotal.Text = sumaConIva.ToString("0.00");
-            }          
+            }
             else
             {
                 dgvItems.Rows[fila].Cells["clmTotal"].Value = Math.Round(Math.Round(cant, 2) * Math.Round(precio, 2) * ((decimal.Parse(dgvItems.Rows[fila].Cells["clmIVA"].EditedFormattedValue.ToString()) / 100) + 1),2);
@@ -987,7 +1045,23 @@ namespace Desktop.Vistas.Ventas
                 txtSubtotal.Text = "0";
                 txtIVA.Text = "0";
                 txtTotal.Text = suma.ToString("0.00");
-            }           
+            }
+
+            if (SujetoObligado)
+            {
+                //si es sujeto obligado tengo que ir analizando que nro de comprobante va dependiendo del total
+                long nroNota;
+                if (decimal.Parse(txtTotal.Text) >= MontoObligado)
+                {
+                    nroNota = ObtenerNroNota(true, nroNotaMiPyme > 0);
+                    nroNotaMiPyme = nroNota;
+                }
+                else
+                {
+                    nroNota = ObtenerNroNota(false, nroNotaComun > 0);
+                    nroNotaComun = nroNota;
+                }
+            }
         }
 
         private void txtCUIT_KeyPress(object sender, KeyPressEventArgs e)
