@@ -101,4 +101,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="OpcionalTest">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpcionalTestResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

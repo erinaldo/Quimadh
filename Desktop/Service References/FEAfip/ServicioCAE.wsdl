@@ -50,6 +50,12 @@
   <wsdl:message name="IServicioCAE_ConsultarSujetoObligado_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSujetoObligadoResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioCAE_OpcionalTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpcionalTest" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCAE_OpcionalTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpcionalTestResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioCAE">
     <wsdl:operation name="solicitar">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/solicitar" message="tns:IServicioCAE_solicitar_InputMessage" />
@@ -78,6 +84,10 @@
     <wsdl:operation name="ConsultarSujetoObligado">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado" message="tns:IServicioCAE_ConsultarSujetoObligado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligadoResponse" message="tns:IServicioCAE_ConsultarSujetoObligado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpcionalTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCAE/OpcionalTest" message="tns:IServicioCAE_OpcionalTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCAE/OpcionalTestResponse" message="tns:IServicioCAE_OpcionalTest_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServicioCAE" type="tns:IServicioCAE">
@@ -138,6 +148,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultarSujetoObligado">
       <soap:operation soapAction="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OpcionalTest">
+      <soap:operation soapAction="http://tempuri.org/IServicioCAE/OpcionalTest" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

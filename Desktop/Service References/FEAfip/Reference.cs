@@ -23,10 +23,13 @@ namespace Desktop.FEAfip {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool anulacionPorRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double[][] arrayIvaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long[][] compAsociadosField;
+        private string[][] compAsociadosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int conceptoField;
@@ -78,6 +81,19 @@ namespace Desktop.FEAfip {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool anulacionPorRechazo {
+            get {
+                return this.anulacionPorRechazoField;
+            }
+            set {
+                if ((this.anulacionPorRechazoField.Equals(value) != true)) {
+                    this.anulacionPorRechazoField = value;
+                    this.RaisePropertyChanged("anulacionPorRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public double[][] arrayIva {
             get {
                 return this.arrayIvaField;
@@ -91,7 +107,7 @@ namespace Desktop.FEAfip {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public long[][] compAsociados {
+        public string[][] compAsociados {
             get {
                 return this.compAsociadosField;
             }
@@ -1638,6 +1654,12 @@ namespace Desktop.FEAfip {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado", ReplyAction="http://tempuri.org/IServicioCAE/ConsultarSujetoObligadoResponse")]
         System.Threading.Tasks.Task<Desktop.FEAfip.DTOConsultaObligadoRespuesta> ConsultarSujetoObligadoAsync(Desktop.FEAfip.DTOConsultaObligadoSolicitud consultaObligadoSolicitud);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/OpcionalTest", ReplyAction="http://tempuri.org/IServicioCAE/OpcionalTestResponse")]
+        void OpcionalTest();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/OpcionalTest", ReplyAction="http://tempuri.org/IServicioCAE/OpcionalTestResponse")]
+        System.Threading.Tasks.Task OpcionalTestAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1721,6 +1743,14 @@ namespace Desktop.FEAfip {
         
         public System.Threading.Tasks.Task<Desktop.FEAfip.DTOConsultaObligadoRespuesta> ConsultarSujetoObligadoAsync(Desktop.FEAfip.DTOConsultaObligadoSolicitud consultaObligadoSolicitud) {
             return base.Channel.ConsultarSujetoObligadoAsync(consultaObligadoSolicitud);
+        }
+        
+        public void OpcionalTest() {
+            base.Channel.OpcionalTest();
+        }
+        
+        public System.Threading.Tasks.Task OpcionalTestAsync() {
+            return base.Channel.OpcionalTestAsync();
         }
     }
 }

@@ -17,12 +17,20 @@ namespace Desktop.Vistas.Ventas
         private Cliente cliente;
         private Planta planta;
 
-        private FEAfip.DTOConsultaObligadoRespuesta sujetoObligado;
-        private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
-        private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
+        //private FEAfip.DTOConsultaObligadoRespuesta sujetoObligado;
+        //private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
+        //private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
+        //private bool esMiPymeNC => SujetoObligado && notaCred.importe >= MontoObligado;
+        //private bool esMiPymeND => SujetoObligado && notaDeb.importe >= MontoObligado;
 
-        private long nroNotaComun = 0;
-        private long nroNotaMiPyme = 0;
+        private bool EsMiPyme { get; set; }
+        private int tipoAfipNCA => EsMiPyme  ? 203 : 3; //esMiPymeNC
+        private int tipoAfipNCB => EsMiPyme ? 208 : 8; //esMiPymeNC
+        private int tipoAfipNDA => EsMiPyme ? 202 : 2; //esMiPymeND
+        private int tipoAfipNDB => EsMiPyme ? 207 : 7; //esMiPymeND
+
+        //private long nroNotaComun = 0;
+        //private long nroNotaMiPyme = 0;
 
         public frmNotaDebCred()
         {
@@ -31,9 +39,9 @@ namespace Desktop.Vistas.Ventas
 
         protected override void cargar()
         {
-            sujetoObligado = null;
-            nroNotaMiPyme = 0;
-            nroNotaComun = 0;
+            //sujetoObligado = null;
+            //nroNotaMiPyme = 0;
+            //nroNotaComun = 0;
 
             Cargador.cargarMonedas(cboMoneda);
             cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");   
@@ -56,6 +64,11 @@ namespace Desktop.Vistas.Ventas
             notaCred = new Comprobante_Devolucion();
             cliente = null;
             planta = null;
+
+            //sujetoObligado = null;
+            //nroNotaMiPyme = 0;
+            //nroNotaComun = 0;
+
             limpiarControles(gpbDatos);
             limpiarControles(gpbDatosNota);
             limpiarControles(gpbTotales);
@@ -180,9 +193,9 @@ namespace Desktop.Vistas.Ventas
             notaCred = null;
             notaDeb = null;
 
-            sujetoObligado = null;
-            nroNotaMiPyme = 0;
-            nroNotaComun = 0;
+            //sujetoObligado = null;
+            //nroNotaMiPyme = 0;
+            //nroNotaComun = 0;
 
             limpiarControles(gpbDatos);
             limpiarControles(gpbDatosNota);
@@ -240,21 +253,29 @@ namespace Desktop.Vistas.Ventas
         }
 
         private void cargarDatos(Comprobante_Devolucion notaCred)
-        {
-            txtNroNota.Text = notaCred.numero.ToString();
+        {            
             dtpFecha.Value = notaCred.fechaIngreso;
             txtPlanta.Text = notaCred.Planta.nombre;
-            txtRazonSocial.Text = notaCred.Planta.Cliente.razonSocial;
-            txtDomicilio.Text = notaCred.Planta.Cliente.direccion;
-            txtLocalidad.Text = notaCred.Planta.Cliente.Localidad.nombre;
-            txtSitIva.Text = notaCred.Planta.Cliente.SituacionFrenteIva.nombre;
-            txtCUIT.Text = notaCred.Planta.Cliente.cuit;
+            //txtRazonSocial.Text = notaCred.Planta.Cliente.razonSocial;
+            //txtDomicilio.Text = notaCred.Planta.Cliente.direccion;
+            //txtLocalidad.Text = notaCred.Planta.Cliente.Localidad.nombre;
+            //txtSitIva.Text = notaCred.Planta.Cliente.SituacionFrenteIva.nombre;
+            //txtCUIT.Text = notaCred.Planta.Cliente.cuit;
+            
+            completarCamposCliente(notaCred.Planta.Cliente);
+
+            txtNroNota.Text = notaCred.numero.ToString();
             txtSubtotal.Text = Math.Round(notaCred.subtotal,2).ToString("0.00");
             txtIVA.Text = Math.Round(notaCred.totalIva,2).ToString("0.00");
             txtTotal.Text = Math.Round(notaCred.importe,2).ToString("0.00");
             txtMotivo.Text = notaCred.motivo;
             cboPtoVta.SelectedIndex = cboPtoVta.FindStringExact(notaCred.pv.ToString());
             txtCondVta.Text = notaCred.condVta;
+            if (notaCred.Moneda != null)
+                cboMoneda.SelectedIndex = cboMoneda.FindStringExact(notaCred.Moneda.nombre);
+            else
+                cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");
+
             if (notaCred.cae != null)
                 txtCAE.Text = notaCred.cae;
             if (notaCred.fecVtoCae != null)
@@ -283,12 +304,14 @@ namespace Desktop.Vistas.Ventas
                         break;
                 }
                 txtNroCompAsoc.Tag = notaCred.ComprobanteAnul;
+                EsMiPyme = notaCred.ComprobanteAnul.CE_MiPyme;
             }
             else
             {
                 cboTipoCompAsoc.SelectedIndex = -1;
                 txtNroCompAsoc.Text = "";
                 txtNroCompAsoc.Tag = null;
+                EsMiPyme = false;
             }
 
 
@@ -314,21 +337,27 @@ namespace Desktop.Vistas.Ventas
         }
 
         private void cargarDatos(Comprobante_Recargo notaDeb)
-        {
-            txtNroNota.Text = notaDeb.numero.ToString();
+        {            
             dtpFecha.Value = notaDeb.fechaIngreso;
             txtPlanta.Text = notaDeb.Planta.nombre;
-            txtRazonSocial.Text = notaDeb.Planta.Cliente.razonSocial;
-            txtDomicilio.Text = notaDeb.Planta.Cliente.direccion;
-            txtLocalidad.Text = notaDeb.Planta.Cliente.Localidad.nombre;
-            txtSitIva.Text = notaDeb.Planta.Cliente.SituacionFrenteIva.nombre;
-            txtCUIT.Text = notaDeb.Planta.Cliente.cuit;
+            //txtRazonSocial.Text = notaDeb.Planta.Cliente.razonSocial;
+            //txtDomicilio.Text = notaDeb.Planta.Cliente.direccion;
+            //txtLocalidad.Text = notaDeb.Planta.Cliente.Localidad.nombre;
+            //txtSitIva.Text = notaDeb.Planta.Cliente.SituacionFrenteIva.nombre;
+            //txtCUIT.Text = notaDeb.Planta.Cliente.cuit;
+            completarCamposCliente(notaDeb.Planta.Cliente);
+
+            txtNroNota.Text = notaDeb.numero.ToString();
             txtSubtotal.Text = Math.Round(notaDeb.subtotal,2).ToString("0.00");
             txtIVA.Text = Math.Round(notaDeb.totalIva,2).ToString("0.00");
             txtTotal.Text = Math.Round(notaDeb.importe,2).ToString("0.00");
             txtMotivo.Text = notaDeb.motivo;
-            cboPtoVta.SelectedIndex = cboPtoVta.FindStringExact(notaDeb.pv.ToString());
+            cboPtoVta.SelectedIndex = cboPtoVta.FindStringExact(notaDeb.pv.ToString());            
             txtCondVta.Text = notaDeb.condVta;
+            if (notaDeb.Moneda != null)
+                cboMoneda.SelectedIndex = cboMoneda.FindStringExact(notaDeb.Moneda.nombre);
+            else
+                cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");
             if (notaDeb.cae != null)
                 txtCAE.Text = notaDeb.cae;
             if (notaDeb.fecVtoCae != null)
@@ -353,12 +382,14 @@ namespace Desktop.Vistas.Ventas
                         break;
                 }
                 txtNroCompAsoc.Tag = notaDeb.ComprobanteAnul;
+                EsMiPyme = notaDeb.ComprobanteAnul.CE_MiPyme;
             }
             else
             {
                 cboTipoCompAsoc.SelectedIndex = -1;
                 txtNroCompAsoc.Text = "";
                 txtNroCompAsoc.Tag = null;
+                EsMiPyme = false;
             }
 
             int i = 0;
@@ -396,7 +427,7 @@ namespace Desktop.Vistas.Ventas
             }
         }
 
-        private long ObtenerNroNota(bool creditoElectronicoMiPyme = false, bool usarNumeracionCacheada = false)
+        private long ObtenerNroNota()
         {
             long numeroNota = 0;
 
@@ -415,10 +446,10 @@ namespace Desktop.Vistas.Ventas
                 switch (cboTipoNota.Text)
                 {
                     case "Nota Crédito":
-                        numeroNota = Global.Servicio.BuscarNroNotaCred(tipo, int.Parse(cboPtoVta.Text), creditoElectronicoMiPyme);
+                        numeroNota = Global.Servicio.BuscarNroNotaCred(tipo, int.Parse(cboPtoVta.Text), EsMiPyme);
                         break;
                     case "Nota Débito":
-                        numeroNota = Global.Servicio.BuscarNroNotaDeb(tipo, int.Parse(cboPtoVta.Text), creditoElectronicoMiPyme);
+                        numeroNota = Global.Servicio.BuscarNroNotaDeb(tipo, int.Parse(cboPtoVta.Text), EsMiPyme);
                         break;
                     default:
                         numeroNota = 0;
@@ -437,26 +468,35 @@ namespace Desktop.Vistas.Ventas
         }
 
         private void completarCamposCliente(Cliente cliente)
-        {
-            ObtenerNroNota();
+        {            
             txtCUIT.Text = cliente == null ? "" : cliente.cuit;
             txtRazonSocial.Text = cliente == null ? "" : cliente.razonSocial;
             txtDomicilio.Text = cliente == null ? "" : cliente.direccion;
             txtLocalidad.Text = cliente == null ? "" : cliente.Localidad.nombre;
             txtSitIva.Text = cliente == null ? "" : cliente.SituacionFrenteIva.nombre;
 
-            sujetoObligado = null;
+            //sujetoObligado = null;
 
-            if (cliente != null)
-            {
-                using (var feClient = new FEAfip.ServicioCAEClient())
-                {
-                    var requestConsulta = new FEAfip.DTOConsultaObligadoSolicitud();
-                    requestConsulta.Cuit = long.Parse(cliente.cuit);
-                    requestConsulta.FechaEmision = dtpFecha.Value;
-                    sujetoObligado = feClient.ConsultarSujetoObligado(requestConsulta);
-                }
-            }
+            //if (cliente != null)
+            //{
+            //    try
+            //    {
+            //        using (var feClient = new FEAfip.ServicioCAEClient())
+            //        {
+            //            var requestConsulta = new FEAfip.DTOConsultaObligadoSolicitud();
+            //            requestConsulta.Cuit = long.Parse(cliente.cuit);
+            //            requestConsulta.FechaEmision = dtpFecha.Value;
+            //            sujetoObligado = feClient.ConsultarSujetoObligado(requestConsulta);
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Mensaje unMensaje = new Mensaje($"No se pudo conectar con AFIP para consultar padrón MiPyme. Error: {ex.Message}", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+            //        unMensaje.ShowDialog();
+            //    }                
+            //}
+
+            ObtenerNroNota();
         }
 
         private void completarDatosPlanta(Planta planta)
@@ -598,9 +638,10 @@ namespace Desktop.Vistas.Ventas
                             }
                         }
 
+                        notaCred.CE_MiPyme = EsMiPyme; //esMiPymeNC;
                         notaCred.estadoCarga = 0;
                         if (Estado == Estados.Modificar & cboPtoVta.Text == "3")
-                            Global.Servicio.actualizarNotaCred(notaCred, Global.DatosSesion);
+                            Global.Servicio.actualizarNotaCred(notaCred, Global.DatosSesion, true);
                         else
                             Global.Servicio.agregarNotaCred(notaCred, Global.DatosSesion);
 
@@ -629,26 +670,51 @@ namespace Desktop.Vistas.Ventas
                             int tipo;
                             double neto = 0;
                             if (notaCred.tipo == "A")
-                            {                                
-                                tipo = 3;
+                            {
+                                tipo = tipoAfipNCA;//3;
                                 totIva = Math.Round((double)notaCred.totalIva,2);
                                 neto = Math.Round((double)notaCred.subtotal,2);
                             }
                             else
-                            {                                
-                                tipo = 8;
+                            {
+                                tipo = tipoAfipNCB;//8;
                                 neto = Math.Round((((double)notaCred.importe) - totIva),2);
                             }
 
                             try
                             {
-                                long[][] arregloComAsoc = null;
+                                string[][] arregloComAsoc = null;
                                 if (txtNroCompAsoc.Text != "")
                                 {                   
-                                    arregloComAsoc = new long[1][] { new long[3] };
-                                    arregloComAsoc[0][0] = long.Parse(cboPtoVta.Text);
-                                    arregloComAsoc[0][1] = tipo;
-                                    arregloComAsoc[0][2] = long.Parse(txtNroCompAsoc.Text);
+                                    arregloComAsoc = new string[1][] { new string[4] };
+                                    arregloComAsoc[0][0] = cboPtoVta.Text;//long.Parse(cboPtoVta.Text);
+                                    string tipoAsoc;
+                                    if (notaCred.ComprobanteAnul is Comprobante_Factura)
+                                    {                                        
+                                        if (((Comprobante_Factura)notaCred.ComprobanteAnul).tipo == "A")
+                                        {
+                                            tipoAsoc = notaCred.ComprobanteAnul.CE_MiPyme ? "201" : "1";
+                                        }
+                                        else
+                                        {
+                                            tipoAsoc = notaCred.ComprobanteAnul.CE_MiPyme ? "206" : "6";
+                                        }
+                                        arregloComAsoc[0][1] = tipoAsoc;
+                                    }
+                                    if (notaCred.ComprobanteAnul is Comprobante_Devolucion)
+                                    {
+                                        if (((Comprobante_Devolucion)notaCred.ComprobanteAnul).tipo == "A")
+                                        {
+                                            tipoAsoc = notaCred.ComprobanteAnul.CE_MiPyme ? "202" : "2";
+                                        }
+                                        else
+                                        {
+                                            tipoAsoc = notaCred.ComprobanteAnul.CE_MiPyme ? "207" : "7";
+                                        }
+                                        arregloComAsoc[0][1] = tipoAsoc;
+                                    }
+                                    arregloComAsoc[0][2] = txtNroCompAsoc.Text;
+                                    arregloComAsoc[0][3] = notaCred.ComprobanteAnul.fechaIngreso.ToString("yyyyMMdd");
                                 }
 
                                 var solicitud = new FEAfip.SolicitudRequest();
@@ -666,6 +732,7 @@ namespace Desktop.Vistas.Ventas
                                 solicitud.cotiz = (double)notaCred.Moneda.cotizacion;
                                 solicitud.arrayIva = arregloIva2;
                                 solicitud.compAsociados = arregloComAsoc;
+                                
                                 //rtaAfip = service.solicitar(tipo, 3, 1, 80, long.Parse(notaCred.Planta.Cliente.cuit), notaCred.numero, notaCred.fechaIngreso.ToString("yyyyMMdd"), (double)notaCred.importe, Math.Round(neto, 2), totIva, notaCred.Moneda.abrevAfip, (double)notaCred.Moneda.cotizacion, arregloIva2, arregloComAsoc);
                                 rtaAfip = service.solicitar(solicitud);
 
@@ -797,7 +864,9 @@ namespace Desktop.Vistas.Ventas
                             }
                         }
 
+                        notaDeb.CE_MiPyme = EsMiPyme;//esMiPymeND;
                         notaDeb.estadoCarga = 0;
+
                         if (Estado == Estados.Modificar & cboPtoVta.Text == "3")
                             Global.Servicio.actualizarNotaDeb(notaDeb, Global.DatosSesion);
                         else
@@ -829,25 +898,25 @@ namespace Desktop.Vistas.Ventas
                             double neto = 0;
                             if (notaDeb.tipo == "A")
                             {
-                                tipo = 2;
+                                tipo = tipoAfipNDA;//2;
                                 totIva = Math.Round((double)notaDeb.totalIva,2);
                                 neto = Math.Round((double)notaDeb.subtotal,2);
                             }
                             else
                             {
-                                tipo = 7;
+                                tipo = tipoAfipNDB;//7;
                                 neto = Math.Round((((double)notaDeb.importe) - totIva),2);
                             }
 
                             try
                             {
-                                long[][] arregloComAsoc = null;
+                                string[][] arregloComAsoc = null;
                                 if (txtNroCompAsoc.Text != "")
                                 {
-                                    arregloComAsoc = new long[1][] { new long[3] };
-                                    arregloComAsoc[0][0] = long.Parse(cboPtoVta.Text);
-                                    arregloComAsoc[0][1] = tipo;
-                                    arregloComAsoc[0][2] = long.Parse(txtNroCompAsoc.Text);
+                                    arregloComAsoc = new string[1][] { new string[3] };
+                                    arregloComAsoc[0][0] = cboPtoVta.Text;
+                                    //arregloComAsoc[0][1] = tipo;
+                                    arregloComAsoc[0][2] = txtNroCompAsoc.Text;
                                 }
 
                                 var solicitud = new FEAfip.SolicitudRequest();
@@ -949,7 +1018,9 @@ namespace Desktop.Vistas.Ventas
                     cboPtoVta.SelectedIndex = cboPtoVta.FindStringExact("3");
 
                     cboTipoCompAsoc.Items.Clear();
+                    ComboBoxItem itemF2 = new ComboBoxItem("Factura", "factura");
                     ComboBoxItem itemNC = new ComboBoxItem("Nota Crédito", "notaCredito");
+                    cboTipoCompAsoc.Items.Add(itemF2);
                     cboTipoCompAsoc.Items.Add(itemNC);
                     break;
                 default:
@@ -1014,6 +1085,7 @@ namespace Desktop.Vistas.Ventas
             decimal sumaSinIva = 0;
             decimal sumaConIva = 0;
             decimal suma = 0;
+            decimal total = 0;
 
             if (cliente.SituacionFrenteIva.nombre == "Responsable Inscripto")
             {
@@ -1031,6 +1103,7 @@ namespace Desktop.Vistas.Ventas
                 txtSubtotal.Text = sumaSinIva.ToString("0.00");
                 txtIVA.Text = Math.Round((sumaConIva - sumaSinIva),2).ToString("0.00");
                 txtTotal.Text = sumaConIva.ToString("0.00");
+                total = sumaConIva;
             }
             else
             {
@@ -1045,23 +1118,24 @@ namespace Desktop.Vistas.Ventas
                 txtSubtotal.Text = "0";
                 txtIVA.Text = "0";
                 txtTotal.Text = suma.ToString("0.00");
+                total = suma;
             }
 
-            if (SujetoObligado)
-            {
-                //si es sujeto obligado tengo que ir analizando que nro de comprobante va dependiendo del total
-                long nroNota;
-                if (decimal.Parse(txtTotal.Text) >= MontoObligado)
-                {
-                    nroNota = ObtenerNroNota(true, nroNotaMiPyme > 0);
-                    nroNotaMiPyme = nroNota;
-                }
-                else
-                {
-                    nroNota = ObtenerNroNota(false, nroNotaComun > 0);
-                    nroNotaComun = nroNota;
-                }
-            }
+            //if (SujetoObligado)
+            //{
+            //    //si es sujeto obligado tengo que ir analizando que nro de comprobante va dependiendo del total
+            //    long nroNota;
+            //    if (total >= MontoObligado)
+            //    {
+            //        nroNota = ObtenerNroNota(true, nroNotaMiPyme > 0);
+            //        nroNotaMiPyme = nroNota;
+            //    }
+            //    else
+            //    {
+            //        nroNota = ObtenerNroNota(false, nroNotaComun > 0);
+            //        nroNotaComun = nroNota;
+            //    }
+            //}
         }
 
         private void txtCUIT_KeyPress(object sender, KeyPressEventArgs e)
@@ -1155,7 +1229,7 @@ namespace Desktop.Vistas.Ventas
             }
 
             frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-            frmBusquedaComp.tipo = ((Controles.ComboBoxItem)cboTipoCompAsoc.SelectedItem).Value.ToString();            
+            frmBusquedaComp.tipo = ((ComboBoxItem)cboTipoCompAsoc.SelectedItem).Value.ToString();            
             DialogResult res = frmBusquedaComp.ShowDialog();
 
             Comprobante comprobanteAnul;
@@ -1163,6 +1237,13 @@ namespace Desktop.Vistas.Ventas
             if (res == DialogResult.OK)
             {
                 comprobanteAnul = frmBusquedaComp.comprobanteSeleccionado;
+
+                EsMiPyme = comprobanteAnul.CE_MiPyme;
+                if (Estado != Estados.Modificar)
+                {
+                    ObtenerNroNota();
+                }
+
                 if (cboTipoNota.Text == "Nota Crédito")
                 {
                     if (comprobanteAnul.GetType().BaseType.Name == "Comprobante_Factura" || comprobanteAnul.GetType().Name == "Comprobante_Factura")
@@ -1178,6 +1259,10 @@ namespace Desktop.Vistas.Ventas
                 }
                 if (cboTipoNota.Text == "Nota Débito")
                 {
+                    if (comprobanteAnul.GetType().BaseType.Name == "Comprobante_Factura" || comprobanteAnul.GetType().Name == "Comprobante_Factura")
+                    {
+                        txtNroCompAsoc.Text = ((Comprobante_Factura)comprobanteAnul).numero.ToString();
+                    }
                     if (comprobanteAnul.GetType().BaseType.Name == "Comprobante_Devolucion" || comprobanteAnul.GetType().Name == "Comprobante_Devolucion")
                     {
                         txtNroCompAsoc.Text = ((Comprobante_Devolucion)comprobanteAnul).numero.ToString();
@@ -1200,77 +1285,166 @@ namespace Desktop.Vistas.Ventas
             }
 
             try 
-            { 
+            {
+                int nroCompA;
+                int nroCompB;
+                int nroCompAMiPyme;
+                int nroCompBMiPyme;
+                int tipoA;
+                int tipoB;
+                int tipoFCE_A;
+                int tipoFCE_B;
+                string tipoNota;
+
+                FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
+
                 if (cboTipoNota.Text == "Nota Crédito")
                 {                
-                    FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
-                    int nroCompA; int nroCompB;
-                    string mensaje = "";
-
-                    nroCompA = service.ObtenerUltimoAut(3, 3);
-                    nroCompB = service.ObtenerUltimoAut(8, 3);
-                                                                                                            
-                    if (nroCompA != 0)
-                    {
-                        FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
-                        solicitudA = service.ConsultarCAE(3, 3, nroCompA);
-                        Comprobante_Devolucion notaA = Global.Servicio.buscarNotaCred(nroCompA, "A", 3);
-                        notaA.estadoCarga = 1;
-                        notaA.cae = solicitudA.cae;
-                        notaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        Global.Servicio.actualizarNotaCred(notaA, Global.DatosSesion);
-                        mensaje += "NOTAS CRED A:\n\r-Nro. Comprobante: " + nroCompA.ToString() + "\n\r-CAE: " + notaA.cae + "\n\r-Fec. Vto. CAE: " + solicitudA.FecVtoCAE.Substring(6, 2) + "/" + solicitudA.FecVtoCAE.Substring(4, 2) + "/" + solicitudA.FecVtoCAE.Substring(0, 4) + "\n\r";
-                    }                
-
-                    if (nroCompB != 0)
-                    {
-                        FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();    
-                        solicitudB = service.ConsultarCAE(8, 3, nroCompB);
-                        Comprobante_Devolucion notaB = Global.Servicio.buscarNotaCred(nroCompB, "B", 3);
-                        notaB.estadoCarga = 1;
-                        notaB.cae = solicitudB.cae;
-                        notaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        Global.Servicio.actualizarNotaCred(notaB, Global.DatosSesion);
-                        mensaje += "NOTAS CRED B:\n\r-Nro. Comprobante: " + nroCompB.ToString() + "\n\r-CAE: " + notaB.cae + "\n\r-Fec. Vto. CAE:-" + solicitudB.FecVtoCAE.Substring(6, 2) + "/" + solicitudB.FecVtoCAE.Substring(4, 2) + "/" + solicitudB.FecVtoCAE.Substring(0, 4);
-                    }                
-
-                    MessageBox.Show(mensaje, "Resultado AFIP");
+                    tipoA = 3;
+                    tipoB = 8;
+                    tipoFCE_A = 203;
+                    tipoFCE_B = 208;
+                    tipoNota = "CRED";
                 }
                 else
                 {
-                    FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
-                    int nroCompA; int nroCompB;
-                    string mensaje = "";
-
-                    nroCompA = service.ObtenerUltimoAut(2, 3);
-                    nroCompB = service.ObtenerUltimoAut(7, 3);                    
-
-                    if (nroCompA != 0)
-                    {
-                        FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
-                        solicitudA = service.ConsultarCAE(2, 3, nroCompA);
-                        Comprobante_Recargo notaA = Global.Servicio.buscarNotaDeb(nroCompA, "A", 3);
-                        notaA.estadoCarga = 1;
-                        notaA.cae = solicitudA.cae;
-                        notaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        Global.Servicio.actualizarNotaDeb(notaA, Global.DatosSesion);
-                        mensaje += "NOTAS DEB A:\n\r-Nro. Comprobante: " + nroCompA.ToString() + "\n\r-CAE: " + notaA.cae + "\n\r-Fec. Vto. CAE: " + solicitudA.FecVtoCAE.Substring(6, 2) + "/" + solicitudA.FecVtoCAE.Substring(4, 2) + "/" + solicitudA.FecVtoCAE.Substring(0, 4) + "\n\r";
-                    }
-
-                    if (nroCompB != 0)
-                    {
-                        FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
-                        solicitudB = service.ConsultarCAE(7, 3, nroCompB);
-                        Comprobante_Recargo notaB = Global.Servicio.buscarNotaDeb(nroCompB, "B", 3);
-                        notaB.estadoCarga = 1;
-                        notaB.cae = solicitudB.cae;
-                        notaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        Global.Servicio.actualizarNotaDeb(notaB, Global.DatosSesion);
-                        mensaje += "NOTAS DEB B:\n\r-Nro. Comprobante: " + nroCompB.ToString() + "\n\r-CAE: " + notaB.cae + "\n\r-Fec. Vto. CAE: " + solicitudB.FecVtoCAE.Substring(6, 2) + "/" + solicitudB.FecVtoCAE.Substring(4, 2) + "/" + solicitudB.FecVtoCAE.Substring(0, 4);
-                    }
-
-                    MessageBox.Show(mensaje, "Resultado AFIP");
+                    tipoA = 2;
+                    tipoB = 7;
+                    tipoFCE_A = 202;
+                    tipoFCE_B = 207;
+                    tipoNota = "DEB";
                 }
+
+                string mensaje = "";
+
+                nroCompA = service.ObtenerUltimoAut(tipoA, 3);
+                nroCompB = service.ObtenerUltimoAut(tipoB, 3);
+                nroCompAMiPyme = service.ObtenerUltimoAut(tipoFCE_A, 3);
+                nroCompBMiPyme = service.ObtenerUltimoAut(tipoFCE_B, 3);
+
+                if (nroCompA != 0)
+                {
+                    FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
+                    solicitudA = service.ConsultarCAE(tipoA, 3, nroCompA);
+                    if (tipoNota == "CRED")
+                    {
+                        Comprobante_Devolucion notaA = Global.Servicio.buscarNotaCred(nroCompA, "A", 3, false);
+                        if (notaA.estadoCarga != 1)
+                        {
+                            notaA.estadoCarga = 1;
+                            notaA.cae = solicitudA.cae;
+                            notaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaCred(notaA, Global.DatosSesion);
+                        }
+                    }
+                    else
+                    {
+                        Comprobante_Recargo notaA = Global.Servicio.buscarNotaDeb(nroCompA, "A", 3, false);
+                        if (notaA.estadoCarga != 1)
+                        {
+                            notaA.estadoCarga = 1;
+                            notaA.cae = solicitudA.cae;
+                            notaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaDeb(notaA, Global.DatosSesion);
+                        }
+                    }
+                    
+                    mensaje += $"NOTAS {tipoNota} A:\n\r-Nro. Comprobante: {nroCompA.ToString()}\n\r-CAE: {solicitudA.cae}\n\r-Fec. Vto. CAE: {solicitudA.FecVtoCAE.Substring(6, 2)}/{solicitudA.FecVtoCAE.Substring(4, 2)}/{solicitudA.FecVtoCAE.Substring(0, 4)}\n\r";
+                }
+
+                if (nroCompB != 0)
+                {
+                    FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
+                    solicitudB = service.ConsultarCAE(tipoB, 3, nroCompB);
+                    if (tipoNota == "CRED")
+                    {
+                        Comprobante_Devolucion notaB = Global.Servicio.buscarNotaCred(nroCompB, "B", 3, false);
+                        if (notaB.estadoCarga != 1)
+                        {
+                            notaB.estadoCarga = 1;
+                            notaB.cae = solicitudB.cae;
+                            notaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaCred(notaB, Global.DatosSesion);
+                        }
+                    }
+                    else
+                    {
+                        Comprobante_Recargo notaB = Global.Servicio.buscarNotaDeb(nroCompB, "B", 3, false);
+                        if (notaB.estadoCarga != 1)
+                        {
+                            notaB.estadoCarga = 1;
+                            notaB.cae = solicitudB.cae;
+                            notaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaDeb(notaB, Global.DatosSesion);
+                        }
+                    }                                           
+                    mensaje += $"NOTAS {tipoNota} B:\n\r-Nro. Comprobante: {nroCompB.ToString()}\n\r-CAE: {solicitudB?.cae}\n\r-Fec. Vto. CAE: {solicitudB?.FecVtoCAE.Substring(6, 2)}/{solicitudB?.FecVtoCAE.Substring(4, 2)}/{solicitudB?.FecVtoCAE.Substring(0, 4)}\n\r";
+                }
+
+                if (nroCompAMiPyme != 0)
+                {
+                    FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
+                    solicitudA = service.ConsultarCAE(tipoFCE_A, 3, nroCompAMiPyme);
+                    
+                    if (tipoNota == "CRED")
+                    {
+                        Comprobante_Devolucion notaCredA_FCE = Global.Servicio.buscarNotaCred(nroCompAMiPyme, "A", 3, true);
+                        if (notaCredA_FCE.estadoCarga != 1)
+                        {
+                            notaCredA_FCE.estadoCarga = 1;
+                            notaCredA_FCE.cae = solicitudA.cae;
+                            notaCredA_FCE.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaCred(notaCredA_FCE, Global.DatosSesion);
+                        }
+                    }
+                    else
+                    {
+                        Comprobante_Recargo notaDebA_FCE = Global.Servicio.buscarNotaDeb(nroCompAMiPyme, "A", 3, true);
+                        if (notaDebA_FCE.estadoCarga != 1)
+                        {
+                            if (notaDebA_FCE.estadoCarga != 1)
+                            {
+                                notaDebA_FCE.estadoCarga = 1;
+                                notaDebA_FCE.cae = solicitudA.cae;
+                                notaDebA_FCE.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                                Global.Servicio.actualizarNotaDeb(notaDebA_FCE, Global.DatosSesion);
+                            }
+                        }
+                    }    
+                    
+                    mensaje += $"NOTAS {tipoNota} A (CE MiPyme):\n\r-Nro. Comprobante: {nroCompAMiPyme.ToString()}\n\r-CAE: {solicitudA.cae}\n\r-Fec. Vto. CAE: {solicitudA.FecVtoCAE.Substring(6, 2)}/{solicitudA.FecVtoCAE.Substring(4, 2)}/{solicitudA.FecVtoCAE.Substring(0, 4)}\n\r";
+                }
+
+                if (nroCompBMiPyme != 0)
+                {
+                    FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
+                    solicitudB = service.ConsultarCAE(tipoFCE_B, 3, nroCompBMiPyme);
+                    if (tipoNota == "CRED")
+                    {
+                        Comprobante_Devolucion notaCredB_FCE = Global.Servicio.buscarNotaCred(nroCompBMiPyme, "A", 3, true);
+                        if (notaCredB_FCE.estadoCarga != 1)
+                        {
+                            notaCredB_FCE.estadoCarga = 1;
+                            notaCredB_FCE.cae = solicitudB.cae;
+                            notaCredB_FCE.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaCred(notaCredB_FCE, Global.DatosSesion);
+                        }                       
+                    }
+                    else
+                    {
+                        Comprobante_Recargo notaDebB_FCE = Global.Servicio.buscarNotaDeb(nroCompBMiPyme, "A", 3, true);
+                        if (notaDebB_FCE.estadoCarga != 1)
+                        {
+                            notaDebB_FCE.estadoCarga = 1;
+                            notaDebB_FCE.cae = solicitudB.cae;
+                            notaDebB_FCE.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            Global.Servicio.actualizarNotaDeb(notaDebB_FCE, Global.DatosSesion);
+                        }
+                    }
+                    mensaje += $"NOTAS {tipoNota} B (CE MiPyme):\n\r-Nro. Comprobante: {nroCompBMiPyme.ToString()}\n\r-CAE: {solicitudB.cae}\n\r-Fec. Vto. CAE: {solicitudB.FecVtoCAE.Substring(6, 2)}/{solicitudB.FecVtoCAE.Substring(4, 2)}/{solicitudB.FecVtoCAE.Substring(0, 4)}";
+                }
+
+                MessageBox.Show(mensaje, "Resultado AFIP");
             }
             catch (Exception ex)
             {
@@ -1292,9 +1466,9 @@ namespace Desktop.Vistas.Ventas
                 }
 
                 if (notaCred.tipo == "A")
-                    tipo = 3;
+                    tipo = tipoAfipNCA;//3;
                 else
-                    tipo = 8;
+                    tipo = tipoAfipNCB;//8;
 
                 FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
                 FEAfip.DTOSolicitud solicitud = new FEAfip.DTOSolicitud();
@@ -1320,9 +1494,9 @@ namespace Desktop.Vistas.Ventas
                 }
 
                 if (notaDeb.tipo == "A")
-                    tipo = 2;
+                    tipo = tipoAfipNDA;//2;
                 else
-                    tipo = 7;
+                    tipo = tipoAfipNDB;//7;
 
                 FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
                 FEAfip.DTOSolicitud solicitud = new FEAfip.DTOSolicitud();
@@ -1353,9 +1527,9 @@ namespace Desktop.Vistas.Ventas
 
                 int tipo;
                 if (notaCred.tipo == "A")
-                    tipo = 3;
+                    tipo = tipoAfipNCA;//3;
                 else
-                    tipo = 8;
+                    tipo = tipoAfipNCB;//8;
 
                 FEAfip.DTOSolicitud solicitud = new FEAfip.DTOSolicitud();
 
@@ -1365,12 +1539,15 @@ namespace Desktop.Vistas.Ventas
                     solicitud = service.ConsultarCAE(tipo, int.Parse(cboPtoVta.Text), long.Parse(txtNroNota.Text));
                     if (solicitud != null)
                     {
-                        notaCred.cae = solicitud.cae;
-                        notaCred.fecVtoCae = DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        notaCred.estadoCarga = 1;
-                        Global.Servicio.actualizarNotaCred(notaCred, Global.DatosSesion);
+                        if (notaCred.estadoCarga != 1)
+                        {
+                            notaCred.cae = solicitud.cae;
+                            notaCred.fecVtoCae = DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            notaCred.estadoCarga = 1;
+                            Global.Servicio.actualizarNotaCred(notaCred, Global.DatosSesion);
+                        }
 
-                        Mensaje mensajeConfirmacion = new Mensaje("CAE: " + notaCred.cae + " - " + "Fec. Vto.: " + ((DateTime)notaCred.fecVtoCae).ToString("dd/MM/yyyy"), Mensaje.TipoMensaje.Informacion, Mensaje.Botones.OK);
+                        Mensaje mensajeConfirmacion = new Mensaje("CAE: " + solicitud.cae + " - " + "Fec. Vto.: " + DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy"), Mensaje.TipoMensaje.Informacion, Mensaje.Botones.OK);
                         mensajeConfirmacion.ShowDialog();
                     }
                     else
@@ -1398,9 +1575,9 @@ namespace Desktop.Vistas.Ventas
 
                 int tipo;
                 if (notaDeb.tipo == "A")
-                    tipo = 2;
+                    tipo = tipoAfipNDA;//2;
                 else
-                    tipo = 7;
+                    tipo = tipoAfipNDB;//7;
 
                 FEAfip.DTOSolicitud solicitud = new FEAfip.DTOSolicitud();
 
@@ -1410,12 +1587,15 @@ namespace Desktop.Vistas.Ventas
                     solicitud = service.ConsultarCAE(tipo, int.Parse(cboPtoVta.Text), long.Parse(txtNroNota.Text));
                     if (solicitud != null)
                     {
-                        notaDeb.cae = solicitud.cae;
-                        notaDeb.fecVtoCae = DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        notaDeb.estadoCarga = 1;
-                        Global.Servicio.actualizarNotaDeb(notaDeb, Global.DatosSesion);
-
-                        Mensaje mensajeConfirmacion = new Mensaje("CAE: " + notaDeb.cae + " - " + "Fec. Vto.: " + ((DateTime)notaDeb.fecVtoCae).ToString("dd/MM/yyyy"), Mensaje.TipoMensaje.Informacion, Mensaje.Botones.OK);
+                        if (notaDeb.estadoCarga != 1)
+                        {
+                            notaDeb.cae = solicitud.cae;
+                            notaDeb.fecVtoCae = DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            notaDeb.estadoCarga = 1;
+                            Global.Servicio.actualizarNotaDeb(notaDeb, Global.DatosSesion);
+                        }
+                        
+                        Mensaje mensajeConfirmacion = new Mensaje("CAE: " + solicitud.cae + " - " + "Fec. Vto.: " + DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy"), Mensaje.TipoMensaje.Informacion, Mensaje.Botones.OK);
                         mensajeConfirmacion.ShowDialog();
                     }
                     else

@@ -322,20 +322,22 @@ namespace ModuloServicios
             int y;
 
             Image imagen;
+
+            var sufijo = factura.CE_MiPyme ? "_FCE" : "";            
+            var nombreArch = $"Factura{sufijo}_{factura.tipo}.jpg";
+            imagen = Image.FromFile(Path.Combine(@"C:\Quimadh\", nombreArch));
+
             if (factura.tipo=="A")
-            {
-                imagen = Image.FromFile("C:/Quimadh/Factura1.jpg");
+            {                                                
                 x = 525;
                 y = -7;
             }
             else
-            {
-                imagen = Image.FromFile("C:/Quimadh/Factura2.jpg");
+            {                
                 x = 535;
                 y = 10;
             }
                 
-
             Bitmap bm = new Bitmap(imagen, imagen.Size);
             Graphics graf = Graphics.FromImage(bm);
 
@@ -346,11 +348,6 @@ namespace ModuloServicios
             SolidBrush printSolid = new SolidBrush(Color.Black);
             string fecha = factura.fechaIngreso.Day.ToString("00") + "      " + factura.fechaIngreso.Month.ToString("00") + "     " + factura.fechaIngreso.Year.ToString();
             decimal precio;
-
-            //if (! string.IsNullOrEmpty(factura.cae))
-            //{
-                
-            //}                       
 
             graf.DrawString(factura.pv.ToString("0000") + " - " + factura.numero.ToString("00000000"), printFontG, printSolid, new RectangleF(x + 500, y + 105, 500, 500));
 
@@ -384,7 +381,6 @@ namespace ModuloServicios
 
                 y += 30;
             }
-
 
             y = 1370;
 
@@ -420,7 +416,6 @@ namespace ModuloServicios
                 string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
                 codBarras = CodificarI2Of5(codBarrasSinCod);
 
-                //graf.DrawString(codBarras, printFontCB, printSolid, new Rectangle(x + 180, y + 500, 1000, 200));
                 var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
                 graf.DrawImage(imagenCB, x - 450, y + 420);
                 graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300 , y + 480, 500, 500));
@@ -1033,7 +1028,7 @@ namespace ModuloServicios
             return numero + 1;
         }
 
-        public Comprobante_Devolucion buscarNotaCred(long numComp, string tipo, int pv)
+        public Comprobante_Devolucion buscarNotaCred(long numComp, string tipo, int pv, bool ceMipyme)
         {
             IQueryable<Comprobante_Devolucion> queryN;
 
@@ -1045,10 +1040,12 @@ namespace ModuloServicios
             if (numComp != 0)
                 queryN = queryN.Where(c => c.numero == numComp);
 
+            queryN = queryN.Where(x => x.CE_MiPyme == ceMipyme);
+
             return queryN.FirstOrDefault();
         }
 
-        public Comprobante_Recargo buscarNotaDeb(long numComp, string tipo, int pv)
+        public Comprobante_Recargo buscarNotaDeb(long numComp, string tipo, int pv, bool ceMipyme)
         {
             IQueryable<Comprobante_Recargo> queryN;
 
@@ -1059,6 +1056,8 @@ namespace ModuloServicios
                 queryN = queryN.Where(c => c.tipo == tipo);
             if (numComp != 0)
                 queryN = queryN.Where(c => c.numero == numComp);
+
+            queryN = queryN.Where(x => x.CE_MiPyme == ceMipyme);
 
             return queryN.FirstOrDefault();
         }
@@ -1082,7 +1081,7 @@ namespace ModuloServicios
             return notaCredGuardada;
         }
 
-        public Comprobante_Devolucion actualizarNotaCred(Comprobante_Devolucion notaCred, Metadata metadata)
+        public Comprobante_Devolucion actualizarNotaCred(Comprobante_Devolucion notaCred, Metadata metadata, bool recargaItems = false)
         {
             Comprobante_Devolucion notaCredGuardada = null;
 
@@ -1090,15 +1089,12 @@ namespace ModuloServicios
             {
                 ValidarNota(notaCred, Acciones.Log.MODIFICACION);
 
-                IQueryable<ItemNota> items;
-                IQueryable<Comprobante_Devolucion> notasReemplazadas = (IQueryable<Comprobante_Devolucion>)_contexto.Comprobante.OfType<Comprobante_Devolucion>().Where(n => n.tipo == notaCred.tipo).Where(n => n.pv == notaCred.pv).Where(n => n.numero == notaCred.numero).Where(n => n.id != notaCred.id);
-                foreach (Comprobante_Devolucion n in notasReemplazadas)
-                {
-                    items = (IQueryable<ItemNota>)_contexto.ItemNota.Where(i => i.idDevolucion == n.id);
+                if (recargaItems)
+                {                    
+                    var items = _contexto.ItemNota.Where(i => i.idDevolucion == notaCred.id);
                     _contexto.ItemNota.RemoveRange(items);
                 }
 
-                _contexto.Comprobante.RemoveRange(notasReemplazadas);
                 _contexto.SaveChanges();
 
                 GenerarLog<Comprobante_Devolucion>(notaCred, Acciones.Log.MODIFICACION, metadata);
@@ -1188,12 +1184,13 @@ namespace ModuloServicios
                     mensaje = "Ingrese un número de nota de cédito.";
 
                 if (accion == Acciones.Log.ALTA)
-                {                
+                {
                     existe = (from n in _contexto.Comprobante.OfType<Comprobante_Devolucion>()
-                               where n.numero.Equals(((Comprobante_Devolucion)nota).numero)
-                               where n.tipo.Equals(((Comprobante_Devolucion)nota).tipo)
-                               where n.pv.Equals(((Comprobante_Devolucion)nota).pv)
-                               select n).Any();
+                              where n.numero.Equals(((Comprobante_Devolucion)nota).numero)
+                              where n.tipo.Equals(((Comprobante_Devolucion)nota).tipo)
+                              where n.pv.Equals(((Comprobante_Devolucion)nota).pv)
+                              where n.CE_MiPyme == nota.CE_MiPyme
+                              select n).Any();
 
                     if (existe)
                         mensaje = "El número de nota de cédito ya existe.";
@@ -1340,14 +1337,10 @@ namespace ModuloServicios
         public void imprimirNotaDigital(Comprobante_Devolucion nota)
         {
             Image imagen;
-            if (nota.tipo == "A")
-            {
-                imagen = Image.FromFile("C:/Quimadh/Nota de Credito.jpg");
-            }
-            else
-            {
-                imagen = Image.FromFile("C:/Quimadh/Nota de Credito2.jpg");
-            }
+
+            var sufijo = nota.CE_MiPyme ? "_FCE" : "";
+            var nombreArch = $"NotaCredito{sufijo}_{nota.tipo}.jpg";
+            imagen = Image.FromFile(Path.Combine(@"C:\Quimadh\", nombreArch));
 
             Bitmap bm = new Bitmap(imagen, imagen.Size);
             Graphics graf = Graphics.FromImage(bm);
@@ -1440,14 +1433,9 @@ namespace ModuloServicios
         public void imprimirNotaDigital(Comprobante_Recargo nota)
         {
             Image imagen;
-            if (nota.tipo == "A")
-            {
-                imagen = Image.FromFile("C:/Quimadh/Nota de Debito.jpg");
-            }
-            else
-            {
-                imagen = Image.FromFile("C:/Quimadh/Nota de Debito2.jpg");
-            }            
+            var sufijo = nota.CE_MiPyme ? "_FCE" : "";
+            var nombreArch = $"NotaDebito{sufijo}_{nota.tipo}.jpg";
+            imagen = Image.FromFile(Path.Combine(@"C:\Quimadh\", nombreArch));        
 
             Bitmap bm = new Bitmap(imagen, imagen.Size);
             Graphics graf = Graphics.FromImage(bm);

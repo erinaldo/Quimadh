@@ -20,6 +20,9 @@ namespace Desktop.Vistas.Ventas
 
         private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
         private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
+        private bool esMiPyme => SujetoObligado && factura.importe >= MontoObligado;
+        private int tipoAfipA => esMiPyme ? 201 : 1;
+        private int tipoAfipB => esMiPyme ? 206 : 6;
 
         private long nroFacturaComun = 0;
         private long nroFacturaMiPyme = 0;
@@ -53,6 +56,11 @@ namespace Desktop.Vistas.Ventas
             factura = new Comprobante_Factura();
             cliente = null;
             planta = null;
+
+            nroFacturaMiPyme = 0;
+            nroFacturaMiPyme = 0;
+            sujetoObligado = null;
+
             limpiarControles(gpbDatos);
             limpiarControles(gpbDatosFact);
             limpiarControles(gpbTotales);
@@ -162,8 +170,7 @@ namespace Desktop.Vistas.Ventas
 
         private void cargarDatos(Comprobante_Factura factura)
         {
-            cboPtoVenta.SelectedIndex = cboPtoVenta.FindStringExact(factura.pv.ToString());            
-            txtNroFactura.Text = factura.numero.ToString();
+            cboPtoVenta.SelectedIndex = cboPtoVenta.FindStringExact(factura.pv.ToString());                        
             actualizarDatosAfip();
                 
             dtpFecha.Value = factura.fechaIngreso;
@@ -178,6 +185,7 @@ namespace Desktop.Vistas.Ventas
             //txtCUIT.Text = factura.Planta.Cliente.cuit;
             completarCamposCliente(factura.Planta.Cliente);
 
+            txtNroFactura.Text = factura.numero.ToString();
             txtCondVta.Text = factura.condVta;
 
             if (factura.Moneda != null)
@@ -447,6 +455,7 @@ namespace Desktop.Vistas.Ventas
             decimal sumaSinIVA = 0;
             decimal sumaConIVA = 0;
             decimal suma = 0;
+            decimal total = 0;
 
             if (cliente != null) { 
                 if (cliente.SituacionFrenteIva.nombre == "Responsable Inscripto") 
@@ -465,6 +474,7 @@ namespace Desktop.Vistas.Ventas
                     txtIva.Text = Math.Round((sumaConIVA - sumaSinIVA),2).ToString("0.00");
                     txtSubTotal.Text = sumaSinIVA.ToString("0.00");
                     txtTotal.Text = sumaConIVA.ToString("0.00");
+                    total = sumaConIVA; //por alguna razón el textbox no toma el valor al principio,
                 }
                 else
                 {
@@ -480,13 +490,14 @@ namespace Desktop.Vistas.Ventas
                     txtIva.Text = "0.00";
                     txtSubTotal.Text = "0.00";
                     txtTotal.Text = suma.ToString("0.00");
+                    total = suma; //por alguna razón el textbox no toma el valor al principio,
                 }
 
                 if (SujetoObligado)                    
                 {
                     //si es sujeto obligado tengo que ir analizando que nro de comprobante va dependiendo del total
                     long nroFact;
-                    if (decimal.Parse(txtTotal.Text) >= MontoObligado)
+                    if (total >= MontoObligado)
                     {
                         nroFact = obtenerNroFactura(true, nroFacturaMiPyme > 0);
                         nroFacturaMiPyme = nroFact;
@@ -635,7 +646,7 @@ namespace Desktop.Vistas.Ventas
                         }
                     }
 
-                    factura.CE_MiPyme = SujetoObligado && factura.importe >= MontoObligado;
+                    factura.CE_MiPyme = esMiPyme;
 
                     //GUARDA LA FACTURA SIN CAE
                     factura.estadoCarga = 0;
@@ -669,14 +680,14 @@ namespace Desktop.Vistas.Ventas
                         int tipo;
                         double neto = 0;
                         if (factura.tipo == "A")
-                        {                            
-                            tipo = SujetoObligado && factura.importe >= MontoObligado ? 201 : 1;
+                        {
+                            tipo = tipoAfipA;//1;
                             totIva = Math.Round((double)factura.totalIva,2);
                             neto = Math.Round((double)factura.subtotal,2);
                         }
                         else
-                        {                            
-                            tipo = SujetoObligado && factura.importe >= MontoObligado ? 206 : 6;
+                        {
+                            tipo = tipoAfipB;//6;
                             neto = Math.Round((((double)factura.importe) - totIva),2);
                         }
 
@@ -697,7 +708,7 @@ namespace Desktop.Vistas.Ventas
                             solicitud.cotiz = (double)factura.Moneda.cotizacion;
                             solicitud.arrayIva = arregloIva2;
                             solicitud.compAsociados = null;
-                            if (SujetoObligado && factura.importe >= MontoObligado)
+                            if (esMiPyme)
                             {
                                 solicitud.fechaVto = factura.vencimiento.ToString("yyyyMMdd");
                             }
@@ -799,12 +810,20 @@ namespace Desktop.Vistas.Ventas
 
             if (cliente != null)
             {
-                using (var feClient = new FEAfip.ServicioCAEClient())
+                try
                 {
-                    var requestConsulta = new FEAfip.DTOConsultaObligadoSolicitud();
-                    requestConsulta.Cuit = long.Parse(cliente.cuit);
-                    requestConsulta.FechaEmision = dtpFecha.Value;
-                    sujetoObligado = feClient.ConsultarSujetoObligado(requestConsulta);
+                    using (var feClient = new FEAfip.ServicioCAEClient())
+                    {
+                        var requestConsulta = new FEAfip.DTOConsultaObligadoSolicitud();
+                        requestConsulta.Cuit = long.Parse(cliente.cuit);
+                        requestConsulta.FechaEmision = dtpFecha.Value;
+                        sujetoObligado = feClient.ConsultarSujetoObligado(requestConsulta);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Mensaje unMensaje = new Mensaje($"No se pudo conectar con AFIP para consultar padrón MiPyme. Error: {ex.Message}", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                    unMensaje.ShowDialog();
                 }
             }
 
@@ -944,9 +963,9 @@ namespace Desktop.Vistas.Ventas
 
             int tipo;
             if (factura.tipo == "A")
-                tipo = 1;
+                tipo = tipoAfipA;
             else
-                tipo = 6;
+                tipo = tipoAfipB;
 
             FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
             FEAfip.DTOSolicitud solicitud = new FEAfip.DTOSolicitud();
@@ -1047,9 +1066,9 @@ namespace Desktop.Vistas.Ventas
 
             int tipo;
             if (factura.tipo == "A")
-                tipo = 1;
+                tipo = tipoAfipA;
             else
-                tipo = 6;
+                tipo = tipoAfipB;
 
             FEAfip.DTOSolicitud solicitud = new FEAfip.DTOSolicitud();
 
@@ -1058,13 +1077,17 @@ namespace Desktop.Vistas.Ventas
                 FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
                 solicitud = service.ConsultarCAE(tipo, int.Parse(cboPtoVenta.Text), long.Parse(txtNroFactura.Text));
                 if (solicitud != null)
-                {
-                    factura.cae = solicitud.cae;
-                    factura.fecVtoCae = DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                    factura.estadoCarga = 1;
-                    Global.Servicio.actualizarFactura(factura, Global.DatosSesion);
-                    actualizarDatosAfip();
-                    Mensaje mensajeConfirmacion = new Mensaje("CAE: " + factura.cae + " - " + "Fec. Vto.: " + ((DateTime)factura.fecVtoCae).ToString("dd/MM/yyyy"), Mensaje.TipoMensaje.Informacion, Mensaje.Botones.OK);
+                {                    
+                    if (factura.estadoCarga != 1)
+                    {
+                        factura.cae = solicitud.cae;
+                        factura.fecVtoCae = DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                        factura.estadoCarga = 1;
+                        Global.Servicio.actualizarFactura(factura, Global.DatosSesion);
+                        actualizarDatosAfip();
+                    }
+                    
+                    Mensaje mensajeConfirmacion = new Mensaje("CAE: " + solicitud.cae + " - " + "Fec. Vto.: " + DateTime.ParseExact(solicitud.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd/MM/yyyy"), Mensaje.TipoMensaje.Informacion, Mensaje.Botones.OK);
                     mensajeConfirmacion.ShowDialog();
                 }
                 else

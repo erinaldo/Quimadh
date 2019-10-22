@@ -12,28 +12,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfdouble" nillable="true" type="tns:ArrayOfdouble" />
-  <xs:complexType name="ArrayOfArrayOflong">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfArrayOflong" nillable="true" type="tns:ArrayOfArrayOflong" />
-  <xs:complexType name="ArrayOflong">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
-  <xs:complexType name="ArrayOfstring">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
   <xs:complexType name="ArrayOfArrayOfstring">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfArrayOfstring" nillable="true" type="tns:ArrayOfArrayOfstring" />
+  <xs:complexType name="ArrayOfstring">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
 </xs:schema>
