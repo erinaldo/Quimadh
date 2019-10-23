@@ -1211,6 +1211,7 @@ namespace ModuloServicios
                               where n.numero.Equals(((Comprobante_Recargo)nota).numero)
                               where n.tipo.Equals(((Comprobante_Recargo)nota).tipo)
                               where n.pv.Equals(((Comprobante_Recargo)nota).pv)
+                              where n.CE_MiPyme == nota.CE_MiPyme
                               select n).Any();
 
                     if (existe)

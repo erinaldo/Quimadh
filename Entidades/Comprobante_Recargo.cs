@@ -28,6 +28,7 @@ namespace Entidades
         public string cae { get; set; }
         public Nullable<System.DateTime> fecVtoCae { get; set; }
         public int idMoneda { get; set; }
+        public bool anulacionCE_MiPyme { get; set; }
     
         public virtual Comprobante ComprobanteAnul { get; set; }
         public virtual Moneda Moneda { get; set; }

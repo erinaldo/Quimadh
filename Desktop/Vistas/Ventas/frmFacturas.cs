@@ -1007,7 +1007,7 @@ namespace Desktop.Vistas.Ventas
                     facturaA.cae = solicitudA.cae;
                     facturaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     Global.Servicio.actualizarFactura(facturaA, Global.DatosSesion);
-                    mensaje += "FACTURAS A:\n\r-Nro. Comprobante: " + nroCompA.ToString() + "\n\r-CAE: " + facturaA.cae + "\n\r-Fec. Vto. CAE: " + solicitudA.FecVtoCAE.Substring(6, 2) + "/" + solicitudA.FecVtoCAE.Substring(4, 2) + "/" + solicitudA.FecVtoCAE.Substring(0, 4) + "\n\r";
+                    mensaje += "FACTURAS A:\n\r-Nro. Comprobante: " + nroCompA.ToString() + "\n\r-CAE: " + solicitudA?.cae + "\n\r-Fec. Vto. CAE: " + solicitudA?.FecVtoCAE.Substring(6, 2) + "/" + solicitudA?.FecVtoCAE.Substring(4, 2) + "/" + solicitudA?.FecVtoCAE.Substring(0, 4) + "\n\r";
                 }
 
                 if (nroCompB != 0)
@@ -1019,7 +1019,7 @@ namespace Desktop.Vistas.Ventas
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     Global.Servicio.actualizarFactura(facturaB, Global.DatosSesion);
-                    mensaje += "FACTURAS B:\n\r-Nro. Comprobante: " + nroCompB.ToString() + "\n\r-CAE: " + facturaB.cae + "\n\r-Fec. Vto. CAE: " + solicitudB.FecVtoCAE.Substring(6, 2) + "/" + solicitudB.FecVtoCAE.Substring(4, 2) + "/" + solicitudB.FecVtoCAE.Substring(0, 4) + "\n\r"; ;
+                    mensaje += "FACTURAS B:\n\r-Nro. Comprobante: " + nroCompB.ToString() + "\n\r-CAE: " + solicitudB?.cae + "\n\r-Fec. Vto. CAE: " + solicitudB?.FecVtoCAE.Substring(6, 2) + "/" + solicitudB?.FecVtoCAE.Substring(4, 2) + "/" + solicitudB?.FecVtoCAE.Substring(0, 4) + "\n\r"; ;
                 }
 
                 if (nroCompAMiPyme != 0)
@@ -1031,7 +1031,7 @@ namespace Desktop.Vistas.Ventas
                     facturaA.cae = solicitudA.cae;
                     facturaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     Global.Servicio.actualizarFactura(facturaA, Global.DatosSesion);
-                    mensaje += "FACTURAS A (CE MiPyme):\n\r-Nro. Comprobante: " + nroCompAMiPyme.ToString() + "\n\r-CAE: " + facturaA.cae + "\n\r-Fec. Vto. CAE: " + solicitudA.FecVtoCAE.Substring(6, 2) + "/" + solicitudA.FecVtoCAE.Substring(4, 2) + "/" + solicitudA.FecVtoCAE.Substring(0, 4) + "\n\r";
+                    mensaje += "FACTURAS A (CE MiPyme):\n\r-Nro. Comprobante: " + nroCompAMiPyme.ToString() + "\n\r-CAE: " + solicitudA?.cae + "\n\r-Fec. Vto. CAE: " + solicitudA?.FecVtoCAE.Substring(6, 2) + "/" + solicitudA?.FecVtoCAE.Substring(4, 2) + "/" + solicitudA?.FecVtoCAE.Substring(0, 4) + "\n\r";
                 }
 
                 if (nroCompBMiPyme != 0)
@@ -1043,7 +1043,7 @@ namespace Desktop.Vistas.Ventas
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     Global.Servicio.actualizarFactura(facturaB, Global.DatosSesion);
-                    mensaje += "FACTURAS B (CE MiPyme):\n\r-Nro. Comprobante: " + nroCompBMiPyme.ToString() + "\n\r-CAE: " + facturaB.cae + "\n\r-Fec. Vto. CAE: " + solicitudB.FecVtoCAE.Substring(6, 2) + "/" + solicitudB.FecVtoCAE.Substring(4, 2) + "/" + solicitudB.FecVtoCAE.Substring(0, 4);
+                    mensaje += "FACTURAS B (CE MiPyme):\n\r-Nro. Comprobante: " + nroCompBMiPyme.ToString() + "\n\r-CAE: " + solicitudB?.cae + "\n\r-Fec. Vto. CAE: " + solicitudB?.FecVtoCAE.Substring(6, 2) + "/" + solicitudB?.FecVtoCAE.Substring(4, 2) + "/" + solicitudB?.FecVtoCAE.Substring(0, 4);
                 }
 
                 MessageBox.Show(mensaje, "Resultado AFIP");
