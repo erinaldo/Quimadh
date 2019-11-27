@@ -46,6 +46,7 @@
             this.labelQuimadh3 = new Controles.LabelQuimadh(this.components);
             this.labelQuimadh5 = new Controles.LabelQuimadh(this.components);
             this.labelQuimadh6 = new Controles.LabelQuimadh(this.components);
+            this.clmMiPyme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gpbFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,6 +96,7 @@
             this.clmNomCliente,
             this.clmImporte,
             this.clmTipo,
+            this.clmMiPyme,
             this.clmEstado});
             this.ltvBusqueda.Location = new System.Drawing.Point(12, 233);
             this.ltvBusqueda.Size = new System.Drawing.Size(640, 317);
@@ -189,10 +191,10 @@
             // 
             this.labelQuimadh1.AutoSize = true;
             this.labelQuimadh1.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuimadh1.Location = new System.Drawing.Point(18, 19);
             this.labelQuimadh1.Name = "labelQuimadh1";
-            this.labelQuimadh1.Size = new System.Drawing.Size(103, 15);
+            this.labelQuimadh1.Size = new System.Drawing.Size(110, 16);
             this.labelQuimadh1.TabIndex = 45;
             this.labelQuimadh1.Text = "Codigo Planta:";
             // 
@@ -200,10 +202,10 @@
             // 
             this.labelQuimadh2.AutoSize = true;
             this.labelQuimadh2.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh2.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuimadh2.Location = new System.Drawing.Point(14, 46);
             this.labelQuimadh2.Name = "labelQuimadh2";
-            this.labelQuimadh2.Size = new System.Drawing.Size(107, 15);
+            this.labelQuimadh2.Size = new System.Drawing.Size(117, 16);
             this.labelQuimadh2.TabIndex = 46;
             this.labelQuimadh2.Text = "Punto de Venta:";
             // 
@@ -211,10 +213,10 @@
             // 
             this.labelQuimadh3.AutoSize = true;
             this.labelQuimadh3.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh3.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuimadh3.Location = new System.Drawing.Point(4, 72);
             this.labelQuimadh3.Name = "labelQuimadh3";
-            this.labelQuimadh3.Size = new System.Drawing.Size(117, 15);
+            this.labelQuimadh3.Size = new System.Drawing.Size(125, 16);
             this.labelQuimadh3.TabIndex = 47;
             this.labelQuimadh3.Text = "N° Comprobante:";
             // 
@@ -222,10 +224,10 @@
             // 
             this.labelQuimadh5.AutoSize = true;
             this.labelQuimadh5.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh5.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuimadh5.Location = new System.Drawing.Point(261, 45);
             this.labelQuimadh5.Name = "labelQuimadh5";
-            this.labelQuimadh5.Size = new System.Drawing.Size(113, 15);
+            this.labelQuimadh5.Size = new System.Drawing.Size(119, 16);
             this.labelQuimadh5.TabIndex = 49;
             this.labelQuimadh5.Text = "Nombre Cliente:";
             // 
@@ -233,12 +235,16 @@
             // 
             this.labelQuimadh6.AutoSize = true;
             this.labelQuimadh6.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh6.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuimadh6.Location = new System.Drawing.Point(265, 18);
             this.labelQuimadh6.Name = "labelQuimadh6";
-            this.labelQuimadh6.Size = new System.Drawing.Size(109, 15);
+            this.labelQuimadh6.Size = new System.Drawing.Size(115, 16);
             this.labelQuimadh6.TabIndex = 50;
             this.labelQuimadh6.Text = "Nombre Planta:";
+            // 
+            // clmMiPyme
+            // 
+            this.clmMiPyme.Text = "MiPyme";
             // 
             // frmBusquedaComp
             // 
@@ -272,5 +278,6 @@
         private Controles.LabelQuimadh labelQuimadh3;
         private Controles.LabelQuimadh labelQuimadh2;
         private Controles.LabelQuimadh labelQuimadh1;
+        private System.Windows.Forms.ColumnHeader clmMiPyme;
     }
 }

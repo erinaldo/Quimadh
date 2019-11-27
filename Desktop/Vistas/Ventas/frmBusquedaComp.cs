@@ -51,8 +51,7 @@ namespace Desktop.Vistas.Ventas
 
             try
             {
-                // Obtenemos el resultado
-                //List<Comprobante_Factura> resultado = Global.Servicio.buscarComprobantesFact(codPlanta, nomPlanta, numComp, numeroRegistros);
+                // Obtenemos el resultado                
                 List<Comprobante> resultado = Global.Servicio.buscarComprobantes(codPlanta, nomPlanta, numComp, tipo, int.Parse(cboPv.Text), nomCliente, numeroRegistros);
 
                 // Listamos los clientes
@@ -83,7 +82,7 @@ namespace Desktop.Vistas.Ventas
                             tipoF = ((Comprobante_Recargo)comp).tipo;
                             break;
                     }
-                    string[] datos = new string[] { comp.fechaIngreso.ToString("dd/MM/yyyy"), numero.ToString(), comp.Planta.Cliente.razonSocial, comp.importe.ToString("0.00"), tipoF, ((bool)comp.anulado) ? "Anulado" : "Vigente" };
+                    string[] datos = new string[] { comp.fechaIngreso.ToString("dd/MM/yyyy"), numero.ToString(), comp.Planta.Cliente.razonSocial, comp.importe.ToString("0.00"), tipoF, comp.CE_MiPyme ? "SI" : "NO", ((bool)comp.anulado) ? "Anulado" : "Vigente" };
                     ListViewItem item = new ListViewItem(datos);
                     item.Tag = comp;
                     ltvBusqueda.Items.Add(item);
@@ -164,12 +163,5 @@ namespace Desktop.Vistas.Ventas
 
             return false;
         }
-
-        //private void frmBusquedaComp_Load(object sender, EventArgs e)
-        //{
-        //    Cargador.cargarPuntosVta(cboPv,tipo);
-        //    if (tipo == "Factura" || tipo == "Nota")
-        //        cboPv.SelectedIndex = cboPv.FindStringExact("2");            
-        //}
     }
 }

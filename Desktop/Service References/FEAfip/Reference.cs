@@ -15,6 +15,291 @@ namespace Desktop.FEAfip {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SolicitudRequest", Namespace="http://schemas.datacontract.org/2004/07/WcfFactElect")]
+    [System.SerializableAttribute()]
+    public partial class SolicitudRequest : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool anulacionPorRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double[][] arrayIvaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[][] compAsociadosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int conceptoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double cotizField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string fechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string fechaVtoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double ivaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string monField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ndocField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double netoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long nroCompField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int puntoVentaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int tdocField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int tipoCompField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double totalField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool anulacionPorRechazo {
+            get {
+                return this.anulacionPorRechazoField;
+            }
+            set {
+                if ((this.anulacionPorRechazoField.Equals(value) != true)) {
+                    this.anulacionPorRechazoField = value;
+                    this.RaisePropertyChanged("anulacionPorRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double[][] arrayIva {
+            get {
+                return this.arrayIvaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.arrayIvaField, value) != true)) {
+                    this.arrayIvaField = value;
+                    this.RaisePropertyChanged("arrayIva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[][] compAsociados {
+            get {
+                return this.compAsociadosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.compAsociadosField, value) != true)) {
+                    this.compAsociadosField = value;
+                    this.RaisePropertyChanged("compAsociados");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int concepto {
+            get {
+                return this.conceptoField;
+            }
+            set {
+                if ((this.conceptoField.Equals(value) != true)) {
+                    this.conceptoField = value;
+                    this.RaisePropertyChanged("concepto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double cotiz {
+            get {
+                return this.cotizField;
+            }
+            set {
+                if ((this.cotizField.Equals(value) != true)) {
+                    this.cotizField = value;
+                    this.RaisePropertyChanged("cotiz");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.fechaField, value) != true)) {
+                    this.fechaField = value;
+                    this.RaisePropertyChanged("fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string fechaVto {
+            get {
+                return this.fechaVtoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.fechaVtoField, value) != true)) {
+                    this.fechaVtoField = value;
+                    this.RaisePropertyChanged("fechaVto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double iva {
+            get {
+                return this.ivaField;
+            }
+            set {
+                if ((this.ivaField.Equals(value) != true)) {
+                    this.ivaField = value;
+                    this.RaisePropertyChanged("iva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string mon {
+            get {
+                return this.monField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.monField, value) != true)) {
+                    this.monField = value;
+                    this.RaisePropertyChanged("mon");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ndoc {
+            get {
+                return this.ndocField;
+            }
+            set {
+                if ((this.ndocField.Equals(value) != true)) {
+                    this.ndocField = value;
+                    this.RaisePropertyChanged("ndoc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double neto {
+            get {
+                return this.netoField;
+            }
+            set {
+                if ((this.netoField.Equals(value) != true)) {
+                    this.netoField = value;
+                    this.RaisePropertyChanged("neto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long nroComp {
+            get {
+                return this.nroCompField;
+            }
+            set {
+                if ((this.nroCompField.Equals(value) != true)) {
+                    this.nroCompField = value;
+                    this.RaisePropertyChanged("nroComp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int puntoVenta {
+            get {
+                return this.puntoVentaField;
+            }
+            set {
+                if ((this.puntoVentaField.Equals(value) != true)) {
+                    this.puntoVentaField = value;
+                    this.RaisePropertyChanged("puntoVenta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int tdoc {
+            get {
+                return this.tdocField;
+            }
+            set {
+                if ((this.tdocField.Equals(value) != true)) {
+                    this.tdocField = value;
+                    this.RaisePropertyChanged("tdoc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int tipoComp {
+            get {
+                return this.tipoCompField;
+            }
+            set {
+                if ((this.tipoCompField.Equals(value) != true)) {
+                    this.tipoCompField = value;
+                    this.RaisePropertyChanged("tipoComp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double total {
+            get {
+                return this.totalField;
+            }
+            set {
+                if ((this.totalField.Equals(value) != true)) {
+                    this.totalField = value;
+                    this.RaisePropertyChanged("total");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DTOSolicitud", Namespace="http://schemas.datacontract.org/2004/07/WcfFactElect")]
     [System.SerializableAttribute()]
     public partial class DTOSolicitud : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1154,15 +1439,185 @@ namespace Desktop.FEAfip {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DTOConsultaObligadoSolicitud", Namespace="http://schemas.datacontract.org/2004/07/WcfFactElect")]
+    [System.SerializableAttribute()]
+    public partial class DTOConsultaObligadoSolicitud : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CuitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaEmisionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Cuit {
+            get {
+                return this.CuitField;
+            }
+            set {
+                if ((this.CuitField.Equals(value) != true)) {
+                    this.CuitField = value;
+                    this.RaisePropertyChanged("Cuit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaEmision {
+            get {
+                return this.FechaEmisionField;
+            }
+            set {
+                if ((this.FechaEmisionField.Equals(value) != true)) {
+                    this.FechaEmisionField = value;
+                    this.RaisePropertyChanged("FechaEmision");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DTOConsultaObligadoRespuesta", Namespace="http://schemas.datacontract.org/2004/07/WcfFactElect")]
+    [System.SerializableAttribute()]
+    public partial class DTOConsultaObligadoRespuesta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Desktop.FEAfip.DTOErrorSolicitud[] ErrorSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Desktop.FEAfip.DTOEventoSolicitud[] EventoSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoDesdeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ObligadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Desktop.FEAfip.DTOObservSolicitud[] ObservacionSolicitudField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Desktop.FEAfip.DTOErrorSolicitud[] ErrorSolicitud {
+            get {
+                return this.ErrorSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ErrorSolicitudField, value) != true)) {
+                    this.ErrorSolicitudField = value;
+                    this.RaisePropertyChanged("ErrorSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Desktop.FEAfip.DTOEventoSolicitud[] EventoSolicitud {
+            get {
+                return this.EventoSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EventoSolicitudField, value) != true)) {
+                    this.EventoSolicitudField = value;
+                    this.RaisePropertyChanged("EventoSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoDesde {
+            get {
+                return this.MontoDesdeField;
+            }
+            set {
+                if ((this.MontoDesdeField.Equals(value) != true)) {
+                    this.MontoDesdeField = value;
+                    this.RaisePropertyChanged("MontoDesde");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Obligado {
+            get {
+                return this.ObligadoField;
+            }
+            set {
+                if ((this.ObligadoField.Equals(value) != true)) {
+                    this.ObligadoField = value;
+                    this.RaisePropertyChanged("Obligado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Desktop.FEAfip.DTOObservSolicitud[] ObservacionSolicitud {
+            get {
+                return this.ObservacionSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ObservacionSolicitudField, value) != true)) {
+                    this.ObservacionSolicitudField = value;
+                    this.RaisePropertyChanged("ObservacionSolicitud");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FEAfip.IServicioCAE")]
     public interface IServicioCAE {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/solicitar", ReplyAction="http://tempuri.org/IServicioCAE/solicitarResponse")]
-        Desktop.FEAfip.DTOSolicitud solicitar(int tipoComp, int pv, int concepto, int tdoc, long ndoc, long comp, string fecha, double total, double neto, double iva, string mon, double cotiz, double[][] arrayIva, long[][] compAsociados);
+        Desktop.FEAfip.DTOSolicitud solicitar(Desktop.FEAfip.SolicitudRequest solicitudReq);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/solicitar", ReplyAction="http://tempuri.org/IServicioCAE/solicitarResponse")]
-        System.Threading.Tasks.Task<Desktop.FEAfip.DTOSolicitud> solicitarAsync(int tipoComp, int pv, int concepto, int tdoc, long ndoc, long comp, string fecha, double total, double neto, double iva, string mon, double cotiz, double[][] arrayIva, long[][] compAsociados);
+        System.Threading.Tasks.Task<Desktop.FEAfip.DTOSolicitud> solicitarAsync(Desktop.FEAfip.SolicitudRequest solicitudReq);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/obtenerUltimaSolicitudConError", ReplyAction="http://tempuri.org/IServicioCAE/obtenerUltimaSolicitudConErrorResponse")]
         Desktop.FEAfip.DTOSolicitud obtenerUltimaSolicitudConError(int tipoComp, int ptoVta, long nroComp);
@@ -1193,6 +1648,18 @@ namespace Desktop.FEAfip {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadas", ReplyAction="http://tempuri.org/IServicioCAE/ObtenerMonHabilitadasResponse")]
         System.Threading.Tasks.Task<string[][]> ObtenerMonHabilitadasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado", ReplyAction="http://tempuri.org/IServicioCAE/ConsultarSujetoObligadoResponse")]
+        Desktop.FEAfip.DTOConsultaObligadoRespuesta ConsultarSujetoObligado(Desktop.FEAfip.DTOConsultaObligadoSolicitud consultaObligadoSolicitud);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/ConsultarSujetoObligado", ReplyAction="http://tempuri.org/IServicioCAE/ConsultarSujetoObligadoResponse")]
+        System.Threading.Tasks.Task<Desktop.FEAfip.DTOConsultaObligadoRespuesta> ConsultarSujetoObligadoAsync(Desktop.FEAfip.DTOConsultaObligadoSolicitud consultaObligadoSolicitud);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/OpcionalTest", ReplyAction="http://tempuri.org/IServicioCAE/OpcionalTestResponse")]
+        void OpcionalTest();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCAE/OpcionalTest", ReplyAction="http://tempuri.org/IServicioCAE/OpcionalTestResponse")]
+        System.Threading.Tasks.Task OpcionalTestAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1222,12 +1689,12 @@ namespace Desktop.FEAfip {
                 base(binding, remoteAddress) {
         }
         
-        public Desktop.FEAfip.DTOSolicitud solicitar(int tipoComp, int pv, int concepto, int tdoc, long ndoc, long comp, string fecha, double total, double neto, double iva, string mon, double cotiz, double[][] arrayIva, long[][] compAsociados) {
-            return base.Channel.solicitar(tipoComp, pv, concepto, tdoc, ndoc, comp, fecha, total, neto, iva, mon, cotiz, arrayIva, compAsociados);
+        public Desktop.FEAfip.DTOSolicitud solicitar(Desktop.FEAfip.SolicitudRequest solicitudReq) {
+            return base.Channel.solicitar(solicitudReq);
         }
         
-        public System.Threading.Tasks.Task<Desktop.FEAfip.DTOSolicitud> solicitarAsync(int tipoComp, int pv, int concepto, int tdoc, long ndoc, long comp, string fecha, double total, double neto, double iva, string mon, double cotiz, double[][] arrayIva, long[][] compAsociados) {
-            return base.Channel.solicitarAsync(tipoComp, pv, concepto, tdoc, ndoc, comp, fecha, total, neto, iva, mon, cotiz, arrayIva, compAsociados);
+        public System.Threading.Tasks.Task<Desktop.FEAfip.DTOSolicitud> solicitarAsync(Desktop.FEAfip.SolicitudRequest solicitudReq) {
+            return base.Channel.solicitarAsync(solicitudReq);
         }
         
         public Desktop.FEAfip.DTOSolicitud obtenerUltimaSolicitudConError(int tipoComp, int ptoVta, long nroComp) {
@@ -1268,6 +1735,22 @@ namespace Desktop.FEAfip {
         
         public System.Threading.Tasks.Task<string[][]> ObtenerMonHabilitadasAsync() {
             return base.Channel.ObtenerMonHabilitadasAsync();
+        }
+        
+        public Desktop.FEAfip.DTOConsultaObligadoRespuesta ConsultarSujetoObligado(Desktop.FEAfip.DTOConsultaObligadoSolicitud consultaObligadoSolicitud) {
+            return base.Channel.ConsultarSujetoObligado(consultaObligadoSolicitud);
+        }
+        
+        public System.Threading.Tasks.Task<Desktop.FEAfip.DTOConsultaObligadoRespuesta> ConsultarSujetoObligadoAsync(Desktop.FEAfip.DTOConsultaObligadoSolicitud consultaObligadoSolicitud) {
+            return base.Channel.ConsultarSujetoObligadoAsync(consultaObligadoSolicitud);
+        }
+        
+        public void OpcionalTest() {
+            base.Channel.OpcionalTest();
+        }
+        
+        public System.Threading.Tasks.Task OpcionalTestAsync() {
+            return base.Channel.OpcionalTestAsync();
         }
     }
 }

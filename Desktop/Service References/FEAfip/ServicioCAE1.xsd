@@ -1,145 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfFactElect" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfFactElect" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="DTOSolicitud">
+<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfArrayOfdouble">
     <xs:sequence>
-      <xs:element minOccurs="0" name="ErrorSolicitud" nillable="true" type="tns:ArrayOfDTOErrorSolicitud" />
-      <xs:element minOccurs="0" name="EventoSolicitud" nillable="true" type="tns:ArrayOfDTOEventoSolicitud" />
-      <xs:element minOccurs="0" name="FecSolicitud" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FecVtoCAE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ObservacionSolicitud" nillable="true" type="tns:ArrayOfDTOObservSolicitud" />
-      <xs:element minOccurs="0" name="Ticket" nillable="true" type="tns:Ticket" />
-      <xs:element minOccurs="0" name="cae" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="idTicket" type="xs:long" />
-      <xs:element minOccurs="0" name="nroComp" type="xs:long" />
-      <xs:element minOccurs="0" name="puntoVenta" type="xs:int" />
-      <xs:element minOccurs="0" name="respuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="tipoComp" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfdouble" nillable="true" type="tns:ArrayOfdouble" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="DTOSolicitud" nillable="true" type="tns:DTOSolicitud" />
-  <xs:complexType name="ArrayOfDTOErrorSolicitud">
+  <xs:element name="ArrayOfArrayOfdouble" nillable="true" type="tns:ArrayOfArrayOfdouble" />
+  <xs:complexType name="ArrayOfdouble">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="DTOErrorSolicitud" nillable="true" type="tns:DTOErrorSolicitud" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="double" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfDTOErrorSolicitud" nillable="true" type="tns:ArrayOfDTOErrorSolicitud" />
-  <xs:complexType name="DTOErrorSolicitud">
+  <xs:element name="ArrayOfdouble" nillable="true" type="tns:ArrayOfdouble" />
+  <xs:complexType name="ArrayOfArrayOfstring">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodError" type="xs:int" />
-      <xs:element minOccurs="0" name="DescError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="DTOErrorSolicitud" nillable="true" type="tns:DTOErrorSolicitud" />
-  <xs:complexType name="ArrayOfDTOEventoSolicitud">
+  <xs:element name="ArrayOfArrayOfstring" nillable="true" type="tns:ArrayOfArrayOfstring" />
+  <xs:complexType name="ArrayOfstring">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="DTOEventoSolicitud" nillable="true" type="tns:DTOEventoSolicitud" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfDTOEventoSolicitud" nillable="true" type="tns:ArrayOfDTOEventoSolicitud" />
-  <xs:complexType name="DTOEventoSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodEvent" type="xs:int" />
-      <xs:element minOccurs="0" name="DescEvent" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DTOEventoSolicitud" nillable="true" type="tns:DTOEventoSolicitud" />
-  <xs:complexType name="ArrayOfDTOObservSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="DTOObservSolicitud" nillable="true" type="tns:DTOObservSolicitud" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfDTOObservSolicitud" nillable="true" type="tns:ArrayOfDTOObservSolicitud" />
-  <xs:complexType name="DTOObservSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodObserv" type="xs:int" />
-      <xs:element minOccurs="0" name="DescObserv" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DTOObservSolicitud" nillable="true" type="tns:DTOObservSolicitud" />
-  <xs:complexType name="Ticket">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Solicitud" nillable="true" type="tns:ArrayOfSolicitud" />
-      <xs:element minOccurs="0" name="cuit" type="xs:long" />
-      <xs:element minOccurs="0" name="expirationTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="generationTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="service" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="sign" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Ticket" nillable="true" type="tns:Ticket" />
-  <xs:complexType name="ArrayOfSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Solicitud" nillable="true" type="tns:Solicitud" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfSolicitud" nillable="true" type="tns:ArrayOfSolicitud" />
-  <xs:complexType name="Solicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ErrorSolicitud" nillable="true" type="tns:ArrayOfErrorSolicitud" />
-      <xs:element minOccurs="0" name="EventoSolicitud" nillable="true" type="tns:ArrayOfEventoSolicitud" />
-      <xs:element minOccurs="0" name="FecSolicitud" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FecVtoCAE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ObservacionSolicitud" nillable="true" type="tns:ArrayOfObservacionSolicitud" />
-      <xs:element minOccurs="0" name="Ticket" nillable="true" type="tns:Ticket" />
-      <xs:element minOccurs="0" name="cae" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="idTicket" type="xs:long" />
-      <xs:element minOccurs="0" name="nroComp" type="xs:long" />
-      <xs:element minOccurs="0" name="puntoVenta" type="xs:int" />
-      <xs:element minOccurs="0" name="respuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="tipoComp" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Solicitud" nillable="true" type="tns:Solicitud" />
-  <xs:complexType name="ArrayOfErrorSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorSolicitud" nillable="true" type="tns:ErrorSolicitud" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfErrorSolicitud" nillable="true" type="tns:ArrayOfErrorSolicitud" />
-  <xs:complexType name="ErrorSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodError" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="DescError" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="Solicitud" nillable="true" type="tns:Solicitud" />
-      <xs:element minOccurs="0" name="idSolicitud" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ErrorSolicitud" nillable="true" type="tns:ErrorSolicitud" />
-  <xs:complexType name="ArrayOfEventoSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="EventoSolicitud" nillable="true" type="tns:EventoSolicitud" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfEventoSolicitud" nillable="true" type="tns:ArrayOfEventoSolicitud" />
-  <xs:complexType name="EventoSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodEvent" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="DescEvent" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Solicitud" nillable="true" type="tns:Solicitud" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="idSolicitud" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="EventoSolicitud" nillable="true" type="tns:EventoSolicitud" />
-  <xs:complexType name="ArrayOfObservacionSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ObservacionSolicitud" nillable="true" type="tns:ObservacionSolicitud" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfObservacionSolicitud" nillable="true" type="tns:ArrayOfObservacionSolicitud" />
-  <xs:complexType name="ObservacionSolicitud">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodObserv" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="DescObserv" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="Solicitud" nillable="true" type="tns:Solicitud" />
-      <xs:element minOccurs="0" name="idSolicitud" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ObservacionSolicitud" nillable="true" type="tns:ObservacionSolicitud" />
+  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
 </xs:schema>

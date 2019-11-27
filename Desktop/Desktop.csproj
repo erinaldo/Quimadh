@@ -546,6 +546,9 @@
     <None Include="Reportes\LotesCerrados.rdl" />
     <None Include="Reportes\ReporteFacturacion.rdl" />
     <None Include="Reportes\ReporteRemitos.rdl" />
+    <None Include="Service References\FEAfip\Desktop.FEAfip.DTOConsultaObligadoRespuesta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\FEAfip\Desktop.FEAfip.DTOSolicitud.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
