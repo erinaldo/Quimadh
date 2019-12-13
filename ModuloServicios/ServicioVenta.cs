@@ -430,9 +430,12 @@ namespace ModuloServicios
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
 
-            bm.Save(directorio + "/" + factura.pv.ToString() + "-" + factura.numero.ToString() + "-" + factura.tipo + ".png");
+            var pathImg = $"{directorio}/{factura.pv}-{factura.numero}-{factura.tipo}{sufijo}.png";
+            bm.Save(pathImg);
             
             graf.Dispose();
+
+            GenerarPDF(pathImg);
 
             if (factura.pv == 3)
             {
@@ -453,6 +456,29 @@ namespace ModuloServicios
                 };
                 pd.PrinterSettings.PrinterName = paramImpresora.valor;
                 pd.Print();
+            }
+        }
+
+        private void GenerarPDF(string pathImg)
+        {
+            iTextSharp.text.Rectangle pageSize = null;
+            using (var srcImage = new Bitmap(pathImg))
+            {
+                pageSize = new iTextSharp.text.Rectangle(0, 0, srcImage.Width, srcImage.Height);
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                var document = new iTextSharp.text.Document(pageSize, 0, 0, 0, 0);
+                iTextSharp.text.pdf.PdfWriter.GetInstance(document, ms).SetFullCompression();
+                document.Open();
+                var image = iTextSharp.text.Image.GetInstance(pathImg);
+                document.Add(image);
+                document.Close();
+
+                var pathPDF = pathImg.Replace(".png", ".pdf");
+                File.WriteAllBytes(pathPDF, ms.ToArray());
+                File.Delete(pathImg);
             }
         }
 
@@ -1413,8 +1439,12 @@ namespace ModuloServicios
             string directorio = paramCarpeta.valor + "/Notas Credito";
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
-            bm.Save(directorio + "/" + nota.pv.ToString() + "-" + nota.numero.ToString() + "-" + nota.tipo + ".png");
+
+            var pathImg = $"{directorio}/{nota.pv}-{nota.numero}-{nota.tipo}{sufijo}.png";
+            bm.Save(pathImg);
             graf.Dispose();
+
+            GenerarPDF(pathImg);
 
             if (nota.pv == 3)
             {
@@ -1508,8 +1538,12 @@ namespace ModuloServicios
             string directorio = paramCarpeta.valor + "/Notas Debito";
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
-            bm.Save(directorio + "/" + nota.pv.ToString() + "-" + nota.numero.ToString() + "-"+ nota.tipo + ".png");
+
+            var pathImg = $"{directorio}/{nota.pv}-{nota.numero}-{nota.tipo}{sufijo}.png";
+            bm.Save(pathImg);
             graf.Dispose();
+
+            GenerarPDF(pathImg);
 
             if (nota.pv == 3)
             {
