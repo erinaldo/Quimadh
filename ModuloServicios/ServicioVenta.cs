@@ -243,11 +243,6 @@ namespace ModuloServicios
 
             pd.PrintPage += delegate(object sender, PrintPageEventArgs e)
             {
-
-                //Image imagen = Image.FromFile("C:/Users/marianoPC/Desktop/quimadh/Sistema/1 - Investigación Preliminar/Información del Cliente/Comprobantes/Factura1.jpg");
-                //e.Graphics.DrawImage(imagen, 45, 45);
-                //e.Graphics.DrawString(factura.numero.ToString("00000000"), printFontG, printSolid, new RectangleF(x + 606, y + 87, 500, 500));               
-                
                 e.Graphics.DrawString(fecha, printFont, printSolid, new Rectangle(x + 640, y + 136, 200, 200));
                 e.Graphics.DrawString(factura.Planta.Cliente.razonSocial, printFont, printSolid, new Rectangle(x + 130, y + 225, 500, 500));
                 e.Graphics.DrawString(factura.Planta.Cliente.direccion, printFont, printSolid, new Rectangle(x + 500, y + 225, 500, 500));
@@ -411,8 +406,10 @@ namespace ModuloServicios
             
             if (factura.pv == 3 && !string.IsNullOrEmpty(factura.cae))
             {
-                string codigoAfip = factura.tipo == "A" ? "01" : "06";
-                string codBarras = "30678363673" + codigoAfip + factura.pv.ToString("0000") + factura.cae + ((DateTime)factura.fecVtoCae).ToString("yyyyMMdd");
+                var prefijo = factura.CE_MiPyme ? "2" : "0";
+
+                string codigoAfip = factura.tipo == "A" ? $"{prefijo}01" : $"{prefijo}06";
+                string codBarras = "30678363673" + codigoAfip + factura.pv.ToString("00000") + factura.cae + ((DateTime)factura.fecVtoCae).ToString("yyyyMMdd");
                 string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
                 codBarras = CodificarI2Of5(codBarrasSinCod);
 
@@ -488,7 +485,7 @@ namespace ModuloServicios
             System.Drawing.SizeF barcodeSize;
             System.IO.MemoryStream ms;
 
-            using (System.Drawing.Font font = new System.Drawing.Font(new System.Drawing.FontFamily(fontName), 80))
+            using (System.Drawing.Font font = new System.Drawing.Font(new System.Drawing.FontFamily(fontName), 70))
             {
                 using (System.Drawing.Bitmap tmpBitmap = new System.Drawing.Bitmap(1, 1, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
                 {
@@ -537,7 +534,7 @@ namespace ModuloServicios
                 checksum = checksum + System.Int32.Parse(codigo.Substring(i, 1));
                 i = i - 2;
             }
-            //System.Diagnostics.Debug.Write((10 - (checksum % 10)) % 10);
+
             codigo = codigo + ((10 - (checksum % 10)) % 10);
 
             return codigo;
@@ -592,7 +589,6 @@ namespace ModuloServicios
 
         public decimal ConviertePrecio(decimal importe, Moneda monedaVenta, Moneda monedaAConvertir)
         {
-            //decimal dolar = Math.Round(obtenerCotizacionDolar(),2);
             decimal cotizOrigen = Math.Round(obtenerCotizacionMoneda(monedaVenta.id), 2);
             decimal cotizDestino = Math.Round(obtenerCotizacionMoneda(monedaAConvertir.id), 2);
             importe = Math.Round(importe, 2);
@@ -1420,8 +1416,9 @@ namespace ModuloServicios
             {
                 Font printFontCBNro = new Font("Arial", 15);
 
-                string codigoAfip = nota.tipo == "A" ? "03" : "08";
-                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("0000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
+                var prefijo = nota.CE_MiPyme ? "2" : "0";
+                string codigoAfip = nota.tipo == "A" ? $"{prefijo}03" : $"{prefijo}08";
+                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("00000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
                 string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
                 codBarras = CodificarI2Of5(codBarrasSinCod);
 
@@ -1519,8 +1516,9 @@ namespace ModuloServicios
             {
                 Font printFontCBNro = new Font("Arial", 15);
 
-                string codigoAfip = nota.tipo == "A" ? "02" : "07";
-                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("0000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
+                var prefijo = nota.CE_MiPyme ? "2" : "0";
+                string codigoAfip = nota.tipo == "A" ? $"{prefijo}02" : $"{prefijo}07";
+                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("00000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
                 string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
                 codBarras = CodificarI2Of5(codBarrasSinCod);
 

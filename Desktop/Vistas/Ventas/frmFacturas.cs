@@ -20,7 +20,9 @@ namespace Desktop.Vistas.Ventas
 
         private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
         private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
-        private bool esMiPyme => SujetoObligado && factura.importe >= MontoObligado;
+        private Moneda MonedaFCE => Global.Servicio.obtenerMoneda(0);
+        //private bool esMiPyme => SujetoObligado && factura.importe >= MontoObligado;
+        private bool esMiPyme => SujetoObligado && Global.Servicio.ConviertePrecio(factura.importe, factura.Moneda, MonedaFCE) >= MontoObligado;
         private int tipoAfipA => esMiPyme ? 201 : 1;
         private int tipoAfipB => esMiPyme ? 206 : 6;
 
@@ -497,7 +499,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     //si es sujeto obligado tengo que ir analizando que nro de comprobante va dependiendo del total
                     long nroFact;
-                    if (total >= MontoObligado)
+                    if (Global.Servicio.ConviertePrecio(total, (Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value, MonedaFCE) >= MontoObligado)
                     {
                         nroFact = obtenerNroFactura(true, nroFacturaMiPyme > 0);
                         nroFacturaMiPyme = nroFact;
