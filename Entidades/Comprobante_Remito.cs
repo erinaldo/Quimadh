@@ -28,6 +28,7 @@ namespace Entidades
         public Nullable<int> idUnidad { get; set; }
         public string tipo { get; set; }
         public int idMoneda { get; set; }
+        public bool facturable { get; set; }
     
         public virtual Moneda Moneda { get; set; }
         public virtual Unidad Unidad { get; set; }

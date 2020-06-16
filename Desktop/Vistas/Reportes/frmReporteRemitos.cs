@@ -38,8 +38,8 @@ namespace Desktop.Vistas.Reportes
 
         protected void cargar()
         {
-            this.fechaDesde = dtpFechaDesde.Value; 
-            this.fechaHasta = dtpFechaHasta.Value;
+            fechaDesde = dtpFechaDesde.Value; 
+            fechaHasta = dtpFechaHasta.Value;
 
             //Comienzo carga de reporte
             LocalReport Reporte = new LocalReport();
@@ -54,6 +54,10 @@ namespace Desktop.Vistas.Reportes
             Parametros.Add("fd", fechaDesde.ToString("yyyyMMdd"));
             Parametros.Add("fh", fechaHasta.ToString("yyyyMMdd"));
             Parametros.Add("idCli", idCliente.ToString());
+            Parametros.Add("noFacturables", chkNF.Checked);
+            Parametros.Add("pendientes", chkPend.Checked);
+            Parametros.Add("parciales", chkPF.Checked);
+            Parametros.Add("facturados", chkTF.Checked);
 
             DataSet dataSet = obtenerDataSet("ReporteRemitos");
             ReportDataSource origenDatos = new ReportDataSource("DataSet1", dataSet.Tables[0]);
@@ -62,6 +66,10 @@ namespace Desktop.Vistas.Reportes
             paramsReporte.Add(new ReportParameter("fd", fechaDesde.ToShortDateString()));
             paramsReporte.Add(new ReportParameter("fh", fechaHasta.ToShortDateString()));
             paramsReporte.Add(new ReportParameter("idCli", idCliente.ToString()));
+            paramsReporte.Add(new ReportParameter("noFacturables", chkNF.Checked.ToString()));
+            paramsReporte.Add(new ReportParameter("pendientes", chkPend.Checked.ToString()));
+            paramsReporte.Add(new ReportParameter("parciales", chkPF.Checked.ToString()));
+            paramsReporte.Add(new ReportParameter("facturados", chkTF.Checked.ToString()));
 
             Reporte.DataSources.Add(origenDatos);
             Reporte.SetParameters(paramsReporte);
