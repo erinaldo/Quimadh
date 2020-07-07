@@ -639,7 +639,7 @@ namespace ModuloServicios
 
         #region "Precios - Articulo Planta"         
 
-        public List<ArticuloPlantaHistorico> buscarArticulosPlantaHistorico(TipoArticulo tipoArticulo, Planta planta, decimal precio, string codigo, int numeroRegistros)
+        public List<ArticuloPlantaHistorico> BuscarArticulosPlantaHistorico(TipoArticulo tipoArticulo, Planta planta, decimal precio, string codigo, bool incluirEliminados, int numeroRegistros)
         {
             IQueryable<ArticuloPlantaHistorico> query = _contexto.ArticuloPlantaHistorico.Include("ArticuloPlanta").Include("ArticuloPlanta.Planta").Include("ArticuloPlanta.TipoArticulo").Include("ArticuloPlanta.Moneda");
 
@@ -652,23 +652,26 @@ namespace ModuloServicios
             if (precio != 0)
                 query = query.Where(a => a.precio == precio);
 
-            if (!String.IsNullOrWhiteSpace(codigo))
+            if (!string.IsNullOrWhiteSpace(codigo))
                 query = query.Where(a => (a.ArticuloPlanta.Planta.codigo + a.ArticuloPlanta.contador.ToString()).Contains(codigo));
+
+            if (!incluirEliminados)
+                query = query.Where(a => a.ArticuloPlanta.eliminado == null);
 
             return query.Take(numeroRegistros).ToList();
         }
 
-        public int obtenerProximoNumero(long idPlanta)
+        public int ObtenerProximoNumero(long idPlanta)
         {
             return _contexto.ArticuloPlanta.Where(ap => ap.idPlanta == idPlanta).Any() ?  _contexto.ArticuloPlanta.Where(ap => ap.idPlanta == idPlanta).Max(ap => ap.contador)+ 1: 1;
         }
 
-        public List<ArticuloPlanta> obtenerTodosArticulosPlanta(int numeroRegistros)
+        public List<ArticuloPlanta> ObtenerTodosArticulosPlanta(int numeroRegistros)
         {
             return _contexto.ArticuloPlanta.Include("TipoArticulo").Include("Planta").Take(numeroRegistros).ToList();
         }
 
-        public List<ArticuloPlanta> buscarArticulosPlanta(TipoArticulo tipoArticulo, Cliente cliente, Planta planta, decimal precio, string codigo, int numeroRegistros)
+        public List<ArticuloPlanta> BuscarArticulosPlanta(TipoArticulo tipoArticulo, Cliente cliente, Planta planta, decimal precio, string codigo, bool incluirEliminados, int numeroRegistros)
         {
             IQueryable<ArticuloPlanta> query = _contexto.ArticuloPlanta.Include("TipoArticulo").Include("Planta");
 
@@ -684,13 +687,16 @@ namespace ModuloServicios
             if (precio != 0)
                 query = query.Where(a => a.precio == precio);
 
-            if(!String.IsNullOrWhiteSpace(codigo))
+            if(!string.IsNullOrWhiteSpace(codigo))
                 query = query.Where(a => (a.Planta.codigo + a.contador.ToString()).Contains(codigo));
+
+            if (!incluirEliminados)
+                query = query.Where(a => a.eliminado == null);
 
             return query.Take(numeroRegistros).ToList();
         }
 
-        public ArticuloPlanta agregarArticuloPlanta(ArticuloPlanta articuloPlanta, Metadata metadata)
+        public ArticuloPlanta AgregarArticuloPlanta(ArticuloPlanta articuloPlanta, Metadata metadata)
         {
             ArticuloPlanta articuloGuardado = null;
 
@@ -698,7 +704,7 @@ namespace ModuloServicios
             {
                 ValidarArticuloPlanta(articuloPlanta);
 
-                articuloPlanta.contador = obtenerProximoNumero(articuloPlanta.idPlanta);
+                articuloPlanta.contador = ObtenerProximoNumero(articuloPlanta.idPlanta);
 
                 articuloGuardado = _contexto.ArticuloPlanta.Add(articuloPlanta);
                 _contexto.SaveChanges();
@@ -711,7 +717,7 @@ namespace ModuloServicios
             return articuloGuardado;
         }
 
-        public ArticuloPlanta actualizarArticuloPlanta(ArticuloPlanta articuloPlanta, ArticuloPlantaHistorico aph, Metadata metadata)
+        public ArticuloPlanta ActualizarArticuloPlanta(ArticuloPlanta articuloPlanta, ArticuloPlantaHistorico aph, Metadata metadata)
         {
             ArticuloPlanta articuloGuardado = null;
             //ArticuloPlanta articuloBase = null;
@@ -737,18 +743,31 @@ namespace ModuloServicios
             return articuloGuardado;
         }
 
-        public ArticuloPlanta eliminarArticuloPlanta(ArticuloPlanta articuloPlanta, Metadata metadata)
+        public ArticuloPlanta EliminarArticuloPlanta(ArticuloPlanta articuloPlanta, Metadata metadata)
         {
             ArticuloPlanta articuloGuardado = null;
 
             using (TransactionScope scope = new TransactionScope())
             {
-                ValidarArticuloPlanta(articuloPlanta, Acciones.Log.BAJA);
-
-                _contexto.ArticuloPlanta.Remove(articuloPlanta);
+                articuloPlanta.eliminado = DateTime.Now;                
                 _contexto.SaveChanges();
 
                 GenerarLog<ArticuloPlanta>(articuloPlanta, Acciones.Log.MODIFICACION, metadata);
+
+                scope.Complete();
+            }
+
+            return articuloGuardado;
+        }
+
+        public ArticuloPlanta RestaurarArticuloPlanta(ArticuloPlanta articuloPlanta)
+        {
+            ArticuloPlanta articuloGuardado = null;
+
+            using (TransactionScope scope = new TransactionScope())
+            {
+                articuloPlanta.eliminado = null;
+                _contexto.SaveChanges();
 
                 scope.Complete();
             }
@@ -761,16 +780,16 @@ namespace ModuloServicios
             string mensaje = "";
             bool existe;
 
-            if(articuloPlanta.idPlanta == null)
+            if(articuloPlanta.idPlanta <= 0)
                 mensaje += "La planta es obligatoria." + Environment.NewLine;
 
-            if(articuloPlanta.idArticulo == null)
+            if(articuloPlanta.idArticulo <= 0)
                 mensaje += "El artículo es obligatorio." + Environment.NewLine;
                 
             if(articuloPlanta.precio == 0)
                 mensaje += "El precio debe ser distinto de cero." + Environment.NewLine;
 
-            if(articuloPlanta.idMoneda == null)
+            if(articuloPlanta.idMoneda < 0)
                 mensaje += "La moneda es obligatoria." + Environment.NewLine;
 
             if (mensaje != "")
@@ -785,11 +804,6 @@ namespace ModuloServicios
             if (!existe && accion == Acciones.Log.BAJA)
                 mensaje += "El precio del artículo para la planta no existe." + Environment.NewLine;
 
-            if (accion == Acciones.Log.BAJA)
-            {
-                mensaje += _contexto.ArticuloPlanta.Where(ap => ap.idArticulo == articuloPlanta.idArticulo && ap.idPlanta == articuloPlanta.idPlanta).Any() ? mensaje + "No es posible eliminar el artículo. El mismo posee plantas asociadas." + Environment.NewLine : mensaje;
-            }
-
             existe = (from u in _contexto.Moneda
                       where u.id == articuloPlanta.idMoneda
                       select u).Any();
@@ -801,17 +815,17 @@ namespace ModuloServicios
                 throw new ExcepcionValidacion(mensaje);
         }
 
-        public ArticuloPlanta buscarUnArticuloPlanta(string nombre)
+        public ArticuloPlanta BuscarUnArticuloPlanta(string nombre)
         {
-            IQueryable<ArticuloPlanta> query = _contexto.ArticuloPlanta.Where(ap => ap.Planta.codigo.Trim() + ap.contador.ToString().Trim() == nombre);
+            IQueryable<ArticuloPlanta> query = _contexto.ArticuloPlanta.Where(ap => ap.Planta.codigo.Trim() + ap.contador.ToString().Trim() == nombre && ap.eliminado == null);
             if (query.Count() == 0)
                 return null;
             return query.First();
         }
 
-        public ArticuloPlanta buscarUnArticuloPlantaXDesc(Planta planta,string descrip)
+        public ArticuloPlanta BuscarUnArticuloPlantaXDesc(Planta planta,string descrip)
         {
-            IQueryable<ArticuloPlanta> query = _contexto.ArticuloPlanta.Where(ap => ap.TipoArticulo.nombre == descrip);
+            IQueryable<ArticuloPlanta> query = _contexto.ArticuloPlanta.Where(ap => ap.TipoArticulo.nombre == descrip && ap.eliminado == null);
             query = query.Where(ap => ap.Planta.id == planta.id);
             if (query.Count() == 0)
                 return null;

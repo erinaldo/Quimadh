@@ -489,7 +489,7 @@ namespace Desktop
             IEnumerable<ArticuloPlanta> plantas = new List<ArticuloPlanta>();
             AutoCompleteStringCollection codArticulos = new AutoCompleteStringCollection();
 
-            plantas = planta.ArticuloPlanta;
+            plantas = planta.ArticuloPlanta.Where(x => x.eliminado == null);
 
             foreach (ArticuloPlanta artPla in plantas)
             {
@@ -505,7 +505,7 @@ namespace Desktop
             IEnumerable<ArticuloPlanta> plantas = new List<ArticuloPlanta>();
             AutoCompleteStringCollection descArticulos = new AutoCompleteStringCollection();
 
-            plantas = planta.ArticuloPlanta;
+            plantas = planta.ArticuloPlanta.Where(x => x.eliminado == null);
 
             foreach (ArticuloPlanta artPla in plantas)
             {

@@ -2,12 +2,6 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop.Vistas.Administracion
@@ -55,12 +49,13 @@ namespace Desktop.Vistas.Administracion
                 decimal.TryParse(txtPrecioInicial.Text, out precioInicial);
 
                 // Obtenemos el resultado
-                List<ArticuloPlanta> resultado = Global.Servicio.buscarArticulosPlanta(tipoArticulo, cliente, planta, precioInicial, codigo, numeroRegistros);
+                List<ArticuloPlanta> resultado = Global.Servicio.BuscarArticulosPlanta(tipoArticulo, cliente, planta, precioInicial, codigo, chkMostraEliminados.Checked, numeroRegistros);
 
                 // Listamos los artículos
                 foreach (ArticuloPlanta articulo in resultado)
                 {
-                    string[] datos = new string[] { articulo.Planta.codigo + articulo.contador.ToString(), articulo.Planta.nombre, articulo.TipoArticulo.nombre, articulo.Moneda.nombre, articulo.precio.ToString(), articulo.fechaCambio.ToShortDateString() };
+                    string[] datos = new string[] { articulo.Planta.codigo + articulo.contador.ToString(), articulo.Planta.nombre, articulo.TipoArticulo.nombre,
+                        articulo.Moneda.nombre, articulo.precio.ToString(), articulo.fechaCambio.ToShortDateString(), articulo.eliminado.HasValue ? "SI" : "NO" };
                     ListViewItem item = new ListViewItem(datos);
                     item.Tag = articulo;
                     ltvBusqueda.Items.Add(item);
@@ -69,12 +64,13 @@ namespace Desktop.Vistas.Administracion
                 if (chkMostrarHistorico.Checked && numeroRegistros - resultado.Count > 0)
                 {
                     // Obtenemos el resultado
-                    List<ArticuloPlantaHistorico> result = Global.Servicio.buscarArticulosPlantaHistorico(tipoArticulo, planta, precioInicial, codigo, numeroRegistros - resultado.Count);
+                    List<ArticuloPlantaHistorico> result = Global.Servicio.BuscarArticulosPlantaHistorico(tipoArticulo, planta, precioInicial, codigo, chkMostraEliminados.Checked, numeroRegistros - resultado.Count);
 
                     // Listamos los artículos
                     foreach (ArticuloPlantaHistorico articulo in result)
                     {
-                        string[] datos = new string[] { articulo.ArticuloPlanta.Planta.codigo + articulo.ArticuloPlanta.contador.ToString(), articulo.ArticuloPlanta.Planta.nombre, articulo.ArticuloPlanta.TipoArticulo.nombre, articulo.ArticuloPlanta.Moneda.nombre, articulo.precio.ToString(), articulo.fechaCambio.ToShortDateString() };
+                        string[] datos = new string[] { articulo.ArticuloPlanta.Planta.codigo + articulo.ArticuloPlanta.contador.ToString(), articulo.ArticuloPlanta.Planta.nombre, articulo.ArticuloPlanta.TipoArticulo.nombre, articulo.ArticuloPlanta.Moneda.nombre,
+                            articulo.precio.ToString(), articulo.fechaCambio.ToShortDateString(), articulo.ArticuloPlanta.eliminado.HasValue ? "SI" : "NO"};
                         ListViewItem item = new ListViewItem(datos);
                         item.Tag = articulo;
                         ltvBusqueda.Items.Add(item);
@@ -106,7 +102,7 @@ namespace Desktop.Vistas.Administracion
         {
             try
             {
-                List<ArticuloPlanta> resultado = Global.Servicio.obtenerTodosArticulosPlanta(1);
+                List<ArticuloPlanta> resultado = Global.Servicio.ObtenerTodosArticulosPlanta(1);
 
                 return (resultado.Count > 0);
             }
