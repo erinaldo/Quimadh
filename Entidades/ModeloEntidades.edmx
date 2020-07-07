@@ -24,6 +24,7 @@
           <Property Name="idMoneda" Type="int" Nullable="false" />
           <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="fechaCambio" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="eliminado" Type="datetime" />
         </EntityType>
         <EntityType Name="ArticuloPlantaHistorico">
           <Key>
@@ -2843,6 +2844,7 @@
           <NavigationProperty Name="TipoArticulo" Relationship="QuimadhModel.FK_ArticuloPlanta_TipoArticulo" FromRole="ArticuloPlanta" ToRole="TipoArticulo" />
           <NavigationProperty Name="ArticuloPlantaHistorico" Relationship="QuimadhModel.FK_ArticuloPlantaHistorico_ArticuloPlanta" FromRole="ArticuloPlanta" ToRole="ArticuloPlantaHistorico" />
           <NavigationProperty Name="PreciosAdicionales" Relationship="QuimadhModel.FK_PreciosAdicionales_ArticuloPlanta" FromRole="ArticuloPlanta" ToRole="PreciosAdicionales" />
+          <Property Name="eliminado" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ArticuloPlantaHistorico">
           <Key>
@@ -3422,6 +3424,7 @@
           <EntitySetMapping Name="ArticuloPlanta">
             <EntityTypeMapping TypeName="QuimadhModel.ArticuloPlanta">
               <MappingFragment StoreEntitySet="ArticuloPlanta">
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
                 <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="idMoneda" ColumnName="idMoneda" />

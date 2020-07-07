@@ -26,6 +26,7 @@ namespace Entidades
         public int idMoneda { get; set; }
         public decimal precio { get; set; }
         public System.DateTime fechaCambio { get; set; }
+        public Nullable<System.DateTime> eliminado { get; set; }
     
         public virtual Moneda Moneda { get; set; }
         public virtual Planta Planta { get; set; }

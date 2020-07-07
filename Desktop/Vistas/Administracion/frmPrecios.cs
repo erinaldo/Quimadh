@@ -37,6 +37,8 @@ namespace Desktop.Vistas.Administracion
             
             gpbPrecios.Enabled = false;
             dgvPrecios.Enabled = false;
+
+            VistaEliminado(false);
         }
 
         protected override void agregar()
@@ -52,6 +54,8 @@ namespace Desktop.Vistas.Administracion
             Cargador.cargarPlantas(cboPlanta, "Sin especificar");
             cboPlanta.SelectedIndex = 0;
             cboCliente.Focus();
+
+            VistaEliminado(false);
         }
 
         protected override void modificar()
@@ -115,12 +119,12 @@ namespace Desktop.Vistas.Administracion
                 // Guardamos los datos del ArticuloPlanta
                 if (Estado == Estados.Agregar)
                 {
-                    ArticuloPlanta = Global.Servicio.agregarArticuloPlanta(ArticuloPlanta, Global.DatosSesion);
+                    ArticuloPlanta = Global.Servicio.AgregarArticuloPlanta(ArticuloPlanta, Global.DatosSesion);
                     cadenaMensaje = "Precio dado de Alta exitosamente.";
                 }
                 else
                 {
-                    Global.Servicio.actualizarArticuloPlanta(ArticuloPlanta, aph, Global.DatosSesion);                    
+                    Global.Servicio.ActualizarArticuloPlanta(ArticuloPlanta, aph, Global.DatosSesion);                    
                     cadenaMensaje = "Precio Modificado con éxito.";                    
                 }
                 
@@ -156,6 +160,11 @@ namespace Desktop.Vistas.Administracion
         {
             if (ArticuloPlanta != null)
             {
+                if (ArticuloPlanta.eliminado.HasValue)
+                {
+                    return Restaurar();
+                }                    
+
                 Mensaje mensajeConfirmacion = new Mensaje("El precio del artículo '" + ArticuloPlanta.TipoArticulo.nombre + "' para la planta '" + ArticuloPlanta.Planta.nombre + "' será eliminado ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
                 mensajeConfirmacion.ShowDialog();
 
@@ -165,7 +174,7 @@ namespace Desktop.Vistas.Administracion
                     {
                         Mensaje mensajeExito;
                         //se pudo eliminar ArticuloPlanta físicamente
-                        Global.Servicio.eliminarArticuloPlanta(ArticuloPlanta, Global.DatosSesion);
+                        Global.Servicio.EliminarArticuloPlanta(ArticuloPlanta, Global.DatosSesion);
                         mensajeExito = new Mensaje("El precio ha sido eliminado con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
                         mensajeExito.ShowDialog();
 
@@ -187,6 +196,34 @@ namespace Desktop.Vistas.Administracion
             return false;
         }
 
+        private bool Restaurar()
+        {
+            Mensaje mensajeConfirmacion = new Mensaje("El precio del artículo '" + ArticuloPlanta.TipoArticulo.nombre + "' para la planta '" + ArticuloPlanta.Planta.nombre + "' será restaurado ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
+            mensajeConfirmacion.ShowDialog();
+
+            if (mensajeConfirmacion.resultado == DialogResult.OK)
+            {
+                try
+                {
+                    Mensaje mensajeExito;
+                    Global.Servicio.RestaurarArticuloPlanta(ArticuloPlanta);
+                    mensajeExito = new Mensaje("El precio ha sido restaurado con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                    mensajeExito.ShowDialog();
+
+                    limpiar();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                    unMensaje.ShowDialog();                    
+                }
+            }
+
+            return false;
+        }
+
         protected override void limpiar()
         {
             if (Estado != Estados.Modificar)
@@ -194,9 +231,17 @@ namespace Desktop.Vistas.Administracion
                 // Limpia los datos del formulario
                 limpiarControles(gpbPrecios);
                 lblUltimaModificacion.Text = "Última modificación: ";
+                VistaEliminado(false);
             }
+
             gpbPrecios.Enabled = false;
-            dgvPrecios.Enabled = false;
+            dgvPrecios.Enabled = false;            
+        }
+
+        private void VistaEliminado(bool eliminado)
+        {
+            lblEliminado.Visible = eliminado;            
+            btnEliminar.Text = eliminado ? "Restaurar" : "Eliminar";
         }
 
         protected override bool cargarBusqueda()
@@ -223,6 +268,7 @@ namespace Desktop.Vistas.Administracion
                 cboArticulo.SelectedIndex = cboArticulo.FindStringExact(ArticuloPlanta.TipoArticulo.nombre);
                 txtNumero.Text = ArticuloPlanta.Planta.codigo + ArticuloPlanta.contador.ToString();
                 lblUltimaModificacion.Text = "Última modificación: " + ArticuloPlanta.fechaCambio.ToShortDateString() + " " + ArticuloPlanta.fechaCambio.ToShortTimeString();
+                VistaEliminado(ArticuloPlanta.eliminado.HasValue);                
 
                 cboMoneda_SelectedIndexChanged(null, null);
                 txtPrecioInicial_KeyUp(null, null);
@@ -288,7 +334,7 @@ namespace Desktop.Vistas.Administracion
         {
             long idPlanta = cboPlanta.SelectedItem != null && !cboPlanta.SelectedItem.ToString().Equals("Sin especificar") ? ((Planta)((ComboBoxItem)cboPlanta.SelectedItem).Value).id : -1;
             if (idPlanta != -1)
-                txtNumero.Text = Global.Servicio.obtenerProximoNumero(idPlanta).ToString();
+                txtNumero.Text = Global.Servicio.ObtenerProximoNumero(idPlanta).ToString();
             else
                 txtNumero.Text = "";
         }
@@ -365,7 +411,6 @@ namespace Desktop.Vistas.Administracion
                     dgvPrecios.EditingControl.Text = "0";
                 }
             }
-        }
-
+        }        
     }
 }
