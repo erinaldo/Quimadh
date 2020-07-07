@@ -35,10 +35,10 @@ namespace Desktop.Vistas.Ventas
             txtTotal.Text = "0";
             txtCantBultos.Text = "0";
             Cargador.cargarNombresClientes(txtRazonSocial);
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
             gpbDatosRem.Enabled = false;
             gpbDatos.Enabled = false;
             gpbTotales.Enabled = false;
+            gpbOtros.Enabled = false;
             dgvItems.Enabled = false;
             cboTipoRem.Items.Add("Aguas");
             cboTipoRem.Items.Add("Agricola");
@@ -54,14 +54,15 @@ namespace Desktop.Vistas.Ventas
             limpiarControles(gpbDatos);
             limpiarControles(gpbDatosRem);
             limpiarControles(gpbTotales);
-            cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");   
+            limpiarControles(gpbOtros);
+            cboMoneda.SelectedIndex = cboMoneda.FindStringExact("Peso");
+            cboUnidad.SelectedIndex = 0;
             dgvItems.Rows.Clear();
             gpbDatos.Enabled = true;
             gpbDatosRem.Enabled = true;
+            gpbOtros.Enabled = true;
             gpbTotales.Enabled = true;
-            //dgvItems.Enabled = true;
             txtNroRemito.Text = Global.Servicio.BuscaNroRemito().ToString();
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
         }
 
         protected override void modificar()
@@ -70,8 +71,8 @@ namespace Desktop.Vistas.Ventas
             gpbDatosRem.Enabled = true;
             gpbTotales.Enabled = true;
             dgvItems.Enabled = true;
+            gpbOtros.Enabled = true;
             txtDomicilio.Focus();
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
         }
 
         protected override bool eliminar()
@@ -117,13 +118,14 @@ namespace Desktop.Vistas.Ventas
                 limpiarControles(gpbDatos);
                 limpiarControles(gpbDatosRem);
                 limpiarControles(gpbTotales);
+                limpiarControles(gpbOtros);
                 dgvItems.Rows.Clear();
             }
             gpbDatos.Enabled = false;
             gpbDatosRem.Enabled = false;
+            gpbOtros.Enabled = false;
             gpbTotales.Enabled = false;
             dgvItems.Enabled = false;
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
         }
 
         protected override bool cargarBusqueda()
@@ -160,11 +162,12 @@ namespace Desktop.Vistas.Ventas
             txtSitIva.Text = remito.Planta.Cliente.SituacionFrenteIva.nombre;
             txtCUIT.Text = remito.Planta.Cliente.cuit;
             txtCantBultos.Text = remito.cantidadBultos.ToString();
-            cboUnidad.SelectedIndex = cboUnidad.FindStringExact(remito.Unidad.nombre);//remito.idUnidad;
+            cboUnidad.SelectedIndex = cboUnidad.FindStringExact(remito.Unidad.nombre);
             txtPeso.Text = remito.pesoTotalKg.ToString("0.00");
             cboMoneda.SelectedIndex = cboMoneda.FindStringExact(remito.Moneda.nombre);
-            txtTotal.Text = remito.importe.ToString("0.00");
-            
+            txtTotal.Text = remito.importe.ToString("0.00");            
+            chkNF.Checked = !remito.facturable;
+
             int i = 0;
             dgvItems.Rows.Clear();
             foreach (VentaArticuloPlanta itemRem in remito.VentaArticuloPlanta)
@@ -531,6 +534,7 @@ namespace Desktop.Vistas.Ventas
                     remito.ordenCompra = txtOrdenCompra.Text;
                     remito.idUnidad = ((Unidad)((ComboBoxItem)cboUnidad.SelectedItem).Value).id;
                     remito.importe = 0;
+                    remito.facturable = !chkNF.Checked;
 
                     remito.VentaArticuloPlanta.Clear();
 

@@ -51,8 +51,8 @@ namespace Desktop.Vistas.Reportes
             Reporte.LoadReportDefinition(archivoReporte);
 
             Parametros = new Dictionary<string, object>();
-            Parametros.Add("fd", fechaDesde.ToShortDateString());
-            Parametros.Add("fh", fechaHasta.ToShortDateString());
+            Parametros.Add("fd", fechaDesde.ToString("yyyyMMdd"));
+            Parametros.Add("fh", fechaHasta.ToString("yyyyMMdd"));
             Parametros.Add("idCli", idCliente.ToString());
 
             DataSet dataSet = obtenerDataSet("ReporteFacturacion");

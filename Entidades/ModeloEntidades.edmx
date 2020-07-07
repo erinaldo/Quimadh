@@ -173,6 +173,7 @@
           <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="tipo" Type="varchar" MaxLength="30" />
           <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="facturable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DatosRutina">
           <Key>
@@ -2510,6 +2511,7 @@
           <NavigationProperty Name="Unidad" Relationship="QuimadhModel.FK_Comprobante_Comprobante_Remito_Unidad1" FromRole="Comprobante_Comprobante_Remito" ToRole="Unidad" />
           <NavigationProperty Name="Comprobante_Factura" Relationship="QuimadhModel.Rel_Factura_Remito" FromRole="Comprobante_Remito" ToRole="Comprobante_Factura" />
           <NavigationProperty Name="VentaArticuloPlanta1" Relationship="QuimadhModel.FK_VentaArticuloPlanta_Comprobante_Comprobante_Remito" FromRole="Comprobante_Remito" ToRole="VentaArticuloPlanta" />
+          <Property Name="facturable" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comprobante_Comprobante_Remito_Moneda">
           <End Type="QuimadhModel.Moneda" Role="Moneda" Multiplicity="1" />
@@ -3076,6 +3078,7 @@
       </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Comprobante_Remito)">
               <MappingFragment StoreEntitySet="Comprobante_Comprobante_Remito">
+                <ScalarProperty Name="facturable" ColumnName="facturable" />
                 <ScalarProperty Name="observacion" ColumnName="observacion" />
                 <ScalarProperty Name="cantidadBultos" ColumnName="cantidadBultos" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
