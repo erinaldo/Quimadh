@@ -309,7 +309,7 @@ namespace Desktop.Vistas.Ventas
 
             if (dgvItems[e.ColumnIndex, e.RowIndex].OwningColumn.Name == "clmArt")
             {
-                ArticuloPlanta artPla = Global.Servicio.buscarUnArticuloPlanta(dgvItems.EditingControl.Text);
+                ArticuloPlanta artPla = Global.Servicio.BuscarUnArticuloPlanta(dgvItems.EditingControl.Text);
                 if (artPla != null) 
                 { 
                     dgvItems.Rows[e.RowIndex].Tag = artPla;
@@ -339,7 +339,7 @@ namespace Desktop.Vistas.Ventas
 
             if (dgvItems[e.ColumnIndex, e.RowIndex].OwningColumn.Name == "clmDesc")
             {
-                ArticuloPlanta artPla = Global.Servicio.buscarUnArticuloPlantaXDesc(planta, dgvItems.EditingControl.Text);
+                ArticuloPlanta artPla = Global.Servicio.BuscarUnArticuloPlantaXDesc(planta, dgvItems.EditingControl.Text);
                 if (artPla != null)
                 {
                     dgvItems.Rows[e.RowIndex].Tag = artPla;
@@ -1192,7 +1192,7 @@ namespace Desktop.Vistas.Ventas
 
             foreach (VentaArticuloPlanta item in remito.VentaArticuloPlanta)
             {
-                ArticuloPlanta artPla = Global.Servicio.buscarUnArticuloPlantaXDesc(item.Comprobante.Planta, item.TipoArticulo.nombre);
+                ArticuloPlanta artPla = Global.Servicio.BuscarUnArticuloPlantaXDesc(item.Comprobante.Planta, item.TipoArticulo.nombre);
                 decimal cantRestante = Global.Servicio.CantidadPendienteFacturacion(item);                
                 if (cantRestante > 0)
                 {
