@@ -123,6 +123,9 @@
     <Compile Include="Lote.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="MailFactura.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Metadata.cs" />
     <Compile Include="ModeloEntidades.Context.cs">
       <AutoGen>True</AutoGen>

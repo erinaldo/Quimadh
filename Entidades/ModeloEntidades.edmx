@@ -293,6 +293,15 @@
           <Property Name="fechaElaboracion" Type="date" />
           <Property Name="fechaVencimiento" Type="date" />
         </EntityType>
+        <EntityType Name="MailFactura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdFactura" Type="bigint" Nullable="false" />
+          <Property Name="Destinatario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Copia" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Moneda">
           <Key>
             <PropertyRef Name="id" />
@@ -938,6 +947,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MailFactura_Comprobante_Comprobante_Factura">
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" />
+          <End Role="MailFactura" Type="Self.MailFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Comprobante_Factura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MailFactura">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MuestraPlanta_Muestra">
           <End Role="Muestra" Type="Self.Muestra" Multiplicity="1" />
           <End Role="MuestraPlanta" Type="Self.MuestraPlanta" Multiplicity="*" />
@@ -1242,6 +1263,7 @@
           <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailFactura" EntityType="Self.MailFactura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MuestraPlanta" EntityType="Self.MuestraPlanta" Schema="dbo" store:Type="Tables" />
@@ -1410,6 +1432,10 @@
           <AssociationSet Name="FK_Lote_TipoArticulo" Association="Self.FK_Lote_TipoArticulo">
             <End Role="TipoArticulo" EntitySet="TipoArticulo" />
             <End Role="Lote" EntitySet="Lote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailFactura_Comprobante_Comprobante_Factura" Association="Self.FK_MailFactura_Comprobante_Comprobante_Factura">
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
+            <End Role="MailFactura" EntitySet="MailFactura" />
           </AssociationSet>
           <AssociationSet Name="FK_MuestraPlanta_Muestra" Association="Self.FK_MuestraPlanta_Muestra">
             <End Role="Muestra" EntitySet="Muestra" />
@@ -1765,6 +1791,11 @@
             <End Role="Moneda" EntitySet="Moneda" />
             <End Role="ArticuloPlantaHistorico" EntitySet="ArticuloPlantaHistorico" />
           </AssociationSet>
+          <EntitySet Name="MailFactura" EntityType="QuimadhModel.MailFactura" />
+          <AssociationSet Name="FK_MailFactura_Comprobante_Comprobante_Factura" Association="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura">
+            <End Role="Comprobante_Factura" EntitySet="Comprobante" />
+            <End Role="MailFactura" EntitySet="MailFactura" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CabeceraRutina">
           <Key>
@@ -1855,6 +1886,7 @@
           <Property Name="fecVtoCae" Type="DateTime" Precision="0" />
           <Property Name="pv" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Comprobante_Remito" Relationship="QuimadhModel.Rel_Factura_Remito" FromRole="Comprobante_Factura" ToRole="Comprobante_Remito" />
+          <NavigationProperty Name="MailFactura" Relationship="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" FromRole="Comprobante_Factura" ToRole="MailFactura" />
         </EntityType>
         <EntityType Name="Comprobante_Recargo" BaseType="QuimadhModel.Comprobante">
           <Property Name="motivo" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
@@ -2969,6 +3001,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MailFactura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdFactura" Type="Int64" Nullable="false" />
+          <Property Name="Destinatario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Copia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comprobante_Comprobante_Factura" Relationship="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" FromRole="MailFactura" ToRole="Comprobante_Factura" />
+        </EntityType>
+        <Association Name="FK_MailFactura_Comprobante_Comprobante_Factura">
+          <End Type="QuimadhModel.Comprobante_Factura" Role="Comprobante_Factura" Multiplicity="1" />
+          <End Type="QuimadhModel.MailFactura" Role="MailFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Factura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MailFactura">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3466,6 +3520,16 @@
                 <ScalarProperty Name="extension" ColumnName="extension" />
                 <ScalarProperty Name="idRutina" ColumnName="idRutina" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailFactura">
+            <EntityTypeMapping TypeName="QuimadhModel.MailFactura">
+              <MappingFragment StoreEntitySet="MailFactura">
+                <ScalarProperty Name="Copia" ColumnName="Copia" />
+                <ScalarProperty Name="Destinatario" ColumnName="Destinatario" />
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -714,8 +714,7 @@ namespace Desktop.Vistas.Ventas
                             {
                                 solicitud.fechaVto = factura.vencimiento.ToString("yyyyMMdd");
                             }
-
-                            //rtaAfip = service.solicitar(tipo, 3, 1, 80, long.Parse(factura.Planta.Cliente.cuit), factura.numero, factura.fechaIngreso.ToString("yyyyMMdd"), (double)factura.importe, neto, totIva, factura.Moneda.abrevAfip, (double)factura.Moneda.cotizacion, arregloIva2, null);
+                            
                             rtaAfip = service.solicitar(solicitud);
 
                             if (rtaAfip.respuesta != "A")
@@ -752,6 +751,17 @@ namespace Desktop.Vistas.Ventas
                     if (result)
                     {
                         Global.Servicio.imprimirFacturaDigital(factura);
+
+                        if (factura.pv == 3)
+                        {
+                            var preguntaImpresion = new Mensaje("¿Desea enviar por mail la factura generada?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
+                            preguntaImpresion.ShowDialog();
+
+                            if (preguntaImpresion.resultado == DialogResult.OK)
+                            {
+                                EnviarMail(factura);
+                            }
+                        }
                     }
                     else
                     {
@@ -778,6 +788,12 @@ namespace Desktop.Vistas.Ventas
             }
 
             return false;
+        }
+
+        private void EnviarMail(Comprobante_Factura factura)
+        {
+            var formMails = new frmMails(factura);
+            formMails.ShowDialog();            
         }
 
         private void actualizarDatosAfip()
@@ -1217,6 +1233,19 @@ namespace Desktop.Vistas.Ventas
                 msj = new Mensaje("El remito seleccionado está facturado totalemte", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 msj.ShowDialog();
                 return;
+            }
+        }
+
+        private void btnEnviarMail_Click(object sender, EventArgs e)
+        {
+            if (factura != null && Estado != Estados.Modificar && Estado != Estados.Agregar && factura.pv == 3)
+            {
+                EnviarMail(factura);
+            }
+            else
+            {
+                Mensaje unMensaje = new Mensaje("Debe seleccionar una Factura Electrónica para enviar por mail.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
             }
         }
     }

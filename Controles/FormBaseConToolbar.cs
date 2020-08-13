@@ -457,6 +457,7 @@ namespace Frontend.Controles
             this.tlbHerramientas.AutoSize = false;
             this.tlbHerramientas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(255)))), ((int)(((byte)(219)))));
             this.tlbHerramientas.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tlbHerramientas.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tlbHerramientas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAgregar,
             this.btnBuscar,
@@ -487,7 +488,7 @@ namespace Frontend.Controles
             this.btnAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnAgregar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(53, 55);
+            this.btnAgregar.Size = new System.Drawing.Size(67, 55);
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click_1);
             // 
@@ -497,7 +498,7 @@ namespace Frontend.Controles
             this.btnBuscar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(46, 55);
+            this.btnBuscar.Size = new System.Drawing.Size(56, 55);
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
@@ -512,7 +513,7 @@ namespace Frontend.Controles
             this.btnModificar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnModificar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(62, 55);
+            this.btnModificar.Size = new System.Drawing.Size(77, 55);
             this.btnModificar.Text = "Modificar";
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click_1);
             // 
@@ -522,7 +523,7 @@ namespace Frontend.Controles
             this.btnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(53, 55);
+            this.btnGuardar.Size = new System.Drawing.Size(66, 55);
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
             // 
@@ -532,7 +533,7 @@ namespace Frontend.Controles
             this.btnCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnCancelar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(57, 55);
+            this.btnCancelar.Size = new System.Drawing.Size(70, 55);
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
             // 
@@ -547,7 +548,7 @@ namespace Frontend.Controles
             this.btnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(54, 55);
+            this.btnEliminar.Size = new System.Drawing.Size(67, 55);
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
@@ -557,7 +558,7 @@ namespace Frontend.Controles
             this.btnImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnImprimir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(57, 55);
+            this.btnImprimir.Size = new System.Drawing.Size(70, 55);
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.Visible = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click_1);
@@ -568,7 +569,7 @@ namespace Frontend.Controles
             this.btnGraficar.Image = ((System.Drawing.Image)(resources.GetObject("btnGraficar.Image")));
             this.btnGraficar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGraficar.Name = "btnGraficar";
-            this.btnGraficar.Size = new System.Drawing.Size(52, 55);
+            this.btnGraficar.Size = new System.Drawing.Size(65, 55);
             this.btnGraficar.Text = "Graficar";
             this.btnGraficar.Visible = false;
             this.btnGraficar.Click += new System.EventHandler(this.btnGraficar_Click);
@@ -584,7 +585,7 @@ namespace Frontend.Controles
             this.btnPrimero.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnPrimero.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrimero.Name = "btnPrimero";
-            this.btnPrimero.Size = new System.Drawing.Size(27, 55);
+            this.btnPrimero.Size = new System.Drawing.Size(33, 55);
             this.btnPrimero.Text = "<<";
             this.btnPrimero.ToolTipText = "Primero";
             this.btnPrimero.Visible = false;
@@ -620,7 +621,7 @@ namespace Frontend.Controles
             this.btnUltimo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnUltimo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnUltimo.Name = "btnUltimo";
-            this.btnUltimo.Size = new System.Drawing.Size(27, 55);
+            this.btnUltimo.Size = new System.Drawing.Size(33, 55);
             this.btnUltimo.Text = ">>";
             this.btnUltimo.ToolTipText = "Último";
             this.btnUltimo.Visible = false;
@@ -639,7 +640,7 @@ namespace Frontend.Controles
             this.btnRutinasPendientes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnRutinasPendientes.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRutinasPendientes.Name = "btnRutinasPendientes";
-            this.btnRutinasPendientes.Size = new System.Drawing.Size(156, 55);
+            this.btnRutinasPendientes.Size = new System.Drawing.Size(193, 55);
             this.btnRutinasPendientes.Text = "Guardar Rutinas Pendientes";
             this.btnRutinasPendientes.Visible = false;
             this.btnRutinasPendientes.Click += new System.EventHandler(this.btnRutinasPendientes_Click);
@@ -653,7 +654,7 @@ namespace Frontend.Controles
             this.lblTitulo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblTitulo.Location = new System.Drawing.Point(42, 70);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(104, 45);
+            this.lblTitulo.Size = new System.Drawing.Size(128, 54);
             this.lblTitulo.TabIndex = 2;
             this.lblTitulo.Text = "Título";
             // 
@@ -667,7 +668,6 @@ namespace Frontend.Controles
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormBaseConToolbar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

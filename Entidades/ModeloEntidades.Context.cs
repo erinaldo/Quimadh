@@ -61,5 +61,6 @@ namespace Entidades
         public virtual DbSet<ArticuloPlantaHistorico> ArticuloPlantaHistorico { get; set; }
         public virtual DbSet<PreciosAdicionales> PreciosAdicionales { get; set; }
         public virtual DbSet<Archivos> Archivos { get; set; }
+        public virtual DbSet<MailFactura> MailFactura { get; set; }
     }
 }

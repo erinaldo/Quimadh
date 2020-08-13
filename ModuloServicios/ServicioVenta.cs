@@ -2,11 +2,13 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Transactions;
 
 namespace ModuloServicios
@@ -584,6 +586,82 @@ namespace ModuloServicios
                     return "NWNWN";
                 default:
                     return "";
+            }
+        }
+
+        public void EnviarMailFactura(Comprobante_Factura factura, string destino, string cc)
+        {
+            if (string.IsNullOrWhiteSpace(destino))
+            {
+                throw new ArgumentNullException(nameof(destino));
+            }
+
+            if (factura.cae == null || factura.fecVtoCae == null)
+            {
+                throw new InvalidOperationException("La factura no está autorizada");
+            }
+
+            ParametroSistema paramCarpeta = obtenerParametroSistemaPorNombre("CarpetaComprobantes");
+            var sufijo = factura.CE_MiPyme ? "_FCE" : "";
+            var tipo = factura.CE_MiPyme ? "Factura de Crédito Electrónica" : "Factura";
+            var directorio = paramCarpeta.valor + "/Facturas";
+            var pathFactura = $"{directorio}/{factura.pv}-{factura.numero}-{factura.tipo}{sufijo}.pdf";
+
+            var mail = new MailMessage();
+            mail.From = new MailAddress(ConfigurationManager.AppSettings["Email"]);
+            mail.Subject = "Nueva Factura - Quimadh S.R.L";
+            mail.Body = $"<b>Se adjunta la {tipo} N° {factura.pv.ToString("0000")}-{factura.numero.ToString("00000000")}</b>" +
+                $"<br/><br/><br/><br/><br/>" +
+                $"ADMINISTRACION QUIMADH" +
+                $"Tel: +54 342 4746550/4750120<br/>" +
+                $"Cel: +54 342 4343897";
+            mail.IsBodyHtml = true;
+            mail.Attachments.Add(new Attachment(pathFactura));
+
+            try
+            {                
+                mail.To.Add(new MailAddress(destino));
+                if (!string.IsNullOrEmpty(cc))
+                {
+                    foreach (var mailCopia in cc.Split(';'))
+                    {
+                        mail.CC.Add(new MailAddress(mailCopia));
+                    }
+                }
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("Formato de mail/s incorrecto/s");
+            }
+
+            var mailFactura = new MailFactura
+            {
+                Comprobante_Comprobante_Factura = factura,
+                Destinatario = destino,
+                Copia = cc
+            };
+
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.Host = ConfigurationManager.AppSettings["Host"];
+                    client.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"], ConfigurationManager.AppSettings["Pass"]);
+
+                    client.EnableSsl = bool.Parse(ConfigurationManager.AppSettings["UseSSL"]);
+                    client.Timeout = 60000;
+
+                    client.Send(mail);
+                }
+
+                _contexto.MailFactura.Add(mailFactura);
+                _contexto.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
