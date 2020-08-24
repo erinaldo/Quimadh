@@ -100,7 +100,7 @@
             this.Controls.Add(this.txtCC);
             this.Controls.Add(this.txtDest);
             this.Name = "frmMails";
-            this.Text = "frmMailscs";
+            this.Text = "Envio Mail";
             this.Load += new System.EventHandler(this.frmMails_Load);
             this.Controls.SetChildIndex(this.lblTitulo, 0);
             this.Controls.SetChildIndex(this.txtDest, 0);

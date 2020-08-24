@@ -612,7 +612,7 @@ namespace ModuloServicios
             mail.Subject = "Nueva Factura - Quimadh S.R.L";
             mail.Body = $"<b>Se adjunta la {tipo} N° {factura.pv.ToString("0000")}-{factura.numero.ToString("00000000")}</b>" +
                 $"<br/><br/><br/><br/><br/>" +
-                $"ADMINISTRACION QUIMADH" +
+                $"ADMINISTRACION QUIMADH<br/>" +
                 $"Tel: +54 342 4746550/4750120<br/>" +
                 $"Cel: +54 342 4343897";
             mail.IsBodyHtml = true;
