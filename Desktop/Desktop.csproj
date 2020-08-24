@@ -363,6 +363,12 @@
     <Compile Include="Vistas\Ventas\frmFacturas.Designer.cs">
       <DependentUpon>frmFacturas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventas\frmMails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmMails.Designer.cs">
+      <DependentUpon>frmMails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventas\frmNotaDebCred.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -517,6 +523,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Ventas\frmFacturas.resx">
       <DependentUpon>frmFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmMails.resx">
+      <DependentUpon>frmMails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Ventas\frmNotaDebCred.resx">
       <DependentUpon>frmNotaDebCred.cs</DependentUpon>

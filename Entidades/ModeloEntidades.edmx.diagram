@@ -101,6 +101,8 @@
         <AssociationConnector Association="QuimadhModel.FK_PreciosAdicionales_Presentacion" />
         <EntityTypeShape EntityType="QuimadhModel.Archivos" Width="1.5" PointX="3.375" PointY="0.75" />
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" />
+        <EntityTypeShape EntityType="QuimadhModel.MailFactura" Width="1.5" PointX="13.125" PointY="39.25" />
+        <AssociationConnector Association="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
