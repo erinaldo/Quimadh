@@ -108,6 +108,9 @@
     <Compile Include="FormularioUsuario.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="InstrumentoPago.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="ItemNota.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -151,6 +154,15 @@
     <Compile Include="MuestraPlanta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pago_Cheque.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pago_Tarjeta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pago_Transferencia.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Parametros.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -177,6 +189,12 @@
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoArticulo.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoPagoCliente.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoTarjeta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoUsuario.cs">

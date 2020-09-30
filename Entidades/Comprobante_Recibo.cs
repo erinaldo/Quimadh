@@ -17,11 +17,15 @@ namespace Entidades
         public Comprobante_Recibo()
         {
             this.ItemRecibo = new HashSet<ItemRecibo>();
+            this.InstrumentoPago = new HashSet<InstrumentoPago>();
         }
     
         public string formaPago { get; set; }
         public long numero { get; set; }
+        public Nullable<byte> IdTipoPago { get; set; }
     
         public virtual ICollection<ItemRecibo> ItemRecibo { get; set; }
+        public virtual TipoPagoCliente TipoPagoCliente { get; set; }
+        public virtual ICollection<InstrumentoPago> InstrumentoPago { get; set; }
     }
 }

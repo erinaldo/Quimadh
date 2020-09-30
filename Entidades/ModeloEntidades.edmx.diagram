@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="QuimadhModel.Cliente" Width="1.5" PointX="3" PointY="17" />
         <EntityTypeShape EntityType="QuimadhModel.Comprobante" Width="2.625" PointX="15.75" PointY="23.375" />
         <EntityTypeShape EntityType="QuimadhModel.Comprobante_Factura" Width="2.875" PointX="9.5" PointY="30.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuimadhModel.Comprobante_Recibo" Width="1.5" PointX="19.875" PointY="19.125" />
+        <EntityTypeShape EntityType="QuimadhModel.Comprobante_Recibo" Width="1.5" PointX="19.75" PointY="20.375" />
         <EntityTypeShape EntityType="QuimadhModel.DatosRutina" Width="1.5" PointX="13" PointY="10.25" />
         <EntityTypeShape EntityType="QuimadhModel.Determinante" Width="1.5" PointX="10.25" PointY="8.5" />
         <EntityTypeShape EntityType="QuimadhModel.DeterminantesPlanta" Width="1.5" PointX="6.25" PointY="8.875" />
@@ -103,6 +103,18 @@
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" />
         <EntityTypeShape EntityType="QuimadhModel.MailFactura" Width="1.5" PointX="13.125" PointY="39.25" />
         <AssociationConnector Association="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" />
+        <EntityTypeShape EntityType="QuimadhModel.InstrumentoPago" Width="1.5" PointX="20.75" PointY="15.75" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Cheque" Width="1.5" PointX="24.375" PointY="17.125" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Transferencia" Width="1.5" PointX="23.625" PointY="15.625" />
+        <EntityTypeShape EntityType="QuimadhModel.TipoPagoCliente" Width="1.5" PointX="18.5" PointY="16.875" />
+        <AssociationConnector Association="QuimadhModel.FK_Comprobante_Comprobante_Recibo_TipoPagoCliente" />
+        <AssociationConnector Association="QuimadhModel.FK_InstrumentoPago_PagoCliente" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Transferencia" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Cheque" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Tarjeta" PointX="21.125" PointY="13.75" Width="1.5" />
+        <EntityTypeShape EntityType="QuimadhModel.TipoTarjeta" PointX="23.25" PointY="13" Width="1.5" />
+        <AssociationConnector Association="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Tarjeta" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

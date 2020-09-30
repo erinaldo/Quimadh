@@ -375,6 +375,30 @@
     <Compile Include="Vistas\Ventas\frmNotaDebCred.Designer.cs">
       <DependentUpon>frmNotaDebCred.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventas\frmPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagos.Designer.cs">
+      <DependentUpon>frmPagos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTarjetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTarjetas.Designer.cs">
+      <DependentUpon>frmPagosTarjetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosCheques.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosCheques.Designer.cs">
+      <DependentUpon>frmPagosCheques.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTransferencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTransferencias.Designer.cs">
+      <DependentUpon>frmPagosTransferencias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventas\frmRecibos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -529,6 +553,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Ventas\frmNotaDebCred.resx">
       <DependentUpon>frmNotaDebCred.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagos.resx">
+      <DependentUpon>frmPagos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagosTarjetas.resx">
+      <DependentUpon>frmPagosTarjetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagosCheques.resx">
+      <DependentUpon>frmPagosCheques.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagosTransferencias.resx">
+      <DependentUpon>frmPagosTransferencias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Ventas\frmRecibos.resx">
       <DependentUpon>frmRecibos.cs</DependentUpon>
