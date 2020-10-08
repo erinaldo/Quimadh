@@ -73,6 +73,7 @@
             this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // cboTipo
             // 
@@ -107,6 +108,7 @@
             this.Controls.Add(this.labelQuimadh12);
             this.Controls.Add(this.txtImporte);
             this.Name = "frmPagosTarjetas";
+            this.Load += new System.EventHandler(this.frmPagosTarjetas_Load);
             this.Controls.SetChildIndex(this.lblTitulo, 0);
             this.Controls.SetChildIndex(this.txtImporte, 0);
             this.Controls.SetChildIndex(this.labelQuimadh12, 0);

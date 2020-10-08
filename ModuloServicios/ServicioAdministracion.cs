@@ -22,7 +22,8 @@ namespace ModuloServicios
             return user;
         }
 
-        public List<TipoUsuario> obtenerTodosTipoUsuario() {
+        public List<TipoUsuario> obtenerTodosTipoUsuario()
+        {
             return _contexto.TipoUsuario.ToList();
         }
 
@@ -1955,6 +1956,24 @@ namespace ModuloServicios
             cantSal = salidas.Count() > 0 ? salidas.Sum(s => s.cantidad) : 0;//salidas.Sum(s => (s.cantidad * s.Presentacion.litrosEnvase)) : 0;
 
             return (cantEnt - cantSal);
+        }
+
+        #endregion
+
+        #region Banco
+
+        public List<Banco> ObtenerTodosBancos()
+        {
+            return _contexto.Banco.ToList();
+        }
+
+        #endregion
+
+        #region Tarjetas
+
+        public List<TipoTarjeta> ObtenerTodosTipoTarjetas()
+        {
+            return _contexto.TipoTarjeta.ToList();
         }
 
         #endregion

@@ -40,18 +40,19 @@
             this.txtTotal1 = new Controles.TextBoxNumerico();
             this.labelQuimadh7 = new Controles.LabelQuimadh(this.components);
             this.txtEfectivo = new Controles.TextBoxNumerico();
-            this.dgvPrecios = new System.Windows.Forms.DataGridView();
+            this.dgvTransf = new System.Windows.Forms.DataGridView();
             this.clmTransfImporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTransfNro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelQuimadh12 = new Controles.LabelQuimadh(this.components);
             this.labelQuimadh13 = new Controles.LabelQuimadh(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvTarj = new System.Windows.Forms.DataGridView();
             this.clmTarjImporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTarjTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelQuimadh11 = new Controles.LabelQuimadh(this.components);
             this.dgvCheques = new System.Windows.Forms.DataGridView();
             this.clmChqImporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmChqNumero = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmChqBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmChqCuitLib = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmChqNombreLib = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmChqFechaVto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,9 +67,10 @@
             this.btnMasChq = new Controles.ButtonQuimadh(this.components);
             this.btnMenosTarj = new Controles.ButtonQuimadh(this.components);
             this.btnMasTarj = new Controles.ButtonQuimadh(this.components);
+            this.btnAgregar = new Controles.ButtonQuimadh(this.components);
             this.gpbDatos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrecios)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRemitos)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +95,7 @@
             this.gpbDatos.Margin = new System.Windows.Forms.Padding(4);
             this.gpbDatos.Name = "gpbDatos";
             this.gpbDatos.Padding = new System.Windows.Forms.Padding(4);
-            this.gpbDatos.Size = new System.Drawing.Size(1064, 70);
+            this.gpbDatos.Size = new System.Drawing.Size(1023, 70);
             this.gpbDatos.TabIndex = 5;
             this.gpbDatos.TabStop = false;
             this.gpbDatos.Text = "Datos";
@@ -169,7 +171,7 @@
             this.labelQuimadh10.AutoSize = true;
             this.labelQuimadh10.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh10.Location = new System.Drawing.Point(468, 467);
+            this.labelQuimadh10.Location = new System.Drawing.Point(461, 467);
             this.labelQuimadh10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh10.Name = "labelQuimadh10";
             this.labelQuimadh10.Size = new System.Drawing.Size(63, 20);
@@ -181,7 +183,7 @@
             this.txtTotal1.Decimales = 2;
             this.txtTotal1.Enteros = 12;
             this.txtTotal1.EnterTabulacion = true;
-            this.txtTotal1.Location = new System.Drawing.Point(539, 466);
+            this.txtTotal1.Location = new System.Drawing.Point(532, 466);
             this.txtTotal1.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotal1.Name = "txtTotal1";
             this.txtTotal1.ReadOnly = true;
@@ -194,7 +196,7 @@
             this.labelQuimadh7.AutoSize = true;
             this.labelQuimadh7.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh7.Location = new System.Drawing.Point(106, 154);
+            this.labelQuimadh7.Location = new System.Drawing.Point(99, 154);
             this.labelQuimadh7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh7.Name = "labelQuimadh7";
             this.labelQuimadh7.Size = new System.Drawing.Size(77, 20);
@@ -206,28 +208,29 @@
             this.txtEfectivo.Decimales = 0;
             this.txtEfectivo.Enteros = 11;
             this.txtEfectivo.EnterTabulacion = true;
-            this.txtEfectivo.Location = new System.Drawing.Point(189, 154);
+            this.txtEfectivo.Location = new System.Drawing.Point(182, 154);
             this.txtEfectivo.Margin = new System.Windows.Forms.Padding(4);
             this.txtEfectivo.Name = "txtEfectivo";
             this.txtEfectivo.Size = new System.Drawing.Size(211, 23);
             this.txtEfectivo.TabIndex = 25;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // dgvPrecios
+            // dgvTransf
             // 
-            this.dgvPrecios.AllowUserToAddRows = false;
-            this.dgvPrecios.AllowUserToDeleteRows = false;
-            this.dgvPrecios.BackgroundColor = System.Drawing.Color.White;
-            this.dgvPrecios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPrecios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTransf.AllowUserToAddRows = false;
+            this.dgvTransf.AllowUserToDeleteRows = false;
+            this.dgvTransf.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTransf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTransf.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmTransfImporte,
             this.clmTransfNro});
-            this.dgvPrecios.Location = new System.Drawing.Point(189, 195);
-            this.dgvPrecios.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvPrecios.Name = "dgvPrecios";
-            this.dgvPrecios.ReadOnly = true;
-            this.dgvPrecios.Size = new System.Drawing.Size(257, 97);
-            this.dgvPrecios.TabIndex = 64;
+            this.dgvTransf.Location = new System.Drawing.Point(182, 195);
+            this.dgvTransf.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvTransf.Name = "dgvTransf";
+            this.dgvTransf.ReadOnly = true;
+            this.dgvTransf.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTransf.Size = new System.Drawing.Size(257, 97);
+            this.dgvTransf.TabIndex = 64;
             // 
             // clmTransfImporte
             // 
@@ -246,7 +249,7 @@
             this.labelQuimadh12.AutoSize = true;
             this.labelQuimadh12.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh12.Location = new System.Drawing.Point(46, 195);
+            this.labelQuimadh12.Location = new System.Drawing.Point(39, 195);
             this.labelQuimadh12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh12.Name = "labelQuimadh12";
             this.labelQuimadh12.Size = new System.Drawing.Size(135, 20);
@@ -258,28 +261,29 @@
             this.labelQuimadh13.AutoSize = true;
             this.labelQuimadh13.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh13.Location = new System.Drawing.Point(559, 195);
+            this.labelQuimadh13.Location = new System.Drawing.Point(552, 195);
             this.labelQuimadh13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh13.Name = "labelQuimadh13";
             this.labelQuimadh13.Size = new System.Drawing.Size(78, 20);
             this.labelQuimadh13.TabIndex = 67;
             this.labelQuimadh13.Text = "Tarjetas";
             // 
-            // dataGridView1
+            // dgvTarj
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTarj.AllowUserToAddRows = false;
+            this.dgvTarj.AllowUserToDeleteRows = false;
+            this.dgvTarj.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTarj.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTarj.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmTarjImporte,
             this.clmTarjTipo});
-            this.dataGridView1.Location = new System.Drawing.Point(648, 195);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(257, 99);
-            this.dataGridView1.TabIndex = 66;
+            this.dgvTarj.Location = new System.Drawing.Point(641, 195);
+            this.dgvTarj.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvTarj.Name = "dgvTarj";
+            this.dgvTarj.ReadOnly = true;
+            this.dgvTarj.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTarj.Size = new System.Drawing.Size(257, 99);
+            this.dgvTarj.TabIndex = 66;
             // 
             // clmTarjImporte
             // 
@@ -298,7 +302,7 @@
             this.labelQuimadh11.AutoSize = true;
             this.labelQuimadh11.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh11.Location = new System.Drawing.Point(100, 314);
+            this.labelQuimadh11.Location = new System.Drawing.Point(93, 314);
             this.labelQuimadh11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh11.Name = "labelQuimadh11";
             this.labelQuimadh11.Size = new System.Drawing.Size(82, 20);
@@ -314,16 +318,18 @@
             this.dgvCheques.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmChqImporte,
             this.clmChqNumero,
+            this.clmChqBanco,
             this.clmChqCuitLib,
             this.clmChqNombreLib,
             this.clmChqFechaVto,
             this.clmChqTipo,
             this.clmChqEcheq});
-            this.dgvCheques.Location = new System.Drawing.Point(189, 314);
+            this.dgvCheques.Location = new System.Drawing.Point(182, 314);
             this.dgvCheques.Margin = new System.Windows.Forms.Padding(4);
             this.dgvCheques.MultiSelect = false;
             this.dgvCheques.Name = "dgvCheques";
             this.dgvCheques.ReadOnly = true;
+            this.dgvCheques.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCheques.Size = new System.Drawing.Size(716, 113);
             this.dgvCheques.TabIndex = 68;
             // 
@@ -338,6 +344,12 @@
             this.clmChqNumero.HeaderText = "Numero";
             this.clmChqNumero.Name = "clmChqNumero";
             this.clmChqNumero.ReadOnly = true;
+            // 
+            // clmChqBanco
+            // 
+            this.clmChqBanco.HeaderText = "Banco";
+            this.clmChqBanco.Name = "clmChqBanco";
+            this.clmChqBanco.ReadOnly = true;
             // 
             // clmChqCuitLib
             // 
@@ -377,7 +389,7 @@
             this.dgvRemitos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmNroFact});
             this.dgvRemitos.GridColor = System.Drawing.Color.Black;
-            this.dgvRemitos.Location = new System.Drawing.Point(189, 466);
+            this.dgvRemitos.Location = new System.Drawing.Point(182, 466);
             this.dgvRemitos.Margin = new System.Windows.Forms.Padding(4);
             this.dgvRemitos.Name = "dgvRemitos";
             this.dgvRemitos.Size = new System.Drawing.Size(229, 134);
@@ -395,7 +407,7 @@
             this.labelQuimadh9.AutoSize = true;
             this.labelQuimadh9.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh9.Location = new System.Drawing.Point(93, 466);
+            this.labelQuimadh9.Location = new System.Drawing.Point(86, 466);
             this.labelQuimadh9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh9.Name = "labelQuimadh9";
             this.labelQuimadh9.Size = new System.Drawing.Size(95, 20);
@@ -404,7 +416,7 @@
             // 
             // btnMasTransf
             // 
-            this.btnMasTransf.Location = new System.Drawing.Point(453, 195);
+            this.btnMasTransf.Location = new System.Drawing.Point(446, 195);
             this.btnMasTransf.Name = "btnMasTransf";
             this.btnMasTransf.Size = new System.Drawing.Size(50, 28);
             this.btnMasTransf.TabIndex = 74;
@@ -414,7 +426,7 @@
             // 
             // btnMenosTransf
             // 
-            this.btnMenosTransf.Location = new System.Drawing.Point(453, 229);
+            this.btnMenosTransf.Location = new System.Drawing.Point(446, 229);
             this.btnMenosTransf.Name = "btnMenosTransf";
             this.btnMenosTransf.Size = new System.Drawing.Size(50, 28);
             this.btnMenosTransf.TabIndex = 75;
@@ -424,7 +436,7 @@
             // 
             // btnMenosChq
             // 
-            this.btnMenosChq.Location = new System.Drawing.Point(912, 348);
+            this.btnMenosChq.Location = new System.Drawing.Point(905, 348);
             this.btnMenosChq.Name = "btnMenosChq";
             this.btnMenosChq.Size = new System.Drawing.Size(50, 28);
             this.btnMenosChq.TabIndex = 77;
@@ -434,7 +446,7 @@
             // 
             // btnMasChq
             // 
-            this.btnMasChq.Location = new System.Drawing.Point(912, 314);
+            this.btnMasChq.Location = new System.Drawing.Point(905, 314);
             this.btnMasChq.Name = "btnMasChq";
             this.btnMasChq.Size = new System.Drawing.Size(50, 28);
             this.btnMasChq.TabIndex = 76;
@@ -444,7 +456,7 @@
             // 
             // btnMenosTarj
             // 
-            this.btnMenosTarj.Location = new System.Drawing.Point(912, 229);
+            this.btnMenosTarj.Location = new System.Drawing.Point(905, 229);
             this.btnMenosTarj.Name = "btnMenosTarj";
             this.btnMenosTarj.Size = new System.Drawing.Size(50, 28);
             this.btnMenosTarj.TabIndex = 79;
@@ -454,7 +466,7 @@
             // 
             // btnMasTarj
             // 
-            this.btnMasTarj.Location = new System.Drawing.Point(912, 195);
+            this.btnMasTarj.Location = new System.Drawing.Point(905, 195);
             this.btnMasTarj.Name = "btnMasTarj";
             this.btnMasTarj.Size = new System.Drawing.Size(50, 28);
             this.btnMasTarj.TabIndex = 78;
@@ -462,11 +474,22 @@
             this.btnMasTarj.UseVisualStyleBackColor = true;
             this.btnMasTarj.Click += new System.EventHandler(this.btnMasTarj_Click);
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(745, 555);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(153, 45);
+            this.btnAgregar.TabIndex = 80;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // frmPagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1085, 636);
+            this.ClientSize = new System.Drawing.Size(1033, 609);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.labelQuimadh10);
             this.Controls.Add(this.btnMenosTarj);
             this.Controls.Add(this.btnMasTarj);
@@ -480,9 +503,9 @@
             this.Controls.Add(this.labelQuimadh11);
             this.Controls.Add(this.dgvCheques);
             this.Controls.Add(this.labelQuimadh13);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvTarj);
             this.Controls.Add(this.labelQuimadh12);
-            this.Controls.Add(this.dgvPrecios);
+            this.Controls.Add(this.dgvTransf);
             this.Controls.Add(this.labelQuimadh7);
             this.Controls.Add(this.txtEfectivo);
             this.Controls.Add(this.gpbDatos);
@@ -491,9 +514,9 @@
             this.Controls.SetChildIndex(this.gpbDatos, 0);
             this.Controls.SetChildIndex(this.txtEfectivo, 0);
             this.Controls.SetChildIndex(this.labelQuimadh7, 0);
-            this.Controls.SetChildIndex(this.dgvPrecios, 0);
+            this.Controls.SetChildIndex(this.dgvTransf, 0);
             this.Controls.SetChildIndex(this.labelQuimadh12, 0);
-            this.Controls.SetChildIndex(this.dataGridView1, 0);
+            this.Controls.SetChildIndex(this.dgvTarj, 0);
             this.Controls.SetChildIndex(this.labelQuimadh13, 0);
             this.Controls.SetChildIndex(this.dgvCheques, 0);
             this.Controls.SetChildIndex(this.labelQuimadh11, 0);
@@ -508,10 +531,11 @@
             this.Controls.SetChildIndex(this.btnMasTarj, 0);
             this.Controls.SetChildIndex(this.btnMenosTarj, 0);
             this.Controls.SetChildIndex(this.labelQuimadh10, 0);
+            this.Controls.SetChildIndex(this.btnAgregar, 0);
             this.gpbDatos.ResumeLayout(false);
             this.gpbDatos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrecios)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRemitos)).EndInit();
             this.ResumeLayout(false);
@@ -530,10 +554,10 @@
         private Controles.TextBoxNumerico txtCUIT;
         private Controles.LabelQuimadh labelQuimadh7;
         private Controles.TextBoxNumerico txtEfectivo;
-        private System.Windows.Forms.DataGridView dgvPrecios;
+        private System.Windows.Forms.DataGridView dgvTransf;
         private Controles.LabelQuimadh labelQuimadh12;
         private Controles.LabelQuimadh labelQuimadh13;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvTarj;
         private Controles.LabelQuimadh labelQuimadh11;
         private System.Windows.Forms.DataGridView dgvCheques;
         private System.Windows.Forms.DataGridView dgvRemitos;
@@ -551,8 +575,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTarjImporte;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTarjTipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNroFact;
+        private Controles.ButtonQuimadh btnAgregar;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmChqImporte;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmChqNumero;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmChqBanco;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmChqCuitLib;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmChqNombreLib;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmChqFechaVto;

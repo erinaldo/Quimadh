@@ -112,9 +112,11 @@
         <InheritanceConnector EntityType="QuimadhModel.Pago_Transferencia" />
         <InheritanceConnector EntityType="QuimadhModel.Pago_Cheque" />
         <EntityTypeShape EntityType="QuimadhModel.Pago_Tarjeta" PointX="21.125" PointY="13.75" Width="1.5" />
-        <EntityTypeShape EntityType="QuimadhModel.TipoTarjeta" PointX="23.25" PointY="13" Width="1.5" />
+        <EntityTypeShape EntityType="QuimadhModel.TipoTarjeta" PointX="23" PointY="9.625" Width="1.5" />
         <AssociationConnector Association="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" />
         <InheritanceConnector EntityType="QuimadhModel.Pago_Tarjeta" />
+        <EntityTypeShape EntityType="QuimadhModel.Banco" Width="1.5" PointX="24.25" PointY="12.125" />
+        <AssociationConnector Association="QuimadhModel.FK_Pago_Cheque_Banco" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

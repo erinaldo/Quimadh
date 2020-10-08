@@ -65,5 +65,6 @@ namespace Entidades
         public virtual DbSet<InstrumentoPago> InstrumentoPago { get; set; }
         public virtual DbSet<TipoPagoCliente> TipoPagoCliente { get; set; }
         public virtual DbSet<TipoTarjeta> TipoTarjeta { get; set; }
+        public virtual DbSet<Banco> Banco { get; set; }
     }
 }

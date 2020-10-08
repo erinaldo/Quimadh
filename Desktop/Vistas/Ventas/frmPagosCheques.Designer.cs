@@ -104,7 +104,7 @@
             // 
             this.btnAgregar.Location = new System.Drawing.Point(191, 398);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(102, 35);
+            this.btnAgregar.Size = new System.Drawing.Size(111, 35);
             this.btnAgregar.TabIndex = 75;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -143,6 +143,9 @@
             // 
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.FormattingEnabled = true;
+            this.cboTipo.Items.AddRange(new object[] {
+            "Propio",
+            "Terceros"});
             this.cboTipo.Location = new System.Drawing.Point(191, 313);
             this.cboTipo.Margin = new System.Windows.Forms.Padding(4);
             this.cboTipo.Name = "cboTipo";

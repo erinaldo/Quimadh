@@ -1,4 +1,5 @@
 ﻿using Controles;
+using Entidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,27 @@ namespace Desktop.Vistas.Ventas
 {
     public partial class frmPagosTarjetas : FormBaseSinToolbar
     {
+        public Pago_Tarjeta PagoTarjeta { get; set; }
+
         public frmPagosTarjetas()
         {
             InitializeComponent();
         }
+
+        private void frmPagosTarjetas_Load(object sender, EventArgs e)
+        {
+            Cargador.CargarTiposTarjeta(cboTipo, "", -1);
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            PagoTarjeta = new Pago_Tarjeta();
+            PagoTarjeta.Efectivo = false;
+            PagoTarjeta.Importe = decimal.Parse(txtImporte.Text);
+            PagoTarjeta.TipoTarjeta = (TipoTarjeta)((ComboBoxItem)cboTipo.SelectedItem).Value;
+
+            ObjetoRetorno = PagoTarjeta;
+            Close();
+        }        
     }
 }

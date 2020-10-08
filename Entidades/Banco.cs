@@ -12,16 +12,16 @@ namespace Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class Pago_Cheque : InstrumentoPago
+    public partial class Banco
     {
-        public int Numero { get; set; }
-        public short IdBanco { get; set; }
-        public decimal CuitLibrador { get; set; }
-        public string NombreLibrador { get; set; }
-        public System.DateTime FechaVto { get; set; }
-        public bool Propio { get; set; }
-        public bool Electronico { get; set; }
+        public Banco()
+        {
+            this.Pago_Cheque = new HashSet<Pago_Cheque>();
+        }
     
-        public virtual Banco Banco { get; set; }
+        public short Id { get; set; }
+        public string Nombre { get; set; }
+    
+        public virtual ICollection<Pago_Cheque> Pago_Cheque { get; set; }
     }
 }

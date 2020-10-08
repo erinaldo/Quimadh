@@ -57,6 +57,9 @@
     <Compile Include="ArticuloPlantaHistorico.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="Banco.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="CabeceraRutina.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>

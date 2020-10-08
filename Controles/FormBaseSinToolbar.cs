@@ -12,6 +12,8 @@ namespace Controles
 {
     public partial class FormBaseSinToolbar : Form
     {
+        public object ObjetoRetorno { get; set; }
+
         public FormBaseSinToolbar()
         {
             InitializeComponent();

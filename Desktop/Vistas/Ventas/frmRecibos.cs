@@ -458,5 +458,10 @@ namespace Desktop.Vistas.Ventas
             }
         }
 
+        private void btnPago_Click(object sender, EventArgs e)
+        {
+            var formPagos = new frmPagos(recibo);
+            formPagos.ShowDialog();
+        }
     }
 }
