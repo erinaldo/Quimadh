@@ -4,57 +4,57 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="QuimadhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+    <Schema Namespace="QuimadhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Archivos">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idRutina" Nullable="false" Type="bigint" />
-          <Property Name="extension" Nullable="false" MaxLength="10" Type="nchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRutina" Type="bigint" Nullable="false" />
+          <Property Name="extension" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="ArticuloPlanta">
           <Key>
             <PropertyRef Name="idArticulo" />
             <PropertyRef Name="idPlanta" />
           </Key>
-          <Property Name="idArticulo" Nullable="false" Type="bigint" />
-          <Property Name="idPlanta" Nullable="false" Type="bigint" />
-          <Property Name="contador" Nullable="false" Type="int" />
-          <Property Name="idMoneda" Nullable="false" Type="int" />
-          <Property Name="precio" Nullable="false" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="fechaCambio" Nullable="false" Precision="7" Type="datetime2" />
+          <Property Name="idArticulo" Type="bigint" Nullable="false" />
+          <Property Name="idPlanta" Type="bigint" Nullable="false" />
+          <Property Name="contador" Type="int" Nullable="false" />
+          <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="fechaCambio" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="eliminado" Type="datetime" />
         </EntityType>
         <EntityType Name="ArticuloPlantaHistorico">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idArticulo" Nullable="false" Type="bigint" />
-          <Property Name="idPlanta" Nullable="false" Type="bigint" />
-          <Property Name="idMoneda" Nullable="false" Type="int" />
-          <Property Name="precio" Nullable="false" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="fechaCambio" Nullable="false" Precision="7" Type="datetime2" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idArticulo" Type="bigint" Nullable="false" />
+          <Property Name="idPlanta" Type="bigint" Nullable="false" />
+          <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="fechaCambio" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Banco">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="smallint" StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="CabeceraRutina">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPlanta" Type="bigint" />
           <Property Name="fechaMuestreo" Type="datetime" />
           <Property Name="fechaAnalisis" Type="datetime" />
-          <Property Name="observaciones" MaxLength="1024" Type="varchar" />
-          <Property Name="tipoRutina" Nullable="false" MaxLength="50" Type="varchar" />
-          <Property Name="idCabeceraRutinaFirmante" Nullable="false" Type="int" />
+          <Property Name="observaciones" Type="varchar" MaxLength="1024" />
+          <Property Name="tipoRutina" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCabeceraRutinaFirmante" Type="int" Nullable="false" />
           <Property Name="numeroInterno" Type="int" />
           <Property Name="fechaCargaSistema" Type="datetime" />
         </EntityType>
@@ -62,28 +62,28 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="nombre" Nullable="false" MaxLength="100" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="firma" Type="varbinary(max)" />
-          <Property Name="iniciales" MaxLength="10" Type="nvarchar" />
+          <Property Name="iniciales" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="fechaAlta" Nullable="false" Type="datetime" />
-          <Property Name="razonSocial" MaxLength="255" Type="varchar" />
-          <Property Name="nombreContacto" Nullable="false" Type="nvarchar(max)" />
-          <Property Name="cargoContacto" Nullable="false" Type="nvarchar(max)" />
-          <Property Name="direccion" MaxLength="255" Type="varchar" />
-          <Property Name="telefono" MaxLength="63" Type="varchar" />
-          <Property Name="telefono2" Nullable="false" Type="nvarchar(max)" />
-          <Property Name="fax" Nullable="false" Type="nvarchar(max)" />
-          <Property Name="email" MaxLength="63" Type="varchar" />
-          <Property Name="cuit" MaxLength="13" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="razonSocial" Type="varchar" MaxLength="255" />
+          <Property Name="nombreContacto" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cargoContacto" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="255" />
+          <Property Name="telefono" Type="varchar" MaxLength="63" />
+          <Property Name="telefono2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="fax" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="63" />
+          <Property Name="cuit" Type="varchar" MaxLength="13" />
           <Property Name="fechaBaja" Type="datetime" />
-          <Property Name="motivoBaja" MaxLength="63" Type="varchar" />
+          <Property Name="motivoBaja" Type="varchar" MaxLength="63" />
           <Property Name="idLocalidad" Type="bigint" />
           <Property Name="idSituacionFrenteIva" Type="int" />
         </EntityType>
@@ -91,222 +91,222 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idArticuloPadre" Nullable="false" Type="bigint" />
-          <Property Name="idArticuloHijo" Nullable="false" Type="bigint" />
-          <Property Name="cantComposicion" Nullable="false" Precision="18" Scale="2" Type="numeric" />
-          <Property Name="factorConversion" Nullable="false" Precision="18" Scale="2" Type="numeric" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idArticuloPadre" Type="bigint" Nullable="false" />
+          <Property Name="idArticuloHijo" Type="bigint" Nullable="false" />
+          <Property Name="cantComposicion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="factorConversion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="importe" Nullable="false" Precision="12" Scale="2" Type="decimal" />
-          <Property Name="fechaIngreso" Nullable="false" Type="datetime" />
-          <Property Name="debe" Nullable="false" Type="bit" />
-          <Property Name="idPlanta" Nullable="false" Type="bigint" />
-          <Property Name="subtotal" Nullable="false" Precision="12" Scale="2" Type="decimal" />
-          <Property Name="totalIva" Nullable="false" Precision="12" Scale="2" Type="decimal" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="importe" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="fechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="debe" Type="bit" Nullable="false" />
+          <Property Name="idPlanta" Type="bigint" Nullable="false" />
+          <Property Name="subtotal" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="totalIva" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="anulado" Type="bit" />
-          <Property Name="estadoCarga" Nullable="false" Type="int" />
-          <Property Name="CE_MiPyme" Nullable="false" Type="bit" />
+          <Property Name="estadoCarga" Type="int" Nullable="false" />
+          <Property Name="CE_MiPyme" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Devolucion">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="motivo" MaxLength="255" Type="varchar" />
-          <Property Name="numero" Nullable="false" Type="bigint" />
-          <Property Name="condVta" Nullable="false" MaxLength="255" Type="nvarchar" />
-          <Property Name="id" Nullable="false" Type="bigint" />
-          <Property Name="tipo" Nullable="false" MaxLength="1" Type="char" />
-          <Property Name="pv" Nullable="false" Type="int" />
+          <Property Name="motivo" Type="varchar" MaxLength="255" />
+          <Property Name="numero" Type="bigint" Nullable="false" />
+          <Property Name="condVta" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="pv" Type="int" Nullable="false" />
           <Property Name="idComprobante" Type="bigint" />
-          <Property Name="cae" MaxLength="14" Type="varchar" />
+          <Property Name="cae" Type="varchar" MaxLength="14" />
           <Property Name="fecVtoCae" Type="date" />
-          <Property Name="idMoneda" Nullable="false" Type="int" />
-          <Property Name="anulacionCE_MiPyme" Nullable="false" Type="bit" />
+          <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="anulacionCE_MiPyme" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Factura">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="observacion" MaxLength="350" Type="varchar" />
-          <Property Name="numero" Nullable="false" Type="bigint" />
-          <Property Name="vencimiento" Nullable="false" Type="datetime" />
-          <Property Name="condVta" Nullable="false" MaxLength="255" Type="nvarchar" />
-          <Property Name="tipo" Nullable="false" MaxLength="1" Type="char" />
-          <Property Name="ordenCompra" MaxLength="255" Type="varchar" />
+          <Property Name="observacion" Type="varchar" MaxLength="350" />
+          <Property Name="numero" Type="bigint" Nullable="false" />
+          <Property Name="vencimiento" Type="datetime" Nullable="false" />
+          <Property Name="condVta" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ordenCompra" Type="varchar" MaxLength="255" />
           <Property Name="idMoneda" Type="int" />
-          <Property Name="id" Nullable="false" Type="bigint" />
-          <Property Name="cae" MaxLength="14" Type="varchar" />
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="cae" Type="varchar" MaxLength="14" />
           <Property Name="fecVtoCae" Type="date" />
-          <Property Name="pv" Nullable="false" Type="int" />
+          <Property Name="pv" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Recargo">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="motivo" MaxLength="255" Type="varchar" />
-          <Property Name="numero" Nullable="false" Type="bigint" />
-          <Property Name="condVta" Nullable="false" MaxLength="255" Type="nvarchar" />
-          <Property Name="id" Nullable="false" Type="bigint" />
-          <Property Name="tipo" Nullable="false" MaxLength="1" Type="char" />
-          <Property Name="pv" Nullable="false" Type="int" />
+          <Property Name="motivo" Type="varchar" MaxLength="255" />
+          <Property Name="numero" Type="bigint" Nullable="false" />
+          <Property Name="condVta" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="pv" Type="int" Nullable="false" />
           <Property Name="idComprobante" Type="bigint" />
-          <Property Name="cae" MaxLength="14" Type="varchar" />
+          <Property Name="cae" Type="varchar" MaxLength="14" />
           <Property Name="fecVtoCae" Type="date" />
-          <Property Name="idMoneda" Nullable="false" Type="int" />
-          <Property Name="anulacionCE_MiPyme" Nullable="false" Type="bit" />
+          <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="anulacionCE_MiPyme" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Recibo">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" Type="bigint" />
+          <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="formaPago" Type="nvarchar(max)" />
-          <Property Name="numero" Nullable="false" Type="bigint" />
+          <Property Name="numero" Type="bigint" Nullable="false" />
           <Property Name="IdTipoPago" Type="tinyint" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Remito">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="observacion" MaxLength="350" Type="varchar" />
+          <Property Name="observacion" Type="varchar" MaxLength="350" />
           <Property Name="cantidadBultos" Type="int" />
-          <Property Name="numero" Nullable="false" Type="bigint" />
-          <Property Name="pesoTotalKg" Nullable="false" Precision="10" Scale="2" Type="decimal" />
-          <Property Name="ordenCompra" Nullable="false" MaxLength="255" Type="nvarchar" />
+          <Property Name="numero" Type="bigint" Nullable="false" />
+          <Property Name="pesoTotalKg" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ordenCompra" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="idUnidad" Type="int" />
-          <Property Name="id" Nullable="false" Type="bigint" />
-          <Property Name="tipo" MaxLength="30" Type="varchar" />
-          <Property Name="idMoneda" Nullable="false" Type="int" />
-          <Property Name="facturable" Nullable="false" Type="bit" />
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="30" />
+          <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="facturable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DatosRutina">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idMuestra" Nullable="false" Type="bigint" />
-          <Property Name="idDeterminante" Nullable="false" Type="bigint" />
-          <Property Name="idCabeceraRutina" Nullable="false" Type="bigint" />
-          <Property Name="valor" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMuestra" Type="bigint" Nullable="false" />
+          <Property Name="idDeterminante" Type="bigint" Nullable="false" />
+          <Property Name="idCabeceraRutina" Type="bigint" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Determinante">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="nombre" Nullable="false" MaxLength="50" Type="varchar" />
-          <Property Name="unidad" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="unidad" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="grupo" Type="smallint" />
         </EntityType>
         <EntityType Name="DeterminantesPlanta">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idPlanta" Nullable="false" Type="bigint" />
-          <Property Name="idDeterminante" Nullable="false" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlanta" Type="bigint" Nullable="false" />
+          <Property Name="idDeterminante" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Entrada">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idPresentacion" Nullable="false" Type="int" />
-          <Property Name="nroLote" Nullable="false" MaxLength="10" Type="varchar" />
-          <Property Name="cantidad" Nullable="false" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="concepto" MaxLength="100" Type="varchar" />
-          <Property Name="fecha" Nullable="false" Type="date" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPresentacion" Type="int" Nullable="false" />
+          <Property Name="nroLote" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cantidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="concepto" Type="varchar" MaxLength="100" />
+          <Property Name="fecha" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="EstadoComprobante">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="int" />
-          <Property Name="Descripcion" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Formulario">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="nombre" Nullable="false" MaxLength="45" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="FormularioUsuario">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="idFormulario" Nullable="false" Type="bigint" />
-          <Property Name="idUsuario" Nullable="false" Type="int" />
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="idFormulario" Type="bigint" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="InstrumentoPago">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="bigint" />
-          <Property Name="IdRecibo" Nullable="false" Type="bigint" />
-          <Property Name="Importe" Nullable="false" Precision="18" Scale="1" Type="numeric" />
-          <Property Name="Efectivo" Nullable="false" Type="bit" />
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdRecibo" Type="bigint" Nullable="false" />
+          <Property Name="Importe" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Efectivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemNota">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="descripcion" Nullable="false" MaxLength="255" Type="nvarchar" />
-          <Property Name="importe" Nullable="false" Precision="12" Scale="2" Type="decimal" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="importe" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="idRecargo" Type="bigint" />
           <Property Name="idDevolucion" Type="bigint" />
-          <Property Name="cantidad" Precision="12" Scale="2" Type="decimal" />
-          <Property Name="iva" Precision="4" Scale="2" Type="decimal" />
+          <Property Name="cantidad" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="iva" Type="decimal" Precision="4" Scale="2" />
         </EntityType>
         <EntityType Name="ItemRecibo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fechaIzq" Type="datetime" />
-          <Property Name="descripIzq" MaxLength="255" Type="nvarchar" />
-          <Property Name="importeIzq" Precision="12" Scale="2" Type="decimal" />
+          <Property Name="descripIzq" Type="nvarchar" MaxLength="255" />
+          <Property Name="importeIzq" Type="decimal" Precision="12" Scale="2" />
           <Property Name="fechaDer" Type="datetime" />
-          <Property Name="descripDer" MaxLength="255" Type="nvarchar" />
-          <Property Name="importeDer" Precision="12" Scale="2" Type="decimal" />
-          <Property Name="idRecibo" Nullable="false" Type="bigint" />
+          <Property Name="descripDer" Type="nvarchar" MaxLength="255" />
+          <Property Name="importeDer" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="idRecibo" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Localidad">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="codigoPostal" Type="int" />
-          <Property Name="nombre" Nullable="false" MaxLength="63" Type="varchar" />
-          <Property Name="inactiva" Nullable="false" Type="bit" />
+          <Property Name="nombre" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="inactiva" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="operacion" Nullable="false" MaxLength="1" Type="char" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operacion" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="detalle" Type="varchar(max)" />
-          <Property Name="nombreEntidad" MaxLength="63" Type="varchar" />
+          <Property Name="nombreEntidad" Type="varchar" MaxLength="63" />
           <Property Name="idEntidad" Type="bigint" />
-          <Property Name="idUsuario" Nullable="false" Type="int" />
-          <Property Name="fechahora" Nullable="false" Type="datetime" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="fechahora" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Lote">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
-          <Property Name="numero" Nullable="false" MaxLength="10" Type="varchar" />
-          <Property Name="fechaInicio" Nullable="false" Type="date" />
+          <Property Name="numero" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fechaInicio" Type="date" Nullable="false" />
           <Property Name="fechaCierre" Type="date" />
-          <Property Name="idTipoArticulo" Nullable="false" Type="bigint" />
+          <Property Name="idTipoArticulo" Type="bigint" Nullable="false" />
           <Property Name="fechaElaboracion" Type="date" />
           <Property Name="fechaVencimiento" Type="date" />
         </EntityType>
@@ -314,153 +314,169 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="IdFactura" Nullable="false" Type="bigint" />
-          <Property Name="Destinatario" Nullable="false" MaxLength="255" Type="varchar" />
-          <Property Name="Copia" MaxLength="255" Type="varchar" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdFactura" Type="bigint" Nullable="false" />
+          <Property Name="Destinatario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Copia" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="MarcaTarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Moneda">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" Type="int" />
-          <Property Name="nombre" Nullable="false" MaxLength="127" Type="varchar" />
-          <Property Name="simbologia" Nullable="false" MaxLength="15" Type="varchar" />
-          <Property Name="cotizacion" Nullable="false" Precision="18" Scale="5" Type="decimal" />
-          <Property Name="abrevAfip" MaxLength="5" Type="varchar" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="simbologia" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cotizacion" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="abrevAfip" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="Muestra">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="Codigo" Nullable="false" MaxLength="50" Type="varchar" />
-          <Property Name="Descripcion" Nullable="false" MaxLength="255" Type="varchar" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="MuestraPlanta">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idPlanta" Nullable="false" Type="bigint" />
-          <Property Name="idMuestra" Nullable="false" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlanta" Type="bigint" Nullable="false" />
+          <Property Name="idMuestra" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Pago_Cheque">
           <Key>
             <PropertyRef Name="IdInstrumentoPago" />
           </Key>
-          <Property Name="IdInstrumentoPago" Nullable="false" Type="bigint" />
-          <Property Name="Numero" Nullable="false" Type="int" />
-          <Property Name="IdBanco" Nullable="false" Type="smallint" />
-          <Property Name="CuitLibrador" Nullable="false" Precision="11" Scale="0" Type="numeric" />
-          <Property Name="NombreLibrador" Nullable="false" MaxLength="255" Type="varchar" />
-          <Property Name="FechaVto" Nullable="false" Type="datetime" />
-          <Property Name="Propio" Nullable="false" Type="bit" />
-          <Property Name="Electronico" Nullable="false" Type="bit" />
+          <Property Name="IdInstrumentoPago" Type="bigint" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="IdBanco" Type="smallint" Nullable="false" />
+          <Property Name="CuitLibrador" Type="numeric" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="NombreLibrador" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaVto" Type="datetime" Nullable="false" />
+          <Property Name="Propio" Type="bit" Nullable="false" />
+          <Property Name="Electronico" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Pago_Tarjeta">
           <Key>
             <PropertyRef Name="IdInstrumentoPago" />
           </Key>
-          <Property Name="IdInstrumentoPago" Nullable="false" Type="bigint" />
-          <Property Name="IdTipoTarjeta" Nullable="false" Type="tinyint" />
+          <Property Name="IdInstrumentoPago" Type="bigint" Nullable="false" />
+          <Property Name="IdTipoTarjeta" Type="tinyint" Nullable="false" />
+          <Property Name="IdMarcaTarjeta" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Pago_Transferencia">
           <Key>
             <PropertyRef Name="IdInstrumentoPago" />
           </Key>
-          <Property Name="IdInstrumentoPago" Nullable="false" Type="bigint" />
-          <Property Name="NumeroComprobante" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="IdInstrumentoPago" Type="bigint" Nullable="false" />
+          <Property Name="NumeroComprobante" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Parametros">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="nombre" MaxLength="255" Type="varchar" />
-          <Property Name="cuit" MaxLength="13" Type="varchar" />
-          <Property Name="direccion" MaxLength="255" Type="varchar" />
-          <Property Name="telefono" MaxLength="255" Type="varchar" />
-          <Property Name="ingresosBrutos" MaxLength="45" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" />
+          <Property Name="cuit" Type="varchar" MaxLength="13" />
+          <Property Name="direccion" Type="varchar" MaxLength="255" />
+          <Property Name="telefono" Type="varchar" MaxLength="255" />
+          <Property Name="ingresosBrutos" Type="varchar" MaxLength="45" />
           <Property Name="inicioActividades" Type="datetime" />
-          <Property Name="email" MaxLength="255" Type="varchar" />
-          <Property Name="sitioWeb" MaxLength="127" Type="varchar" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="sitioWeb" Type="varchar" MaxLength="127" />
           <Property Name="version" Type="int" />
-          <Property Name="idSituacionFrenteIva" Nullable="false" Type="int" />
+          <Property Name="idSituacionFrenteIva" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ParametroSistema">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="nombre" Nullable="false" MaxLength="120" Type="varchar" />
-          <Property Name="descripcion" Nullable="false" MaxLength="250" Type="varchar" />
-          <Property Name="valor" MaxLength="150" Type="varchar" />
-          <Property Name="tipoDato" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="150" />
+          <Property Name="tipoDato" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Planta">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="codigo" Nullable="false" MaxLength="32" Type="varchar" />
-          <Property Name="nombre" Nullable="false" MaxLength="255" Type="varchar" />
-          <Property Name="direccion" MaxLength="255" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="255" />
           <Property Name="idCliente" Type="bigint" />
           <Property Name="idLocalidad" Type="bigint" />
-          <Property Name="nombreContacto1" MaxLength="50" Type="varchar" />
-          <Property Name="cargoContacto1" MaxLength="50" Type="varchar" />
-          <Property Name="nombreContacto2" MaxLength="50" Type="varchar" />
-          <Property Name="cargoContacto2" MaxLength="50" Type="varchar" />
-          <Property Name="telefono1" MaxLength="25" Type="varchar" />
-          <Property Name="telefono2" MaxLength="25" Type="varchar" />
-          <Property Name="emailContac1" MaxLength="50" Type="varchar" />
-          <Property Name="emailContac2" MaxLength="50" Type="varchar" />
+          <Property Name="nombreContacto1" Type="varchar" MaxLength="50" />
+          <Property Name="cargoContacto1" Type="varchar" MaxLength="50" />
+          <Property Name="nombreContacto2" Type="varchar" MaxLength="50" />
+          <Property Name="cargoContacto2" Type="varchar" MaxLength="50" />
+          <Property Name="telefono1" Type="varchar" MaxLength="25" />
+          <Property Name="telefono2" Type="varchar" MaxLength="25" />
+          <Property Name="emailContac1" Type="varchar" MaxLength="50" />
+          <Property Name="emailContac2" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PreciosAdicionales">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idArticulo" Nullable="false" Type="bigint" />
-          <Property Name="idPlanta" Nullable="false" Type="bigint" />
-          <Property Name="idPresentacion" Nullable="false" Type="int" />
-          <Property Name="precio" Nullable="false" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idArticulo" Type="bigint" Nullable="false" />
+          <Property Name="idPlanta" Type="bigint" Nullable="false" />
+          <Property Name="idPresentacion" Type="int" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Presentacion">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="litrosEnvase" Nullable="false" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="litrosEnvase" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rel_Factura_Recibo">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+            <PropertyRef Name="IdRecibo" />
+          </Key>
+          <Property Name="IdFactura" Type="bigint" Nullable="false" />
+          <Property Name="IdRecibo" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Rel_Factura_Remito">
           <Key>
             <PropertyRef Name="IdFactura" />
             <PropertyRef Name="IdRemito" />
           </Key>
-          <Property Name="IdFactura" Nullable="false" Type="bigint" />
-          <Property Name="IdRemito" Nullable="false" Type="bigint" />
+          <Property Name="IdFactura" Type="bigint" Nullable="false" />
+          <Property Name="IdRemito" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Rel_Pv_Comprobante">
           <Key>
             <PropertyRef Name="PuntoVenta" />
             <PropertyRef Name="Comprobante" />
           </Key>
-          <Property Name="PuntoVenta" Nullable="false" Type="int" />
-          <Property Name="Comprobante" Nullable="false" MaxLength="50" Type="varchar" />
-          <Property Name="FechaAlta" Nullable="false" Type="datetime" />
+          <Property Name="PuntoVenta" Type="int" Nullable="false" />
+          <Property Name="Comprobante" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Salida">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPresentacion" Type="int" />
-          <Property Name="nroLote" Nullable="false" MaxLength="10" Type="varchar" />
-          <Property Name="cantidad" Nullable="false" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="nroLote" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cantidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="idCliente" Type="bigint" />
-          <Property Name="nombreVendedor" MaxLength="100" Type="varchar" />
+          <Property Name="nombreVendedor" Type="varchar" MaxLength="100" />
           <Property Name="fecha" Type="datetime" />
           <Property Name="idSalidaPadre" Type="bigint" />
           <Property Name="idItemRemito" Type="bigint" />
@@ -469,15 +485,15 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="nombre" Nullable="false" MaxLength="40" Type="varchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoArticulo">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="nombre" Nullable="false" MaxLength="255" Type="varchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="idUnidad" Type="int" />
           <Property Name="idUnidadStock" Type="int" />
         </EntityType>
@@ -485,61 +501,61 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="tinyint" />
-          <Property Name="Descripcion" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="Id" Type="tinyint" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoTarjeta">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="tinyint" StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoUsuario">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" Type="smallint" />
-          <Property Name="tipo" Nullable="false" MaxLength="63" Type="varchar" />
+          <Property Name="id" Type="smallint" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="63" Nullable="false" />
         </EntityType>
         <EntityType Name="Unidad">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="nombre" Nullable="false" MaxLength="255" Type="varchar" />
-          <Property Name="abreviatura" Nullable="false" MaxLength="5" Type="varchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="abreviatura" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="nombreUsuario" Nullable="false" MaxLength="15" Type="varchar" />
-          <Property Name="clave" Nullable="false" MaxLength="64" Type="varchar" />
-          <Property Name="inactivo" Nullable="false" Type="bit" />
-          <Property Name="idTipoUsuario" Nullable="false" Type="smallint" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreUsuario" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="inactivo" Type="bit" Nullable="false" />
+          <Property Name="idTipoUsuario" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="VentaArticuloPlanta">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="idComprobante" Nullable="false" Type="bigint" />
-          <Property Name="idArticulo" Nullable="false" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idComprobante" Type="bigint" Nullable="false" />
+          <Property Name="idArticulo" Type="bigint" Nullable="false" />
           <Property Name="idRemito" Type="bigint" />
-          <Property Name="cantidad" Nullable="false" Precision="10" Scale="2" Type="decimal" />
-          <Property Name="idMoneda" Nullable="false" Type="int" />
-          <Property Name="precio" Nullable="false" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="cotizacion" Nullable="false" Precision="18" Scale="5" Type="decimal" />
-          <Property Name="iva" Nullable="false" Precision="12" Scale="2" Type="decimal" />
-          <Property Name="lote" MaxLength="15" Type="varchar" />
+          <Property Name="cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="cotizacion" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="iva" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="lote" Type="varchar" MaxLength="15" />
           <Property Name="idPresentacion" Type="int" />
-          <Property Name="descripAdicional" MaxLength="50" Type="varchar" />
+          <Property Name="descripAdicional" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ArticuloPlanta_Moneda">
-          <End Type="Self.Moneda" Multiplicity="1" Role="Moneda" />
-          <End Type="Self.ArticuloPlanta" Multiplicity="*" Role="ArticuloPlanta" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="ArticuloPlanta" Type="Self.ArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -550,8 +566,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ArticuloPlanta_Planta">
-          <End Type="Self.Planta" Multiplicity="1" Role="Planta" />
-          <End Type="Self.ArticuloPlanta" Multiplicity="*" Role="ArticuloPlanta" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="1" />
+          <End Role="ArticuloPlanta" Type="Self.ArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planta">
               <PropertyRef Name="id" />
@@ -562,8 +578,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ArticuloPlanta_TipoArticulo">
-          <End Type="Self.TipoArticulo" Multiplicity="1" Role="TipoArticulo" />
-          <End Type="Self.ArticuloPlanta" Multiplicity="*" Role="ArticuloPlanta" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="1" />
+          <End Role="ArticuloPlanta" Type="Self.ArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoArticulo">
               <PropertyRef Name="id" />
@@ -574,8 +590,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ArticuloPlantaHistorico_ArticuloPlanta">
-          <End Type="Self.ArticuloPlanta" Multiplicity="1" Role="ArticuloPlanta" />
-          <End Type="Self.ArticuloPlantaHistorico" Multiplicity="*" Role="ArticuloPlantaHistorico" />
+          <End Role="ArticuloPlanta" Type="Self.ArticuloPlanta" Multiplicity="1" />
+          <End Role="ArticuloPlantaHistorico" Type="Self.ArticuloPlantaHistorico" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ArticuloPlanta">
               <PropertyRef Name="idArticulo" />
@@ -588,8 +604,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ArticuloPlantaHistorico_Moneda">
-          <End Type="Self.Moneda" Multiplicity="1" Role="Moneda" />
-          <End Type="Self.ArticuloPlantaHistorico" Multiplicity="*" Role="ArticuloPlantaHistorico" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="ArticuloPlantaHistorico" Type="Self.ArticuloPlantaHistorico" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -600,8 +616,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CabeceraRutina_CabeceraRutinaFirmantes">
-          <End Type="Self.CabeceraRutinaFirmantes" Multiplicity="1" Role="CabeceraRutinaFirmantes" />
-          <End Type="Self.CabeceraRutina" Multiplicity="*" Role="CabeceraRutina" />
+          <End Role="CabeceraRutinaFirmantes" Type="Self.CabeceraRutinaFirmantes" Multiplicity="1" />
+          <End Role="CabeceraRutina" Type="Self.CabeceraRutina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CabeceraRutinaFirmantes">
               <PropertyRef Name="id" />
@@ -612,8 +628,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CabeceraRutina_Planta">
-          <End Type="Self.Planta" Multiplicity="0..1" Role="Planta" />
-          <End Type="Self.CabeceraRutina" Multiplicity="*" Role="CabeceraRutina" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="0..1" />
+          <End Role="CabeceraRutina" Type="Self.CabeceraRutina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planta">
               <PropertyRef Name="id" />
@@ -624,8 +640,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cliente_fk_Cliente_Localidad1">
-          <End Type="Self.Localidad" Multiplicity="0..1" Role="Localidad" />
-          <End Type="Self.Cliente" Multiplicity="*" Role="Cliente" />
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Localidad">
               <PropertyRef Name="id" />
@@ -636,8 +652,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cliente_fk_Cliente_SituacionFrenteIva1">
-          <End Type="Self.SituacionFrenteIva" Multiplicity="0..1" Role="SituacionFrenteIva" />
-          <End Type="Self.Cliente" Multiplicity="*" Role="Cliente" />
+          <End Role="SituacionFrenteIva" Type="Self.SituacionFrenteIva" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SituacionFrenteIva">
               <PropertyRef Name="id" />
@@ -648,8 +664,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ComposicionArticulos_TipoArticulo">
-          <End Type="Self.TipoArticulo" Multiplicity="1" Role="TipoArticulo" />
-          <End Type="Self.ComposicionArticulos" Multiplicity="*" Role="ComposicionArticulos" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="1" />
+          <End Role="ComposicionArticulos" Type="Self.ComposicionArticulos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoArticulo">
               <PropertyRef Name="id" />
@@ -660,8 +676,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ComposicionArticulos_TipoArticulo1">
-          <End Type="Self.TipoArticulo" Multiplicity="1" Role="TipoArticulo" />
-          <End Type="Self.ComposicionArticulos" Multiplicity="*" Role="ComposicionArticulos" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="1" />
+          <End Role="ComposicionArticulos" Type="Self.ComposicionArticulos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoArticulo">
               <PropertyRef Name="id" />
@@ -672,8 +688,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Comprobante_Factura_Moneda">
-          <End Type="Self.Moneda" Multiplicity="0..1" Role="Moneda" />
-          <End Type="Self.Comprobante_Comprobante_Factura" Multiplicity="*" Role="Comprobante_Comprobante_Factura" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="0..1" />
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -684,8 +700,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Comprobante_Recibo_TipoPagoCliente">
-          <End Type="Self.TipoPagoCliente" Multiplicity="0..1" Role="TipoPagoCliente" />
-          <End Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="*" Role="Comprobante_Comprobante_Recibo" />
+          <End Role="TipoPagoCliente" Type="Self.TipoPagoCliente" Multiplicity="0..1" />
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoPagoCliente">
               <PropertyRef Name="Id" />
@@ -696,8 +712,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Comprobante_Remito_Moneda">
-          <End Type="Self.Moneda" Multiplicity="1" Role="Moneda" />
-          <End Type="Self.Comprobante_Comprobante_Remito" Multiplicity="*" Role="Comprobante_Comprobante_Remito" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="Comprobante_Comprobante_Remito" Type="Self.Comprobante_Comprobante_Remito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -708,8 +724,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Comprobante_Remito_Unidad1">
-          <End Type="Self.Unidad" Multiplicity="0..1" Role="Unidad" />
-          <End Type="Self.Comprobante_Comprobante_Remito" Multiplicity="*" Role="Comprobante_Comprobante_Remito" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="0..1" />
+          <End Role="Comprobante_Comprobante_Remito" Type="Self.Comprobante_Comprobante_Remito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Unidad">
               <PropertyRef Name="id" />
@@ -720,8 +736,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Devolucion_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="0..1" Role="Comprobante" />
-          <End Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="*" Role="Comprobante_Comprobante_Devolucion" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="0..1" />
+          <End Role="Comprobante_Comprobante_Devolucion" Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -732,10 +748,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Devolucion_inherits_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="1" Role="Comprobante">
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="0..1" Role="Comprobante_Comprobante_Devolucion" />
+          <End Role="Comprobante_Comprobante_Devolucion" Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -746,8 +762,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Devolucion_Moneda">
-          <End Type="Self.Moneda" Multiplicity="1" Role="Moneda" />
-          <End Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="*" Role="Comprobante_Comprobante_Devolucion" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="Comprobante_Comprobante_Devolucion" Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -758,8 +774,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_DevolucionItemNota">
-          <End Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="0..1" Role="Comprobante_Comprobante_Devolucion" />
-          <End Type="Self.ItemNota" Multiplicity="*" Role="ItemNota" />
+          <End Role="Comprobante_Comprobante_Devolucion" Type="Self.Comprobante_Comprobante_Devolucion" Multiplicity="0..1" />
+          <End Role="ItemNota" Type="Self.ItemNota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Devolucion">
               <PropertyRef Name="id" />
@@ -770,8 +786,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_EstadoComprobante">
-          <End Type="Self.EstadoComprobante" Multiplicity="1" Role="EstadoComprobante" />
-          <End Type="Self.Comprobante" Multiplicity="*" Role="Comprobante" />
+          <End Role="EstadoComprobante" Type="Self.EstadoComprobante" Multiplicity="1" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EstadoComprobante">
               <PropertyRef Name="Id" />
@@ -782,10 +798,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Factura_inherits_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="1" Role="Comprobante">
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.Comprobante_Comprobante_Factura" Multiplicity="0..1" Role="Comprobante_Comprobante_Factura" />
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -796,8 +812,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Recargo_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="0..1" Role="Comprobante" />
-          <End Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="*" Role="Comprobante_Comprobante_Recargo" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="0..1" />
+          <End Role="Comprobante_Comprobante_Recargo" Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -808,10 +824,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Recargo_inherits_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="1" Role="Comprobante">
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="0..1" Role="Comprobante_Comprobante_Recargo" />
+          <End Role="Comprobante_Comprobante_Recargo" Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -822,8 +838,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Recargo_Moneda">
-          <End Type="Self.Moneda" Multiplicity="1" Role="Moneda" />
-          <End Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="*" Role="Comprobante_Comprobante_Recargo" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="Comprobante_Comprobante_Recargo" Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -834,8 +850,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_RecargoItemNota">
-          <End Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="0..1" Role="Comprobante_Comprobante_Recargo" />
-          <End Type="Self.ItemNota" Multiplicity="*" Role="ItemNota" />
+          <End Role="Comprobante_Comprobante_Recargo" Type="Self.Comprobante_Comprobante_Recargo" Multiplicity="0..1" />
+          <End Role="ItemNota" Type="Self.ItemNota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Recargo">
               <PropertyRef Name="id" />
@@ -846,10 +862,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Recibo_inherits_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="1" Role="Comprobante">
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="0..1" Role="Comprobante_Comprobante_Recibo" />
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -860,8 +876,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_ReciboItemRecibo">
-          <End Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" Role="Comprobante_Comprobante_Recibo" />
-          <End Type="Self.ItemRecibo" Multiplicity="*" Role="ItemRecibo" />
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" />
+          <End Role="ItemRecibo" Type="Self.ItemRecibo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Recibo">
               <PropertyRef Name="id" />
@@ -872,10 +888,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comprobante_Remito_inherits_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="1" Role="Comprobante">
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.Comprobante_Comprobante_Remito" Multiplicity="0..1" Role="Comprobante_Comprobante_Remito" />
+          <End Role="Comprobante_Comprobante_Remito" Type="Self.Comprobante_Comprobante_Remito" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -886,8 +902,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DatosRutina_CabeceraRutina">
-          <End Type="Self.CabeceraRutina" Multiplicity="1" Role="CabeceraRutina" />
-          <End Type="Self.DatosRutina" Multiplicity="*" Role="DatosRutina" />
+          <End Role="CabeceraRutina" Type="Self.CabeceraRutina" Multiplicity="1" />
+          <End Role="DatosRutina" Type="Self.DatosRutina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CabeceraRutina">
               <PropertyRef Name="id" />
@@ -898,8 +914,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DatosRutina_Determinante">
-          <End Type="Self.Determinante" Multiplicity="1" Role="Determinante" />
-          <End Type="Self.DatosRutina" Multiplicity="*" Role="DatosRutina" />
+          <End Role="Determinante" Type="Self.Determinante" Multiplicity="1" />
+          <End Role="DatosRutina" Type="Self.DatosRutina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Determinante">
               <PropertyRef Name="id" />
@@ -910,8 +926,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DatosRutina_Muestra">
-          <End Type="Self.Muestra" Multiplicity="1" Role="Muestra" />
-          <End Type="Self.DatosRutina" Multiplicity="*" Role="DatosRutina" />
+          <End Role="Muestra" Type="Self.Muestra" Multiplicity="1" />
+          <End Role="DatosRutina" Type="Self.DatosRutina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Muestra">
               <PropertyRef Name="Id" />
@@ -922,8 +938,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DeterminantesPlanta_Determinante">
-          <End Type="Self.Determinante" Multiplicity="1" Role="Determinante" />
-          <End Type="Self.DeterminantesPlanta" Multiplicity="*" Role="DeterminantesPlanta" />
+          <End Role="Determinante" Type="Self.Determinante" Multiplicity="1" />
+          <End Role="DeterminantesPlanta" Type="Self.DeterminantesPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Determinante">
               <PropertyRef Name="id" />
@@ -934,8 +950,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DeterminantesPlanta_Planta">
-          <End Type="Self.Planta" Multiplicity="1" Role="Planta" />
-          <End Type="Self.DeterminantesPlanta" Multiplicity="*" Role="DeterminantesPlanta" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="1" />
+          <End Role="DeterminantesPlanta" Type="Self.DeterminantesPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planta">
               <PropertyRef Name="id" />
@@ -946,8 +962,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Entrada_Lote">
-          <End Type="Self.Lote" Multiplicity="1" Role="Lote" />
-          <End Type="Self.Entrada" Multiplicity="*" Role="Entrada" />
+          <End Role="Lote" Type="Self.Lote" Multiplicity="1" />
+          <End Role="Entrada" Type="Self.Entrada" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Lote">
               <PropertyRef Name="numero" />
@@ -958,8 +974,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Entrada_Presentacion">
-          <End Type="Self.Presentacion" Multiplicity="1" Role="Presentacion" />
-          <End Type="Self.Entrada" Multiplicity="*" Role="Entrada" />
+          <End Role="Presentacion" Type="Self.Presentacion" Multiplicity="1" />
+          <End Role="Entrada" Type="Self.Entrada" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Presentacion">
               <PropertyRef Name="id" />
@@ -970,8 +986,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_formulariousuario_fk_Formulario_has_Usuario_Formulario1">
-          <End Type="Self.Formulario" Multiplicity="1" Role="Formulario" />
-          <End Type="Self.FormularioUsuario" Multiplicity="*" Role="FormularioUsuario" />
+          <End Role="Formulario" Type="Self.Formulario" Multiplicity="1" />
+          <End Role="FormularioUsuario" Type="Self.FormularioUsuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Formulario">
               <PropertyRef Name="id" />
@@ -982,8 +998,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_formulariousuario_fk_Formulario_has_Usuario_Usuario1">
-          <End Type="Self.Usuario" Multiplicity="1" Role="Usuario" />
-          <End Type="Self.FormularioUsuario" Multiplicity="*" Role="FormularioUsuario" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="FormularioUsuario" Type="Self.FormularioUsuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id" />
@@ -994,8 +1010,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InstrumentoPago_PagoCliente">
-          <End Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" Role="Comprobante_Comprobante_Recibo" />
-          <End Type="Self.InstrumentoPago" Multiplicity="*" Role="InstrumentoPago" />
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" />
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Recibo">
               <PropertyRef Name="id" />
@@ -1006,8 +1022,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_log_fk_Log_Usuario1">
-          <End Type="Self.Usuario" Multiplicity="1" Role="Usuario" />
-          <End Type="Self.Log" Multiplicity="*" Role="Log" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Log" Type="Self.Log" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id" />
@@ -1018,8 +1034,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lote_TipoArticulo">
-          <End Type="Self.TipoArticulo" Multiplicity="1" Role="TipoArticulo" />
-          <End Type="Self.Lote" Multiplicity="*" Role="Lote" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="1" />
+          <End Role="Lote" Type="Self.Lote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoArticulo">
               <PropertyRef Name="id" />
@@ -1030,8 +1046,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MailFactura_Comprobante_Comprobante_Factura">
-          <End Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" Role="Comprobante_Comprobante_Factura" />
-          <End Type="Self.MailFactura" Multiplicity="*" Role="MailFactura" />
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" />
+          <End Role="MailFactura" Type="Self.MailFactura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Factura">
               <PropertyRef Name="id" />
@@ -1042,8 +1058,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MuestraPlanta_Muestra">
-          <End Type="Self.Muestra" Multiplicity="1" Role="Muestra" />
-          <End Type="Self.MuestraPlanta" Multiplicity="*" Role="MuestraPlanta" />
+          <End Role="Muestra" Type="Self.Muestra" Multiplicity="1" />
+          <End Role="MuestraPlanta" Type="Self.MuestraPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Muestra">
               <PropertyRef Name="Id" />
@@ -1054,8 +1070,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MuestraPlanta_Planta">
-          <End Type="Self.Planta" Multiplicity="1" Role="Planta" />
-          <End Type="Self.MuestraPlanta" Multiplicity="*" Role="MuestraPlanta" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="1" />
+          <End Role="MuestraPlanta" Type="Self.MuestraPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planta">
               <PropertyRef Name="id" />
@@ -1066,8 +1082,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pago_Cheque_Banco">
-          <End Type="Self.Banco" Multiplicity="1" Role="Banco" />
-          <End Type="Self.Pago_Cheque" Multiplicity="*" Role="Pago_Cheque" />
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Pago_Cheque" Type="Self.Pago_Cheque" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Banco">
               <PropertyRef Name="Id" />
@@ -1078,8 +1094,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pago_Cheque_InstrumentoPago">
-          <End Type="Self.InstrumentoPago" Multiplicity="1" Role="InstrumentoPago" />
-          <End Type="Self.Pago_Cheque" Multiplicity="0..1" Role="Pago_Cheque" />
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="1" />
+          <End Role="Pago_Cheque" Type="Self.Pago_Cheque" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="InstrumentoPago">
               <PropertyRef Name="Id" />
@@ -1090,8 +1106,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pago_Tarjeta_InstrumentoPago">
-          <End Type="Self.InstrumentoPago" Multiplicity="1" Role="InstrumentoPago" />
-          <End Type="Self.Pago_Tarjeta" Multiplicity="0..1" Role="Pago_Tarjeta" />
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="1" />
+          <End Role="Pago_Tarjeta" Type="Self.Pago_Tarjeta" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="InstrumentoPago">
               <PropertyRef Name="Id" />
@@ -1101,9 +1117,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pago_Tarjeta_MarcaTarjeta">
+          <End Role="MarcaTarjeta" Type="Self.MarcaTarjeta" Multiplicity="1" />
+          <End Role="Pago_Tarjeta" Type="Self.Pago_Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaTarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdMarcaTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pago_Tarjeta_TipoTarjeta">
-          <End Type="Self.TipoTarjeta" Multiplicity="1" Role="TipoTarjeta" />
-          <End Type="Self.Pago_Tarjeta" Multiplicity="*" Role="Pago_Tarjeta" />
+          <End Role="TipoTarjeta" Type="Self.TipoTarjeta" Multiplicity="1" />
+          <End Role="Pago_Tarjeta" Type="Self.Pago_Tarjeta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoTarjeta">
               <PropertyRef Name="Id" />
@@ -1114,8 +1142,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pago_Transferencia_InstrumentoPago">
-          <End Type="Self.InstrumentoPago" Multiplicity="1" Role="InstrumentoPago" />
-          <End Type="Self.Pago_Transferencia" Multiplicity="0..1" Role="Pago_Transferencia" />
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="1" />
+          <End Role="Pago_Transferencia" Type="Self.Pago_Transferencia" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="InstrumentoPago">
               <PropertyRef Name="Id" />
@@ -1126,8 +1154,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_parametros_fk_Parametros_SituacionFrenteIva1">
-          <End Type="Self.SituacionFrenteIva" Multiplicity="1" Role="SituacionFrenteIva" />
-          <End Type="Self.Parametros" Multiplicity="*" Role="Parametros" />
+          <End Role="SituacionFrenteIva" Type="Self.SituacionFrenteIva" Multiplicity="1" />
+          <End Role="Parametros" Type="Self.Parametros" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SituacionFrenteIva">
               <PropertyRef Name="id" />
@@ -1138,8 +1166,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Planta_Cliente">
-          <End Type="Self.Cliente" Multiplicity="0..1" Role="Cliente" />
-          <End Type="Self.Planta" Multiplicity="*" Role="Planta" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="id" />
@@ -1150,8 +1178,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Planta_Localidad">
-          <End Type="Self.Localidad" Multiplicity="0..1" Role="Localidad" />
-          <End Type="Self.Planta" Multiplicity="*" Role="Planta" />
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Localidad">
               <PropertyRef Name="id" />
@@ -1162,8 +1190,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PlantaComprobante">
-          <End Type="Self.Planta" Multiplicity="1" Role="Planta" />
-          <End Type="Self.Comprobante" Multiplicity="*" Role="Comprobante" />
+          <End Role="Planta" Type="Self.Planta" Multiplicity="1" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Planta">
               <PropertyRef Name="id" />
@@ -1174,8 +1202,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PreciosAdicionales_ArticuloPlanta">
-          <End Type="Self.ArticuloPlanta" Multiplicity="1" Role="ArticuloPlanta" />
-          <End Type="Self.PreciosAdicionales" Multiplicity="*" Role="PreciosAdicionales" />
+          <End Role="ArticuloPlanta" Type="Self.ArticuloPlanta" Multiplicity="1" />
+          <End Role="PreciosAdicionales" Type="Self.PreciosAdicionales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ArticuloPlanta">
               <PropertyRef Name="idArticulo" />
@@ -1188,8 +1216,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PreciosAdicionales_Presentacion">
-          <End Type="Self.Presentacion" Multiplicity="1" Role="Presentacion" />
-          <End Type="Self.PreciosAdicionales" Multiplicity="*" Role="PreciosAdicionales" />
+          <End Role="Presentacion" Type="Self.Presentacion" Multiplicity="1" />
+          <End Role="PreciosAdicionales" Type="Self.PreciosAdicionales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Presentacion">
               <PropertyRef Name="id" />
@@ -1199,9 +1227,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Factura">
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" />
+          <End Role="Rel_Factura_Recibo" Type="Self.Rel_Factura_Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Comprobante_Factura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rel_Factura_Recibo">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Recibo">
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" />
+          <End Role="Rel_Factura_Recibo" Type="Self.Rel_Factura_Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Comprobante_Recibo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rel_Factura_Recibo">
+              <PropertyRef Name="IdRecibo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Factura">
-          <End Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" Role="Comprobante_Comprobante_Factura" />
-          <End Type="Self.Rel_Factura_Remito" Multiplicity="*" Role="Rel_Factura_Remito" />
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" />
+          <End Role="Rel_Factura_Remito" Type="Self.Rel_Factura_Remito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Factura">
               <PropertyRef Name="id" />
@@ -1212,8 +1264,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito">
-          <End Type="Self.Comprobante_Comprobante_Remito" Multiplicity="1" Role="Comprobante_Comprobante_Remito" />
-          <End Type="Self.Rel_Factura_Remito" Multiplicity="*" Role="Rel_Factura_Remito" />
+          <End Role="Comprobante_Comprobante_Remito" Type="Self.Comprobante_Comprobante_Remito" Multiplicity="1" />
+          <End Role="Rel_Factura_Remito" Type="Self.Rel_Factura_Remito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Remito">
               <PropertyRef Name="id" />
@@ -1224,8 +1276,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salida_Cliente">
-          <End Type="Self.Cliente" Multiplicity="0..1" Role="Cliente" />
-          <End Type="Self.Salida" Multiplicity="*" Role="Salida" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="id" />
@@ -1236,8 +1288,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salida_Lote">
-          <End Type="Self.Lote" Multiplicity="1" Role="Lote" />
-          <End Type="Self.Salida" Multiplicity="*" Role="Salida" />
+          <End Role="Lote" Type="Self.Lote" Multiplicity="1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Lote">
               <PropertyRef Name="numero" />
@@ -1248,8 +1300,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salida_Presentacion">
-          <End Type="Self.Presentacion" Multiplicity="0..1" Role="Presentacion" />
-          <End Type="Self.Salida" Multiplicity="*" Role="Salida" />
+          <End Role="Presentacion" Type="Self.Presentacion" Multiplicity="0..1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Presentacion">
               <PropertyRef Name="id" />
@@ -1260,8 +1312,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salida_Salida">
-          <End Type="Self.Salida" Multiplicity="0..1" Role="Salida" />
-          <End Type="Self.Salida" Multiplicity="*" Role="Salida1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="0..1" />
+          <End Role="Salida1" Type="Self.Salida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Salida">
               <PropertyRef Name="id" />
@@ -1272,8 +1324,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salida_VentaArticuloPlanta">
-          <End Type="Self.VentaArticuloPlanta" Multiplicity="0..1" Role="VentaArticuloPlanta" />
-          <End Type="Self.Salida" Multiplicity="*" Role="Salida" />
+          <End Role="VentaArticuloPlanta" Type="Self.VentaArticuloPlanta" Multiplicity="0..1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VentaArticuloPlanta">
               <PropertyRef Name="id" />
@@ -1284,8 +1336,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TipoArticulo_Unidad">
-          <End Type="Self.Unidad" Multiplicity="0..1" Role="Unidad" />
-          <End Type="Self.TipoArticulo" Multiplicity="*" Role="TipoArticulo" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="0..1" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Unidad">
               <PropertyRef Name="id" />
@@ -1296,8 +1348,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TipoArticulo_Unidad1">
-          <End Type="Self.Unidad" Multiplicity="0..1" Role="Unidad" />
-          <End Type="Self.TipoArticulo" Multiplicity="*" Role="TipoArticulo" />
+          <End Role="Unidad" Type="Self.Unidad" Multiplicity="0..1" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Unidad">
               <PropertyRef Name="id" />
@@ -1308,8 +1360,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Usuario_TipoUsuario">
-          <End Type="Self.TipoUsuario" Multiplicity="1" Role="TipoUsuario" />
-          <End Type="Self.Usuario" Multiplicity="*" Role="Usuario" />
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoUsuario">
               <PropertyRef Name="id" />
@@ -1320,8 +1372,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VentaArticuloPlanta_Comprobante">
-          <End Type="Self.Comprobante" Multiplicity="1" Role="Comprobante" />
-          <End Type="Self.VentaArticuloPlanta" Multiplicity="*" Role="VentaArticuloPlanta" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1" />
+          <End Role="VentaArticuloPlanta" Type="Self.VentaArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
               <PropertyRef Name="id" />
@@ -1332,8 +1384,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VentaArticuloPlanta_Comprobante_Comprobante_Remito">
-          <End Type="Self.Comprobante_Comprobante_Remito" Multiplicity="0..1" Role="Comprobante_Comprobante_Remito" />
-          <End Type="Self.VentaArticuloPlanta" Multiplicity="*" Role="VentaArticuloPlanta" />
+          <End Role="Comprobante_Comprobante_Remito" Type="Self.Comprobante_Comprobante_Remito" Multiplicity="0..1" />
+          <End Role="VentaArticuloPlanta" Type="Self.VentaArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante_Comprobante_Remito">
               <PropertyRef Name="id" />
@@ -1344,8 +1396,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VentaArticuloPlanta_Moneda">
-          <End Type="Self.Moneda" Multiplicity="1" Role="Moneda" />
-          <End Type="Self.VentaArticuloPlanta" Multiplicity="*" Role="VentaArticuloPlanta" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="VentaArticuloPlanta" Type="Self.VentaArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
               <PropertyRef Name="id" />
@@ -1356,8 +1408,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VentaArticuloPlanta_Presentacion">
-          <End Type="Self.Presentacion" Multiplicity="0..1" Role="Presentacion" />
-          <End Type="Self.VentaArticuloPlanta" Multiplicity="*" Role="VentaArticuloPlanta" />
+          <End Role="Presentacion" Type="Self.Presentacion" Multiplicity="0..1" />
+          <End Role="VentaArticuloPlanta" Type="Self.VentaArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Presentacion">
               <PropertyRef Name="id" />
@@ -1368,8 +1420,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VentaArticuloPlantaTipoArticulo">
-          <End Type="Self.TipoArticulo" Multiplicity="1" Role="TipoArticulo" />
-          <End Type="Self.VentaArticuloPlanta" Multiplicity="*" Role="VentaArticuloPlanta" />
+          <End Role="TipoArticulo" Type="Self.TipoArticulo" Multiplicity="1" />
+          <End Role="VentaArticuloPlanta" Type="Self.VentaArticuloPlanta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoArticulo">
               <PropertyRef Name="id" />
@@ -1408,6 +1460,7 @@
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailFactura" EntityType="Self.MailFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarcaTarjeta" EntityType="Self.MarcaTarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MuestraPlanta" EntityType="Self.MuestraPlanta" Schema="dbo" store:Type="Tables" />
@@ -1419,6 +1472,7 @@
           <EntitySet Name="Planta" EntityType="Self.Planta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreciosAdicionales" EntityType="Self.PreciosAdicionales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Presentacion" EntityType="Self.Presentacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rel_Factura_Recibo" EntityType="Self.Rel_Factura_Recibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rel_Factura_Remito" EntityType="Self.Rel_Factura_Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rel_Pv_Comprobante" EntityType="Self.Rel_Pv_Comprobante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salida" EntityType="Self.Salida" Schema="dbo" store:Type="Tables" />
@@ -1431,280 +1485,292 @@
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VentaArticuloPlanta" EntityType="Self.VentaArticuloPlanta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ArticuloPlanta_Moneda" Association="Self.FK_ArticuloPlanta_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="ArticuloPlanta" Role="ArticuloPlanta" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="ArticuloPlanta" EntitySet="ArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_ArticuloPlanta_Planta" Association="Self.FK_ArticuloPlanta_Planta">
-            <End EntitySet="Planta" Role="Planta" />
-            <End EntitySet="ArticuloPlanta" Role="ArticuloPlanta" />
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="ArticuloPlanta" EntitySet="ArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_ArticuloPlanta_TipoArticulo" Association="Self.FK_ArticuloPlanta_TipoArticulo">
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
-            <End EntitySet="ArticuloPlanta" Role="ArticuloPlanta" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
+            <End Role="ArticuloPlanta" EntitySet="ArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_ArticuloPlantaHistorico_ArticuloPlanta" Association="Self.FK_ArticuloPlantaHistorico_ArticuloPlanta">
-            <End EntitySet="ArticuloPlanta" Role="ArticuloPlanta" />
-            <End EntitySet="ArticuloPlantaHistorico" Role="ArticuloPlantaHistorico" />
+            <End Role="ArticuloPlanta" EntitySet="ArticuloPlanta" />
+            <End Role="ArticuloPlantaHistorico" EntitySet="ArticuloPlantaHistorico" />
           </AssociationSet>
           <AssociationSet Name="FK_ArticuloPlantaHistorico_Moneda" Association="Self.FK_ArticuloPlantaHistorico_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="ArticuloPlantaHistorico" Role="ArticuloPlantaHistorico" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="ArticuloPlantaHistorico" EntitySet="ArticuloPlantaHistorico" />
           </AssociationSet>
           <AssociationSet Name="FK_CabeceraRutina_CabeceraRutinaFirmantes" Association="Self.FK_CabeceraRutina_CabeceraRutinaFirmantes">
-            <End EntitySet="CabeceraRutinaFirmantes" Role="CabeceraRutinaFirmantes" />
-            <End EntitySet="CabeceraRutina" Role="CabeceraRutina" />
+            <End Role="CabeceraRutinaFirmantes" EntitySet="CabeceraRutinaFirmantes" />
+            <End Role="CabeceraRutina" EntitySet="CabeceraRutina" />
           </AssociationSet>
           <AssociationSet Name="FK_CabeceraRutina_Planta" Association="Self.FK_CabeceraRutina_Planta">
-            <End EntitySet="Planta" Role="Planta" />
-            <End EntitySet="CabeceraRutina" Role="CabeceraRutina" />
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="CabeceraRutina" EntitySet="CabeceraRutina" />
           </AssociationSet>
           <AssociationSet Name="FK_cliente_fk_Cliente_Localidad1" Association="Self.FK_cliente_fk_Cliente_Localidad1">
-            <End EntitySet="Localidad" Role="Localidad" />
-            <End EntitySet="Cliente" Role="Cliente" />
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
           <AssociationSet Name="FK_cliente_fk_Cliente_SituacionFrenteIva1" Association="Self.FK_cliente_fk_Cliente_SituacionFrenteIva1">
-            <End EntitySet="SituacionFrenteIva" Role="SituacionFrenteIva" />
-            <End EntitySet="Cliente" Role="Cliente" />
+            <End Role="SituacionFrenteIva" EntitySet="SituacionFrenteIva" />
+            <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
           <AssociationSet Name="FK_ComposicionArticulos_TipoArticulo" Association="Self.FK_ComposicionArticulos_TipoArticulo">
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
-            <End EntitySet="ComposicionArticulos" Role="ComposicionArticulos" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
+            <End Role="ComposicionArticulos" EntitySet="ComposicionArticulos" />
           </AssociationSet>
           <AssociationSet Name="FK_ComposicionArticulos_TipoArticulo1" Association="Self.FK_ComposicionArticulos_TipoArticulo1">
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
-            <End EntitySet="ComposicionArticulos" Role="ComposicionArticulos" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
+            <End Role="ComposicionArticulos" EntitySet="ComposicionArticulos" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Comprobante_Factura_Moneda" Association="Self.FK_Comprobante_Comprobante_Factura_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="Comprobante_Comprobante_Factura" Role="Comprobante_Comprobante_Factura" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Comprobante_Recibo_TipoPagoCliente" Association="Self.FK_Comprobante_Comprobante_Recibo_TipoPagoCliente">
-            <End EntitySet="TipoPagoCliente" Role="TipoPagoCliente" />
-            <End EntitySet="Comprobante_Comprobante_Recibo" Role="Comprobante_Comprobante_Recibo" />
+            <End Role="TipoPagoCliente" EntitySet="TipoPagoCliente" />
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Comprobante_Remito_Moneda" Association="Self.FK_Comprobante_Comprobante_Remito_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="Comprobante_Comprobante_Remito" Role="Comprobante_Comprobante_Remito" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Comprobante_Remito_Unidad1" Association="Self.FK_Comprobante_Comprobante_Remito_Unidad1">
-            <End EntitySet="Unidad" Role="Unidad" />
-            <End EntitySet="Comprobante_Comprobante_Remito" Role="Comprobante_Comprobante_Remito" />
+            <End Role="Unidad" EntitySet="Unidad" />
+            <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Devolucion_Comprobante" Association="Self.FK_Comprobante_Devolucion_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Devolucion" Role="Comprobante_Comprobante_Devolucion" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Devolucion" EntitySet="Comprobante_Comprobante_Devolucion" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Devolucion_inherits_Comprobante" Association="Self.FK_Comprobante_Devolucion_inherits_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Devolucion" Role="Comprobante_Comprobante_Devolucion" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Devolucion" EntitySet="Comprobante_Comprobante_Devolucion" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Devolucion_Moneda" Association="Self.FK_Comprobante_Devolucion_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="Comprobante_Comprobante_Devolucion" Role="Comprobante_Comprobante_Devolucion" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="Comprobante_Comprobante_Devolucion" EntitySet="Comprobante_Comprobante_Devolucion" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_DevolucionItemNota" Association="Self.FK_Comprobante_DevolucionItemNota">
-            <End EntitySet="Comprobante_Comprobante_Devolucion" Role="Comprobante_Comprobante_Devolucion" />
-            <End EntitySet="ItemNota" Role="ItemNota" />
+            <End Role="Comprobante_Comprobante_Devolucion" EntitySet="Comprobante_Comprobante_Devolucion" />
+            <End Role="ItemNota" EntitySet="ItemNota" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_EstadoComprobante" Association="Self.FK_Comprobante_EstadoComprobante">
-            <End EntitySet="EstadoComprobante" Role="EstadoComprobante" />
-            <End EntitySet="Comprobante" Role="Comprobante" />
+            <End Role="EstadoComprobante" EntitySet="EstadoComprobante" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Factura_inherits_Comprobante" Association="Self.FK_Comprobante_Factura_inherits_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Factura" Role="Comprobante_Comprobante_Factura" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Recargo_Comprobante" Association="Self.FK_Comprobante_Recargo_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Recargo" Role="Comprobante_Comprobante_Recargo" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Recargo" EntitySet="Comprobante_Comprobante_Recargo" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Recargo_inherits_Comprobante" Association="Self.FK_Comprobante_Recargo_inherits_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Recargo" Role="Comprobante_Comprobante_Recargo" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Recargo" EntitySet="Comprobante_Comprobante_Recargo" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Recargo_Moneda" Association="Self.FK_Comprobante_Recargo_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="Comprobante_Comprobante_Recargo" Role="Comprobante_Comprobante_Recargo" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="Comprobante_Comprobante_Recargo" EntitySet="Comprobante_Comprobante_Recargo" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_RecargoItemNota" Association="Self.FK_Comprobante_RecargoItemNota">
-            <End EntitySet="Comprobante_Comprobante_Recargo" Role="Comprobante_Comprobante_Recargo" />
-            <End EntitySet="ItemNota" Role="ItemNota" />
+            <End Role="Comprobante_Comprobante_Recargo" EntitySet="Comprobante_Comprobante_Recargo" />
+            <End Role="ItemNota" EntitySet="ItemNota" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Recibo_inherits_Comprobante" Association="Self.FK_Comprobante_Recibo_inherits_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Recibo" Role="Comprobante_Comprobante_Recibo" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_ReciboItemRecibo" Association="Self.FK_Comprobante_ReciboItemRecibo">
-            <End EntitySet="Comprobante_Comprobante_Recibo" Role="Comprobante_Comprobante_Recibo" />
-            <End EntitySet="ItemRecibo" Role="ItemRecibo" />
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
+            <End Role="ItemRecibo" EntitySet="ItemRecibo" />
           </AssociationSet>
           <AssociationSet Name="FK_Comprobante_Remito_inherits_Comprobante" Association="Self.FK_Comprobante_Remito_inherits_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="Comprobante_Comprobante_Remito" Role="Comprobante_Comprobante_Remito" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
           </AssociationSet>
           <AssociationSet Name="FK_DatosRutina_CabeceraRutina" Association="Self.FK_DatosRutina_CabeceraRutina">
-            <End EntitySet="CabeceraRutina" Role="CabeceraRutina" />
-            <End EntitySet="DatosRutina" Role="DatosRutina" />
+            <End Role="CabeceraRutina" EntitySet="CabeceraRutina" />
+            <End Role="DatosRutina" EntitySet="DatosRutina" />
           </AssociationSet>
           <AssociationSet Name="FK_DatosRutina_Determinante" Association="Self.FK_DatosRutina_Determinante">
-            <End EntitySet="Determinante" Role="Determinante" />
-            <End EntitySet="DatosRutina" Role="DatosRutina" />
+            <End Role="Determinante" EntitySet="Determinante" />
+            <End Role="DatosRutina" EntitySet="DatosRutina" />
           </AssociationSet>
           <AssociationSet Name="FK_DatosRutina_Muestra" Association="Self.FK_DatosRutina_Muestra">
-            <End EntitySet="Muestra" Role="Muestra" />
-            <End EntitySet="DatosRutina" Role="DatosRutina" />
+            <End Role="Muestra" EntitySet="Muestra" />
+            <End Role="DatosRutina" EntitySet="DatosRutina" />
           </AssociationSet>
           <AssociationSet Name="FK_DeterminantesPlanta_Determinante" Association="Self.FK_DeterminantesPlanta_Determinante">
-            <End EntitySet="Determinante" Role="Determinante" />
-            <End EntitySet="DeterminantesPlanta" Role="DeterminantesPlanta" />
+            <End Role="Determinante" EntitySet="Determinante" />
+            <End Role="DeterminantesPlanta" EntitySet="DeterminantesPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_DeterminantesPlanta_Planta" Association="Self.FK_DeterminantesPlanta_Planta">
-            <End EntitySet="Planta" Role="Planta" />
-            <End EntitySet="DeterminantesPlanta" Role="DeterminantesPlanta" />
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="DeterminantesPlanta" EntitySet="DeterminantesPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_Entrada_Lote" Association="Self.FK_Entrada_Lote">
-            <End EntitySet="Lote" Role="Lote" />
-            <End EntitySet="Entrada" Role="Entrada" />
+            <End Role="Lote" EntitySet="Lote" />
+            <End Role="Entrada" EntitySet="Entrada" />
           </AssociationSet>
           <AssociationSet Name="FK_Entrada_Presentacion" Association="Self.FK_Entrada_Presentacion">
-            <End EntitySet="Presentacion" Role="Presentacion" />
-            <End EntitySet="Entrada" Role="Entrada" />
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Entrada" EntitySet="Entrada" />
           </AssociationSet>
           <AssociationSet Name="FK_formulariousuario_fk_Formulario_has_Usuario_Formulario1" Association="Self.FK_formulariousuario_fk_Formulario_has_Usuario_Formulario1">
-            <End EntitySet="Formulario" Role="Formulario" />
-            <End EntitySet="FormularioUsuario" Role="FormularioUsuario" />
+            <End Role="Formulario" EntitySet="Formulario" />
+            <End Role="FormularioUsuario" EntitySet="FormularioUsuario" />
           </AssociationSet>
           <AssociationSet Name="FK_formulariousuario_fk_Formulario_has_Usuario_Usuario1" Association="Self.FK_formulariousuario_fk_Formulario_has_Usuario_Usuario1">
-            <End EntitySet="Usuario" Role="Usuario" />
-            <End EntitySet="FormularioUsuario" Role="FormularioUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="FormularioUsuario" EntitySet="FormularioUsuario" />
           </AssociationSet>
           <AssociationSet Name="FK_InstrumentoPago_PagoCliente" Association="Self.FK_InstrumentoPago_PagoCliente">
-            <End EntitySet="Comprobante_Comprobante_Recibo" Role="Comprobante_Comprobante_Recibo" />
-            <End EntitySet="InstrumentoPago" Role="InstrumentoPago" />
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
           </AssociationSet>
           <AssociationSet Name="FK_log_fk_Log_Usuario1" Association="Self.FK_log_fk_Log_Usuario1">
-            <End EntitySet="Usuario" Role="Usuario" />
-            <End EntitySet="Log" Role="Log" />
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Log" EntitySet="Log" />
           </AssociationSet>
           <AssociationSet Name="FK_Lote_TipoArticulo" Association="Self.FK_Lote_TipoArticulo">
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
-            <End EntitySet="Lote" Role="Lote" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
+            <End Role="Lote" EntitySet="Lote" />
           </AssociationSet>
           <AssociationSet Name="FK_MailFactura_Comprobante_Comprobante_Factura" Association="Self.FK_MailFactura_Comprobante_Comprobante_Factura">
-            <End EntitySet="Comprobante_Comprobante_Factura" Role="Comprobante_Comprobante_Factura" />
-            <End EntitySet="MailFactura" Role="MailFactura" />
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
+            <End Role="MailFactura" EntitySet="MailFactura" />
           </AssociationSet>
           <AssociationSet Name="FK_MuestraPlanta_Muestra" Association="Self.FK_MuestraPlanta_Muestra">
-            <End EntitySet="Muestra" Role="Muestra" />
-            <End EntitySet="MuestraPlanta" Role="MuestraPlanta" />
+            <End Role="Muestra" EntitySet="Muestra" />
+            <End Role="MuestraPlanta" EntitySet="MuestraPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_MuestraPlanta_Planta" Association="Self.FK_MuestraPlanta_Planta">
-            <End EntitySet="Planta" Role="Planta" />
-            <End EntitySet="MuestraPlanta" Role="MuestraPlanta" />
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="MuestraPlanta" EntitySet="MuestraPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_Pago_Cheque_Banco" Association="Self.FK_Pago_Cheque_Banco">
-            <End EntitySet="Banco" Role="Banco" />
-            <End EntitySet="Pago_Cheque" Role="Pago_Cheque" />
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Pago_Cheque" EntitySet="Pago_Cheque" />
           </AssociationSet>
           <AssociationSet Name="FK_Pago_Cheque_InstrumentoPago" Association="Self.FK_Pago_Cheque_InstrumentoPago">
-            <End EntitySet="InstrumentoPago" Role="InstrumentoPago" />
-            <End EntitySet="Pago_Cheque" Role="Pago_Cheque" />
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+            <End Role="Pago_Cheque" EntitySet="Pago_Cheque" />
           </AssociationSet>
           <AssociationSet Name="FK_Pago_Tarjeta_InstrumentoPago" Association="Self.FK_Pago_Tarjeta_InstrumentoPago">
-            <End EntitySet="InstrumentoPago" Role="InstrumentoPago" />
-            <End EntitySet="Pago_Tarjeta" Role="Pago_Tarjeta" />
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+            <End Role="Pago_Tarjeta" EntitySet="Pago_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Tarjeta_MarcaTarjeta" Association="Self.FK_Pago_Tarjeta_MarcaTarjeta">
+            <End Role="MarcaTarjeta" EntitySet="MarcaTarjeta" />
+            <End Role="Pago_Tarjeta" EntitySet="Pago_Tarjeta" />
           </AssociationSet>
           <AssociationSet Name="FK_Pago_Tarjeta_TipoTarjeta" Association="Self.FK_Pago_Tarjeta_TipoTarjeta">
-            <End EntitySet="TipoTarjeta" Role="TipoTarjeta" />
-            <End EntitySet="Pago_Tarjeta" Role="Pago_Tarjeta" />
+            <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
+            <End Role="Pago_Tarjeta" EntitySet="Pago_Tarjeta" />
           </AssociationSet>
           <AssociationSet Name="FK_Pago_Transferencia_InstrumentoPago" Association="Self.FK_Pago_Transferencia_InstrumentoPago">
-            <End EntitySet="InstrumentoPago" Role="InstrumentoPago" />
-            <End EntitySet="Pago_Transferencia" Role="Pago_Transferencia" />
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+            <End Role="Pago_Transferencia" EntitySet="Pago_Transferencia" />
           </AssociationSet>
           <AssociationSet Name="FK_parametros_fk_Parametros_SituacionFrenteIva1" Association="Self.FK_parametros_fk_Parametros_SituacionFrenteIva1">
-            <End EntitySet="SituacionFrenteIva" Role="SituacionFrenteIva" />
-            <End EntitySet="Parametros" Role="Parametros" />
+            <End Role="SituacionFrenteIva" EntitySet="SituacionFrenteIva" />
+            <End Role="Parametros" EntitySet="Parametros" />
           </AssociationSet>
           <AssociationSet Name="FK_Planta_Cliente" Association="Self.FK_Planta_Cliente">
-            <End EntitySet="Cliente" Role="Cliente" />
-            <End EntitySet="Planta" Role="Planta" />
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Planta" EntitySet="Planta" />
           </AssociationSet>
           <AssociationSet Name="FK_Planta_Localidad" Association="Self.FK_Planta_Localidad">
-            <End EntitySet="Localidad" Role="Localidad" />
-            <End EntitySet="Planta" Role="Planta" />
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Planta" EntitySet="Planta" />
           </AssociationSet>
           <AssociationSet Name="FK_PlantaComprobante" Association="Self.FK_PlantaComprobante">
-            <End EntitySet="Planta" Role="Planta" />
-            <End EntitySet="Comprobante" Role="Comprobante" />
+            <End Role="Planta" EntitySet="Planta" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
           <AssociationSet Name="FK_PreciosAdicionales_ArticuloPlanta" Association="Self.FK_PreciosAdicionales_ArticuloPlanta">
-            <End EntitySet="ArticuloPlanta" Role="ArticuloPlanta" />
-            <End EntitySet="PreciosAdicionales" Role="PreciosAdicionales" />
+            <End Role="ArticuloPlanta" EntitySet="ArticuloPlanta" />
+            <End Role="PreciosAdicionales" EntitySet="PreciosAdicionales" />
           </AssociationSet>
           <AssociationSet Name="FK_PreciosAdicionales_Presentacion" Association="Self.FK_PreciosAdicionales_Presentacion">
-            <End EntitySet="Presentacion" Role="Presentacion" />
-            <End EntitySet="PreciosAdicionales" Role="PreciosAdicionales" />
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="PreciosAdicionales" EntitySet="PreciosAdicionales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Factura" Association="Self.FK_Rel_Factura_Recibo_Comprobante_Comprobante_Factura">
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
+            <End Role="Rel_Factura_Recibo" EntitySet="Rel_Factura_Recibo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Recibo" Association="Self.FK_Rel_Factura_Recibo_Comprobante_Comprobante_Recibo">
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
+            <End Role="Rel_Factura_Recibo" EntitySet="Rel_Factura_Recibo" />
           </AssociationSet>
           <AssociationSet Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Factura" Association="Self.FK_Rel_Factura_Remito_Comprobante_Comprobante_Factura">
-            <End EntitySet="Comprobante_Comprobante_Factura" Role="Comprobante_Comprobante_Factura" />
-            <End EntitySet="Rel_Factura_Remito" Role="Rel_Factura_Remito" />
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
+            <End Role="Rel_Factura_Remito" EntitySet="Rel_Factura_Remito" />
           </AssociationSet>
           <AssociationSet Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito" Association="Self.FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito">
-            <End EntitySet="Comprobante_Comprobante_Remito" Role="Comprobante_Comprobante_Remito" />
-            <End EntitySet="Rel_Factura_Remito" Role="Rel_Factura_Remito" />
+            <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
+            <End Role="Rel_Factura_Remito" EntitySet="Rel_Factura_Remito" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_Cliente" Association="Self.FK_Salida_Cliente">
-            <End EntitySet="Cliente" Role="Cliente" />
-            <End EntitySet="Salida" Role="Salida" />
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Salida" EntitySet="Salida" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_Lote" Association="Self.FK_Salida_Lote">
-            <End EntitySet="Lote" Role="Lote" />
-            <End EntitySet="Salida" Role="Salida" />
+            <End Role="Lote" EntitySet="Lote" />
+            <End Role="Salida" EntitySet="Salida" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_Presentacion" Association="Self.FK_Salida_Presentacion">
-            <End EntitySet="Presentacion" Role="Presentacion" />
-            <End EntitySet="Salida" Role="Salida" />
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Salida" EntitySet="Salida" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_Salida" Association="Self.FK_Salida_Salida">
-            <End EntitySet="Salida" Role="Salida" />
-            <End EntitySet="Salida" Role="Salida1" />
+            <End Role="Salida" EntitySet="Salida" />
+            <End Role="Salida1" EntitySet="Salida" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_VentaArticuloPlanta" Association="Self.FK_Salida_VentaArticuloPlanta">
-            <End EntitySet="VentaArticuloPlanta" Role="VentaArticuloPlanta" />
-            <End EntitySet="Salida" Role="Salida" />
+            <End Role="VentaArticuloPlanta" EntitySet="VentaArticuloPlanta" />
+            <End Role="Salida" EntitySet="Salida" />
           </AssociationSet>
           <AssociationSet Name="FK_TipoArticulo_Unidad" Association="Self.FK_TipoArticulo_Unidad">
-            <End EntitySet="Unidad" Role="Unidad" />
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
+            <End Role="Unidad" EntitySet="Unidad" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
           </AssociationSet>
           <AssociationSet Name="FK_TipoArticulo_Unidad1" Association="Self.FK_TipoArticulo_Unidad1">
-            <End EntitySet="Unidad" Role="Unidad" />
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
+            <End Role="Unidad" EntitySet="Unidad" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_TipoUsuario" Association="Self.FK_Usuario_TipoUsuario">
-            <End EntitySet="TipoUsuario" Role="TipoUsuario" />
-            <End EntitySet="Usuario" Role="Usuario" />
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <AssociationSet Name="FK_VentaArticuloPlanta_Comprobante" Association="Self.FK_VentaArticuloPlanta_Comprobante">
-            <End EntitySet="Comprobante" Role="Comprobante" />
-            <End EntitySet="VentaArticuloPlanta" Role="VentaArticuloPlanta" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="VentaArticuloPlanta" EntitySet="VentaArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_VentaArticuloPlanta_Comprobante_Comprobante_Remito" Association="Self.FK_VentaArticuloPlanta_Comprobante_Comprobante_Remito">
-            <End EntitySet="Comprobante_Comprobante_Remito" Role="Comprobante_Comprobante_Remito" />
-            <End EntitySet="VentaArticuloPlanta" Role="VentaArticuloPlanta" />
+            <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
+            <End Role="VentaArticuloPlanta" EntitySet="VentaArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_VentaArticuloPlanta_Moneda" Association="Self.FK_VentaArticuloPlanta_Moneda">
-            <End EntitySet="Moneda" Role="Moneda" />
-            <End EntitySet="VentaArticuloPlanta" Role="VentaArticuloPlanta" />
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="VentaArticuloPlanta" EntitySet="VentaArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_VentaArticuloPlanta_Presentacion" Association="Self.FK_VentaArticuloPlanta_Presentacion">
-            <End EntitySet="Presentacion" Role="Presentacion" />
-            <End EntitySet="VentaArticuloPlanta" Role="VentaArticuloPlanta" />
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="VentaArticuloPlanta" EntitySet="VentaArticuloPlanta" />
           </AssociationSet>
           <AssociationSet Name="FK_VentaArticuloPlantaTipoArticulo" Association="Self.FK_VentaArticuloPlantaTipoArticulo">
-            <End EntitySet="TipoArticulo" Role="TipoArticulo" />
-            <End EntitySet="VentaArticuloPlanta" Role="VentaArticuloPlanta" />
+            <End Role="TipoArticulo" EntitySet="TipoArticulo" />
+            <End Role="VentaArticuloPlanta" EntitySet="VentaArticuloPlanta" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1993,6 +2059,15 @@
             <End Role="Banco" EntitySet="Banco" />
             <End Role="Pago_Cheque" EntitySet="InstrumentoPago" />
           </AssociationSet>
+          <EntitySet Name="MarcaTarjeta" EntityType="QuimadhModel.MarcaTarjeta" />
+          <AssociationSet Name="FK_Pago_Tarjeta_MarcaTarjeta" Association="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta">
+            <End EntitySet="MarcaTarjeta" Role="MarcaTarjeta" />
+            <End EntitySet="InstrumentoPago" Role="Pago_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="Rel_Factura_Recibo1" Association="QuimadhModel.Rel_Factura_Recibo1">
+            <End Role="Comprobante_Factura" EntitySet="Comprobante" />
+            <End Role="Comprobante_Recibo" EntitySet="Comprobante" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CabeceraRutina">
           <Key>
@@ -2084,6 +2159,7 @@
           <Property Name="pv" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Comprobante_Remito" Relationship="QuimadhModel.Rel_Factura_Remito" FromRole="Comprobante_Factura" ToRole="Comprobante_Remito" />
           <NavigationProperty Name="MailFactura" Relationship="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" FromRole="Comprobante_Factura" ToRole="MailFactura" />
+          <NavigationProperty Name="Comprobante_Recibo" Relationship="QuimadhModel.Rel_Factura_Recibo1" FromRole="Comprobante_Factura" ToRole="Comprobante_Recibo" />
         </EntityType>
         <EntityType Name="Comprobante_Recargo" BaseType="QuimadhModel.Comprobante">
           <Property Name="motivo" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
@@ -2107,6 +2183,7 @@
           <Property Name="IdTipoPago" Type="Byte" />
           <NavigationProperty Name="TipoPagoCliente" Relationship="QuimadhModel.FK_Comprobante_Comprobante_Recibo_TipoPagoCliente" FromRole="Comprobante_Recibo" ToRole="TipoPagoCliente" />
           <NavigationProperty Name="InstrumentoPago" Relationship="QuimadhModel.FK_InstrumentoPago_PagoCliente" FromRole="Comprobante_Recibo" ToRole="InstrumentoPago" />
+          <NavigationProperty Name="Comprobante_Factura" Relationship="QuimadhModel.Rel_Factura_Recibo1" FromRole="Comprobante_Recibo" ToRole="Comprobante_Factura" />
         </EntityType>
         <EntityType Name="DatosRutina">
           <Key>
@@ -3227,9 +3304,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdRecibo" Type="Int64" Nullable="false" />
-          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Efectivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comprobante_Comprobante_Recibo" Relationship="QuimadhModel.FK_InstrumentoPago_PagoCliente" FromRole="InstrumentoPago" ToRole="Comprobante_Recibo" />
         </EntityType>
@@ -3281,6 +3358,8 @@
         <EntityType Name="Pago_Tarjeta" BaseType="QuimadhModel.InstrumentoPago">
           <Property Name="IdTipoTarjeta" Nullable="false" Type="Byte" />
           <NavigationProperty Name="TipoTarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" FromRole="Pago_Tarjeta" ToRole="TipoTarjeta" />
+          <Property Name="IdMarcaTarjeta" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="MarcaTarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta" FromRole="Pago_Tarjeta" ToRole="MarcaTarjeta" />
         </EntityType>
         <EntityType Name="TipoTarjeta">
           <Key>
@@ -3321,6 +3400,30 @@
               <PropertyRef Name="IdBanco" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MarcaTarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pago_Tarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta" FromRole="MarcaTarjeta" ToRole="Pago_Tarjeta" />
+        </EntityType>
+        <Association Name="FK_Pago_Tarjeta_MarcaTarjeta">
+          <End Type="QuimadhModel.MarcaTarjeta" Multiplicity="1" Role="MarcaTarjeta" />
+          <End Type="QuimadhModel.Pago_Tarjeta" Multiplicity="*" Role="Pago_Tarjeta" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaTarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdMarcaTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rel_Factura_Recibo1">
+          <End Type="QuimadhModel.Comprobante_Factura" Role="Comprobante_Factura" Multiplicity="*" />
+          <End Type="QuimadhModel.Comprobante_Recibo" Role="Comprobante_Recibo" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -3862,6 +3965,7 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Pago_Tarjeta)">
               <MappingFragment StoreEntitySet="Pago_Tarjeta">
+                <ScalarProperty Name="IdMarcaTarjeta" ColumnName="IdMarcaTarjeta" />
                 <ScalarProperty Name="Id" ColumnName="IdInstrumentoPago" />
                 <ScalarProperty Name="IdTipoTarjeta" ColumnName="IdTipoTarjeta" />
               </MappingFragment>
@@ -3891,6 +3995,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MarcaTarjeta">
+            <EntityTypeMapping TypeName="QuimadhModel.MarcaTarjeta">
+              <MappingFragment StoreEntitySet="MarcaTarjeta">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Rel_Factura_Recibo1" TypeName="QuimadhModel.Rel_Factura_Recibo1" StoreEntitySet="Rel_Factura_Recibo">
+            <EndProperty Name="Comprobante_Recibo">
+              <ScalarProperty Name="id" ColumnName="IdRecibo" />
+            </EndProperty>
+            <EndProperty Name="Comprobante_Factura">
+              <ScalarProperty Name="id" ColumnName="IdFactura" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

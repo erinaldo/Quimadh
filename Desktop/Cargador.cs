@@ -804,5 +804,40 @@ namespace Desktop
                 unMensaje.ShowDialog();
             }
         }
+
+        public static void CargarMarcasTarjeta(ComboBox combo, string textoPrimerItem = "", int idTipoPorDefecto = 0)
+        {
+            try
+            {
+                ComboBoxItem item;
+                // Obtiene las localidades
+                var marcasTarjetas = Global.Servicio.ObtenerTodosMarcaTarjetas();
+
+                // Limpia el contenido del combobox
+                combo.Items.Clear();
+
+                if (textoPrimerItem != "")
+                    combo.Items.Add(textoPrimerItem);
+
+                int indice = 0;
+
+                // Carga las localidades obtenidas
+                foreach (var marca in marcasTarjetas)
+                {
+                    item = new ComboBoxItem(marca.Descripcion, marca);
+                    combo.Items.Add(item);
+
+                    if (idTipoPorDefecto == marca.Id)
+                        indice = combo.Items.Count - 1;
+                }
+
+                combo.SelectedIndex = indice;
+            }
+            catch (Exception ex)
+            {
+                Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
+            }
+        }
     }
 }

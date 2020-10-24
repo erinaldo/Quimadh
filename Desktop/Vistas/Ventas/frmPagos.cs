@@ -1,19 +1,27 @@
 ﻿using Controles;
 using Entidades;
 using System;
+using System.Data.Entity.Core.Objects;
 using System.Windows.Forms;
 
 namespace Desktop.Vistas.Ventas
 {
     public partial class frmPagos : FormBaseSinToolbar
     {
-        private Comprobante_Recibo recibo;        
+        private Comprobante_Recibo _recibo;
+        private InstrumentoPago _pagoEfectivo;
 
         public frmPagos(Comprobante_Recibo recibo)
         {
             InitializeComponent();
 
-            this.recibo = recibo;
+            _recibo = recibo;
+        }
+
+        private void frmPagos_Load(object sender, EventArgs e)
+        {
+            txtTotal.Text = "0.00";
+            CargarPagos();
         }
 
         private void btnMasTarj_Click(object sender, EventArgs e)
@@ -24,7 +32,7 @@ namespace Desktop.Vistas.Ventas
         private void btnMenosTarj_Click(object sender, EventArgs e)
         {
             EliminarPago(dgvTarj);
-        }        
+        }
 
         private void btnMasChq_Click(object sender, EventArgs e)
         {
@@ -44,7 +52,7 @@ namespace Desktop.Vistas.Ventas
         private void btnMenosTransf_Click(object sender, EventArgs e)
         {
             EliminarPago(dgvTransf);
-        }        
+        }
 
         private void MostrarFormularioPago(FormBaseSinToolbar formPago)
         {
@@ -59,20 +67,25 @@ namespace Desktop.Vistas.Ventas
 
         private void AgregarPago(InstrumentoPago pago)
         {
-            var grilla = ObtenerDataGridView(pago.GetType());
+            var grilla = ObtenerDataGridView(ObjectContext.GetObjectType(pago.GetType()));
             var rowIndex = grilla.Rows.Add();
             grilla.Rows[rowIndex].Tag = pago;
-
             CargarFilaEnGrilla(grilla, rowIndex);
-            recibo.InstrumentoPago.Add(pago);
+
+            ActualizarTotal(pago, true);
         }
 
         private void EliminarPago(DataGridView dataGridView)
         {
-            var row = dataGridView.SelectedRows[0];
-            var pago = (InstrumentoPago)row.Tag;
-            recibo.InstrumentoPago.Remove(pago);
-            dataGridView.Rows.Remove(row);
+            var row = EliminarFilaSeleccionada(dataGridView);
+            ActualizarTotal((InstrumentoPago)row.Tag, false);
+        }
+
+        private void ActualizarTotal(InstrumentoPago pago, bool positivo)
+        {
+            var importe = decimal.Parse(txtTotal.Text);
+            importe += pago.Importe * (positivo ? 1 : -1);
+            txtTotal.Text = importe.ToString("0.00");
         }
 
         private DataGridView ObtenerDataGridView(Type type)
@@ -115,12 +128,101 @@ namespace Desktop.Vistas.Ventas
                     grilla.Rows[rowIndex].Cells["clmTarjImporte"].Value = pagoTarj.Importe.ToString("0.00");
                     grilla.Rows[rowIndex].Cells["clmTarjTipo"].Value = pagoTarj.TipoTarjeta.Descripcion;
                     break;
+                case nameof(dgvFacturas):
+                    var factura = (Comprobante_Factura)grilla.Rows[rowIndex].Tag;
+                    grilla.Rows[rowIndex].Cells["clmFactPvNro"].Value = $"{factura.pv:0000}-{factura.numero:00000000}";
+                    grilla.Rows[rowIndex].Cells["clmFactTipo"].Value = factura.tipo;                    
+                    grilla.Rows[rowIndex].Cells["clmFactFCE"].Value = factura.CE_MiPyme ? "SI" : "NO";
+                    break;
             }
-        }        
+        }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            _recibo.InstrumentoPago.Clear();
+
+            if (_pagoEfectivo != null)
+            {
+                _recibo.InstrumentoPago.Add(_pagoEfectivo);
+            }
+
+            RecorrerGrillaPago(dgvTransf);
+            RecorrerGrillaPago(dgvTarj);
+            RecorrerGrillaPago(dgvCheques);
+
+            foreach (DataGridViewRow fila in dgvFacturas.Rows)
+            {
+                var factura = (Comprobante_Factura)fila.Tag;
+                _recibo.Comprobante_Factura.Add(factura);
+            }
+
+            Close();
+        }
+
+        private void RecorrerGrillaPago(DataGridView grilla)
+        {
+            foreach (DataGridViewRow fila in grilla.Rows)
+            {
+                var pago = (InstrumentoPago)fila.Tag;
+                _recibo.InstrumentoPago.Add(pago);
+            }
+        }        
+
+        private void CargarPagos()
+        {
+            foreach (var pago in _recibo.InstrumentoPago)
+            {
+                if (pago.Efectivo)
+                {
+                    _pagoEfectivo = pago;
+                    txtEfectivo.Text = pago.Importe.ToString("0.00");
+                    ActualizarTotal(pago, true);
+                }
+                else
+                {
+                    AgregarPago(pago);
+                }
+            }
+        }
+
+        private void txtEfectivo_Leave(object sender, EventArgs e)
+        {
+            if (_pagoEfectivo == null)
+            {
+                _pagoEfectivo = new InstrumentoPago();
+                _pagoEfectivo.Efectivo = true;
+            }
+            else
+            {
+                ActualizarTotal(_pagoEfectivo, false);
+            }
+
+            _pagoEfectivo.Importe = decimal.Parse(txtEfectivo.Text);
+            ActualizarTotal(_pagoEfectivo, true);
+        }
+
+        private void btnMasFact_Click(object sender, EventArgs e)
+        {
+            var busq = new frmBusquedaComp();
+            busq.tipo = "factura";
+            busq.ShowDialog();
+
+            var rowIndex = dgvFacturas.Rows.Add();
+            dgvFacturas.Rows[rowIndex].Tag = busq.comprobanteSeleccionado;
+            CargarFilaEnGrilla(dgvFacturas, rowIndex);            
+        }
+
+        private void btnMenosFact_Click(object sender, EventArgs e)
+        {
+            EliminarFilaSeleccionada(dgvFacturas);
+        }
+
+        private DataGridViewRow EliminarFilaSeleccionada(DataGridView grilla)
+        {
+            var row = grilla.SelectedRows[0];
+            grilla.Rows.Remove(row);
+
+            return row;
         }
     }
 }

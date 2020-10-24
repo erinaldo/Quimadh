@@ -3,13 +3,6 @@ using Desktop.Vistas.Administracion;
 using Entidades;
 using Frontend.Controles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop.Vistas.Ventas
@@ -31,11 +24,11 @@ namespace Desktop.Vistas.Ventas
             txtTotal1.Text = "0";
             txtTotal2.Text = "0";
             Cargador.cargarNombresClientes(txtRazonSocial);
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
             gpbDatosRec.Enabled = false;
             gpbDatos.Enabled = false;
             gpbTotales.Enabled = false;
             dgvItems.Enabled = false;
+            btnPago.Enabled = false;
 
             btnEliminar.Text = "Anular";
         }
@@ -54,18 +47,18 @@ namespace Desktop.Vistas.Ventas
             gpbTotales.Enabled = true;
             dgvItems.Enabled = true;
             txtNroRecibo.Text = Global.Servicio.BuscarNroRecibo().ToString();
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
+            btnPago.Enabled = true;
         }
 
         protected override void modificar()
         {
-            recibo = new Comprobante_Recibo();
+            //recibo = new Comprobante_Recibo();
             gpbDatos.Enabled = true;
-            gpbDatosRec.Enabled = true;
-            gpbTotales.Enabled = true;
-            dgvItems.Enabled = true;
+            gpbDatosRec.Enabled = false;
+            gpbTotales.Enabled = false;
+            dgvItems.Enabled = false;
+            btnPago.Enabled = true;
             txtDomicilio.Focus();
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
         }
 
         protected override bool eliminar()
@@ -104,7 +97,7 @@ namespace Desktop.Vistas.Ventas
 
         protected override void limpiar()
         {
-            recibo = null;
+            //recibo = null;
             if (Estado != Estados.Modificar)
             {
                 // Limpia los datos del formulario
@@ -117,7 +110,7 @@ namespace Desktop.Vistas.Ventas
             gpbDatosRec.Enabled = false;
             gpbTotales.Enabled = false;
             dgvItems.Enabled = false;
-            //txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
+            btnPago.Enabled = false;
         }
 
         protected override bool cargarBusqueda()
@@ -259,54 +252,59 @@ namespace Desktop.Vistas.Ventas
 
                 if (cliente != null && planta != null)
                 {
-                    recibo = new Comprobante_Recibo();
-                    if (txtNroRecibo.Text != "")
-                        recibo.numero = long.Parse(txtNroRecibo.Text);
-                    else
-                        recibo.numero = 0;
-                    if (txtTotal1.Text != "")
-                        recibo.importe = decimal.Parse(txtTotal1.Text);
-                    else
-                        recibo.importe = 0;
-
-                    recibo.Planta = planta;
-                    recibo.fechaIngreso = dtpFecha.Value; //DateTime.Now;
-                    recibo.anulado = false;
-                    recibo.formaPago = txtFormaPago.Text;
-
-
-                    foreach (DataGridViewRow fila in dgvItems.Rows)
+                    if (Estado == Estados.Agregar)
                     {
-                        if (!fila.IsNewRow)
+                        //recibo = new Comprobante_Recibo();
+                        if (txtNroRecibo.Text != "")
+                            recibo.numero = long.Parse(txtNroRecibo.Text);
+                        else
+                            recibo.numero = 0;
+                        if (txtTotal1.Text != "")
+                            recibo.importe = decimal.Parse(txtTotal1.Text);
+                        else
+                            recibo.importe = 0;
+
+                        recibo.Planta = planta;
+                        recibo.fechaIngreso = dtpFecha.Value;
+                        recibo.anulado = false;
+                        recibo.formaPago = txtFormaPago.Text;
+
+                        foreach (DataGridViewRow fila in dgvItems.Rows)
                         {
-                            ItemRecibo item = new ItemRecibo();
+                            if (!fila.IsNewRow)
+                            {
+                                ItemRecibo item = new ItemRecibo();
 
-                            //recibo.importe += decimal.Parse(fila.Cells["clmImporteIzq"].Value.ToString());
-                            if (fila.Cells["clmImporteIzq"].FormattedValue.ToString().Trim() != "")
-                                item.importeIzq = decimal.Parse(fila.Cells["clmImporteIzq"].Value.ToString());
-                            item.descripIzq = fila.Cells["clmDescIzq"].FormattedValue.ToString();
-                            if (fila.Cells["clmFechaIzq"].FormattedValue.ToString().Trim() != "")
-                                item.fechaIzq = DateTime.Parse(fila.Cells["clmFechaIzq"].Value.ToString());
-                            if (fila.Cells["clmImporteDer"].FormattedValue.ToString().Trim() != "")
-                                item.importeDer = decimal.Parse(fila.Cells["clmImporteDer"].Value.ToString());
-                            item.descripDer = fila.Cells["clmDescDer"].FormattedValue.ToString();
-                            if (fila.Cells["clmFechaDer"].FormattedValue.ToString().Trim() != "")
-                                item.fechaDer = DateTime.Parse(fila.Cells["clmFechaDer"].Value.ToString());
+                                if (fila.Cells["clmImporteIzq"].FormattedValue.ToString().Trim() != "")
+                                    item.importeIzq = decimal.Parse(fila.Cells["clmImporteIzq"].Value.ToString());
+                                item.descripIzq = fila.Cells["clmDescIzq"].FormattedValue.ToString();
+                                if (fila.Cells["clmFechaIzq"].FormattedValue.ToString().Trim() != "")
+                                    item.fechaIzq = DateTime.Parse(fila.Cells["clmFechaIzq"].Value.ToString());
+                                if (fila.Cells["clmImporteDer"].FormattedValue.ToString().Trim() != "")
+                                    item.importeDer = decimal.Parse(fila.Cells["clmImporteDer"].Value.ToString());
+                                item.descripDer = fila.Cells["clmDescDer"].FormattedValue.ToString();
+                                if (fila.Cells["clmFechaDer"].FormattedValue.ToString().Trim() != "")
+                                    item.fechaDer = DateTime.Parse(fila.Cells["clmFechaDer"].Value.ToString());
 
-                            recibo.ItemRecibo.Add(item);
+                                recibo.ItemRecibo.Add(item);
+                            }
                         }
+
+                        Global.Servicio.AgregarRecibo(recibo, Global.DatosSesion);
+                        Mensaje unMensaje = new Mensaje("Recibo cargado con éxito", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                        unMensaje.ShowDialog();
+
+                        Global.Servicio.ImprimirRecibo(recibo);
+                        Global.Servicio.ImprimirRecibo(recibo);
+
+                        Global.Servicio.ImprimirReciboDigital(recibo);
                     }
-
-                    Global.Servicio.agregarRecibo(recibo, Global.DatosSesion);
-                    Mensaje unMensaje = new Mensaje("Recibo cargado con éxito", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
-                    unMensaje.ShowDialog();
-
-                    Global.Servicio.imprimirRecibo(recibo);
-                    Global.Servicio.imprimirRecibo(recibo);
-
-                    Global.Servicio.imprimirReciboDigital(recibo);
-
-                    //this.Close();
+                    else if (Estado == Estados.Modificar)
+                    {
+                        Global.Servicio.ActualizarRecibo(recibo, Global.DatosSesion);
+                        Mensaje unMensaje = new Mensaje("Recibo modificado con éxito", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                    }
+                    
                     return true;
                 }
                 else
@@ -323,13 +321,6 @@ namespace Desktop.Vistas.Ventas
                 return false;
             }
         }
-
-        //private void frmRecibos_Load(object sender, EventArgs e)
-        //{
-        //    txtNroRecibo.Text = Global.Servicio.BuscarNroRecibo().ToString();
-        //    Cargador.cargarNombresClientes(txtRazonSocial);
-        //    txtCotiz.Text = Global.Servicio.obtenerCotizacionDolar().ToString("0.0000");
-        //}
 
         private void dgvItems_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
@@ -446,10 +437,10 @@ namespace Desktop.Vistas.Ventas
         {
             if (recibo != null && Estado != Estados.Modificar && Estado != Estados.Agregar)
             {
-                Global.Servicio.imprimirRecibo(recibo);
-                Global.Servicio.imprimirRecibo(recibo);
+                Global.Servicio.ImprimirRecibo(recibo);
+                Global.Servicio.ImprimirRecibo(recibo);
 
-                Global.Servicio.imprimirReciboDigital(recibo);
+                Global.Servicio.ImprimirReciboDigital(recibo);
             }
             else
             {
@@ -460,6 +451,14 @@ namespace Desktop.Vistas.Ventas
 
         private void btnPago_Click(object sender, EventArgs e)
         {
+            if (cliente == null)
+            {
+                Mensaje unMensaje = new Mensaje("Debe seleccionar el cliente antes de cargar el pago", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
+
+                return;
+            }
+
             var formPagos = new frmPagos(recibo);
             formPagos.ShowDialog();
         }

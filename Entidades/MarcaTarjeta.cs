@@ -12,12 +12,16 @@ namespace Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class Pago_Tarjeta : InstrumentoPago
+    public partial class MarcaTarjeta
     {
-        public byte IdTipoTarjeta { get; set; }
-        public byte IdMarcaTarjeta { get; set; }
+        public MarcaTarjeta()
+        {
+            this.Pago_Tarjeta = new HashSet<Pago_Tarjeta>();
+        }
     
-        public virtual TipoTarjeta TipoTarjeta { get; set; }
-        public virtual MarcaTarjeta MarcaTarjeta { get; set; }
+        public byte Id { get; set; }
+        public string Descripcion { get; set; }
+    
+        public virtual ICollection<Pago_Tarjeta> Pago_Tarjeta { get; set; }
     }
 }

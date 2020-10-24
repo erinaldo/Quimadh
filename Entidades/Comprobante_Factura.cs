@@ -18,6 +18,7 @@ namespace Entidades
         {
             this.Comprobante_Remito = new HashSet<Comprobante_Remito>();
             this.MailFactura = new HashSet<MailFactura>();
+            this.Comprobante_Recibo = new HashSet<Comprobante_Recibo>();
         }
     
         public string observacion { get; set; }
@@ -34,5 +35,6 @@ namespace Entidades
         public virtual Moneda Moneda { get; set; }
         public virtual ICollection<Comprobante_Remito> Comprobante_Remito { get; set; }
         public virtual ICollection<MailFactura> MailFactura { get; set; }
+        public virtual ICollection<Comprobante_Recibo> Comprobante_Recibo { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace Entidades
         {
             this.ItemRecibo = new HashSet<ItemRecibo>();
             this.InstrumentoPago = new HashSet<InstrumentoPago>();
+            this.Comprobante_Factura = new HashSet<Comprobante_Factura>();
         }
     
         public string formaPago { get; set; }
@@ -27,5 +28,6 @@ namespace Entidades
         public virtual ICollection<ItemRecibo> ItemRecibo { get; set; }
         public virtual TipoPagoCliente TipoPagoCliente { get; set; }
         public virtual ICollection<InstrumentoPago> InstrumentoPago { get; set; }
+        public virtual ICollection<Comprobante_Factura> Comprobante_Factura { get; set; }
     }
 }

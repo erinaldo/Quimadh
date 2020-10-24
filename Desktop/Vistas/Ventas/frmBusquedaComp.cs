@@ -118,7 +118,7 @@ namespace Desktop.Vistas.Ventas
                         cant = Global.Servicio.obtenerTodosComprobantesRem(1).Count();
                         break;
                     case "recibo":
-                        cant = Global.Servicio.obtenerTodosComprobantesRec(1).Count();
+                        cant = Global.Servicio.ObtenerTodosComprobantesRec(1).Count();
                         break;
                     case "notaCredito":
                         cant = Global.Servicio.obtenerTodosComprobantesNC(1).Count();

@@ -1976,6 +1976,11 @@ namespace ModuloServicios
             return _contexto.TipoTarjeta.ToList();
         }
 
+        public List<MarcaTarjeta> ObtenerTodosMarcaTarjetas()
+        {
+            return _contexto.MarcaTarjeta.ToList();
+        }
+
         #endregion
     }
 }

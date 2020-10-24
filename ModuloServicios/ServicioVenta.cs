@@ -924,13 +924,13 @@ namespace ModuloServicios
 
         #region Recibo
 
-        public Comprobante_Recibo agregarRecibo(Comprobante_Recibo recibo, Metadata metadata)
+        public Comprobante_Recibo AgregarRecibo(Comprobante_Recibo recibo, Metadata metadata)
         {
             Comprobante_Recibo reciboGuardado = null;
 
             using (TransactionScope scope = new TransactionScope())
             {
-                ValidarRecibo(recibo);
+                ValidarRecibo(recibo, Acciones.Log.ALTA);
 
                 reciboGuardado = (Comprobante_Recibo)_contexto.Comprobante.Add(recibo);
                 _contexto.SaveChanges();
@@ -943,6 +943,24 @@ namespace ModuloServicios
             return reciboGuardado;
         }
 
+        public void ActualizarRecibo(Comprobante_Recibo recibo, Metadata metadata)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                ValidarRecibo(recibo, Acciones.Log.MODIFICACION);
+
+                var instrumentosEnRecibo = recibo.InstrumentoPago.Select(x => x.Id);
+                var instrumentosPago = _contexto.InstrumentoPago.Where(v => v.IdRecibo == recibo.id && !instrumentosEnRecibo.Contains(v.Id));
+                _contexto.InstrumentoPago.RemoveRange(instrumentosPago);
+
+                _contexto.SaveChanges();
+
+                GenerarLog<Comprobante_Recibo>(recibo, Acciones.Log.MODIFICACION, metadata);
+
+                scope.Complete();
+            }
+        }
+
         public long BuscarNroRecibo()
         {
             long numero;
@@ -950,12 +968,12 @@ namespace ModuloServicios
             return numero + 1;
         }
 
-        public List<Comprobante_Recibo> obtenerTodosComprobantesRec(int numeroRegistros)
+        public List<Comprobante_Recibo> ObtenerTodosComprobantesRec(int numeroRegistros)
         {
             return _contexto.Comprobante.OfType<Comprobante_Recibo>().Take(numeroRegistros).ToList();
         }
 
-        private void ValidarRecibo(Comprobante_Recibo recibo)
+        private void ValidarRecibo(Comprobante_Recibo recibo, Acciones.Log accion)
         {
             string mensaje = "";
 
@@ -965,26 +983,21 @@ namespace ModuloServicios
             if (recibo.importe == 0)
                 mensaje = "El importe debe ser mayor a cero.";
 
-            //foreach (ItemRecibo item in recibo.ItemRecibo)
-            //{
-            //    if (item.fechaIzq.ToString("yyyyMMdd") == "19000101")
-            //        mensaje = "Alguna fecha del lado izquierdo es incorrecta.";
-            //    if (item.fechaDer.ToString("yyyyMMdd") == "19000101")
-            //        mensaje = "Alguna fecha del lado derecho es incorrecta.";
-            //}
+            if (accion == Acciones.Log.ALTA)
+            {
+                bool existe = (from r in _contexto.Comprobante.OfType<Comprobante_Recibo>()
+                               where r.numero.Equals(recibo.numero)
+                               select r).Any();
 
-            bool existe = (from r in _contexto.Comprobante.OfType<Comprobante_Recibo>()
-                           where r.numero.Equals(recibo.numero)
-                           select r).Any();
-
-            if (existe)
-                mensaje = "Ya existe el número de recibo.";
+                if (existe)
+                    mensaje = "Ya existe el número de recibo.";
+            }
 
             if (mensaje != "")
                 throw new ExcepcionValidacion(mensaje);
         }
 
-        public void imprimirRecibo(Comprobante_Recibo recibo)
+        public void ImprimirRecibo(Comprobante_Recibo recibo)
         {
             DateTime fi;
             DateTime fd;
@@ -1046,7 +1059,7 @@ namespace ModuloServicios
             pd.Print();
         }
 
-        public void imprimirReciboDigital(Comprobante_Recibo recibo)
+        public void ImprimirReciboDigital(Comprobante_Recibo recibo)
         {
             DateTime fi;
             DateTime fd;

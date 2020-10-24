@@ -24,6 +24,7 @@ namespace Desktop.Vistas.Ventas
         private void frmPagosTarjetas_Load(object sender, EventArgs e)
         {
             Cargador.CargarTiposTarjeta(cboTipo, "", -1);
+            Cargador.CargarMarcasTarjeta(cboMarca, "", -1);
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace Desktop.Vistas.Ventas
             PagoTarjeta.Efectivo = false;
             PagoTarjeta.Importe = decimal.Parse(txtImporte.Text);
             PagoTarjeta.TipoTarjeta = (TipoTarjeta)((ComboBoxItem)cboTipo.SelectedItem).Value;
+            PagoTarjeta.MarcaTarjeta = (MarcaTarjeta)((ComboBoxItem)cboMarca.SelectedItem).Value;
 
             ObjetoRetorno = PagoTarjeta;
             Close();

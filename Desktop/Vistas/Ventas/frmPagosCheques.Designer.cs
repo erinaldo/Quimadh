@@ -54,8 +54,8 @@
             // 
             // txtImporte
             // 
-            this.txtImporte.Decimales = 0;
-            this.txtImporte.Enteros = 11;
+            this.txtImporte.Decimales = 2;
+            this.txtImporte.Enteros = 16;
             this.txtImporte.EnterTabulacion = true;
             this.txtImporte.Location = new System.Drawing.Point(191, 127);
             this.txtImporte.Margin = new System.Windows.Forms.Padding(4);
@@ -67,7 +67,7 @@
             // txtNumero
             // 
             this.txtNumero.Decimales = 0;
-            this.txtNumero.Enteros = 11;
+            this.txtNumero.Enteros = 8;
             this.txtNumero.EnterTabulacion = true;
             this.txtNumero.Location = new System.Drawing.Point(191, 158);
             this.txtNumero.Margin = new System.Windows.Forms.Padding(4);
@@ -135,6 +135,7 @@
             // txtDescLib
             // 
             this.txtDescLib.Location = new System.Drawing.Point(191, 252);
+            this.txtDescLib.MaxLength = 100;
             this.txtDescLib.Name = "txtDescLib";
             this.txtDescLib.Size = new System.Drawing.Size(211, 23);
             this.txtDescLib.TabIndex = 78;

@@ -34,6 +34,8 @@
             this.btnAgregar = new Controles.ButtonQuimadh(this.components);
             this.cboTipo = new Controles.CustomComboBox(this.components);
             this.labelQuimadh5 = new Controles.LabelQuimadh(this.components);
+            this.labelQuimadh1 = new Controles.LabelQuimadh(this.components);
+            this.cboMarca = new Controles.CustomComboBox(this.components);
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -43,10 +45,10 @@
             // 
             // txtImporte
             // 
-            this.txtImporte.Decimales = 0;
-            this.txtImporte.Enteros = 11;
+            this.txtImporte.Decimales = 2;
+            this.txtImporte.Enteros = 16;
             this.txtImporte.EnterTabulacion = true;
-            this.txtImporte.Location = new System.Drawing.Point(191, 143);
+            this.txtImporte.Location = new System.Drawing.Point(191, 176);
             this.txtImporte.Margin = new System.Windows.Forms.Padding(4);
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(211, 23);
@@ -58,7 +60,7 @@
             this.labelQuimadh12.AutoSize = true;
             this.labelQuimadh12.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh12.Location = new System.Drawing.Point(107, 144);
+            this.labelQuimadh12.Location = new System.Drawing.Point(107, 177);
             this.labelQuimadh12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh12.Name = "labelQuimadh12";
             this.labelQuimadh12.Size = new System.Drawing.Size(78, 20);
@@ -67,9 +69,9 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(191, 196);
+            this.btnAgregar.Location = new System.Drawing.Point(222, 228);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(102, 35);
+            this.btnAgregar.Size = new System.Drawing.Size(116, 35);
             this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -97,11 +99,35 @@
             this.labelQuimadh5.TabIndex = 86;
             this.labelQuimadh5.Text = "Tipo:";
             // 
+            // labelQuimadh1
+            // 
+            this.labelQuimadh1.AutoSize = true;
+            this.labelQuimadh1.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh1.Location = new System.Drawing.Point(116, 144);
+            this.labelQuimadh1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelQuimadh1.Name = "labelQuimadh1";
+            this.labelQuimadh1.Size = new System.Drawing.Size(67, 20);
+            this.labelQuimadh1.TabIndex = 88;
+            this.labelQuimadh1.Text = "Marca:";
+            // 
+            // cboMarca
+            // 
+            this.cboMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMarca.FormattingEnabled = true;
+            this.cboMarca.Location = new System.Drawing.Point(191, 143);
+            this.cboMarca.Margin = new System.Windows.Forms.Padding(4);
+            this.cboMarca.Name = "cboMarca";
+            this.cboMarca.Size = new System.Drawing.Size(211, 25);
+            this.cboMarca.TabIndex = 87;
+            // 
             // frmPagosTarjetas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 261);
+            this.ClientSize = new System.Drawing.Size(514, 290);
+            this.Controls.Add(this.labelQuimadh1);
+            this.Controls.Add(this.cboMarca);
             this.Controls.Add(this.labelQuimadh5);
             this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.btnAgregar);
@@ -115,6 +141,8 @@
             this.Controls.SetChildIndex(this.btnAgregar, 0);
             this.Controls.SetChildIndex(this.cboTipo, 0);
             this.Controls.SetChildIndex(this.labelQuimadh5, 0);
+            this.Controls.SetChildIndex(this.cboMarca, 0);
+            this.Controls.SetChildIndex(this.labelQuimadh1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,5 +155,7 @@
         private Controles.ButtonQuimadh btnAgregar;
         private Controles.CustomComboBox cboTipo;
         private Controles.LabelQuimadh labelQuimadh5;
+        private Controles.LabelQuimadh labelQuimadh1;
+        private Controles.CustomComboBox cboMarca;
     }
 }

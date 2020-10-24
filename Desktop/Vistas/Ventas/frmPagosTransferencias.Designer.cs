@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.txtImporte = new Controles.TextBoxNumerico();
-            this.txtNumero = new Controles.TextBoxNumerico();
             this.labelQuimadh12 = new Controles.LabelQuimadh(this.components);
             this.labelQuimadh1 = new Controles.LabelQuimadh(this.components);
             this.btnAgregar = new Controles.ButtonQuimadh(this.components);
+            this.txtNumero = new Controles.TextBoxQuimadh();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -43,8 +43,8 @@
             // 
             // txtImporte
             // 
-            this.txtImporte.Decimales = 0;
-            this.txtImporte.Enteros = 11;
+            this.txtImporte.Decimales = 2;
+            this.txtImporte.Enteros = 16;
             this.txtImporte.EnterTabulacion = true;
             this.txtImporte.Location = new System.Drawing.Point(191, 133);
             this.txtImporte.Margin = new System.Windows.Forms.Padding(4);
@@ -52,18 +52,6 @@
             this.txtImporte.Size = new System.Drawing.Size(211, 23);
             this.txtImporte.TabIndex = 26;
             this.txtImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtNumero
-            // 
-            this.txtNumero.Decimales = 0;
-            this.txtNumero.Enteros = 11;
-            this.txtNumero.EnterTabulacion = true;
-            this.txtNumero.Location = new System.Drawing.Point(191, 180);
-            this.txtNumero.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(211, 23);
-            this.txtNumero.TabIndex = 27;
-            this.txtNumero.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelQuimadh12
             // 
@@ -99,23 +87,31 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // txtNumero
+            // 
+            this.txtNumero.Location = new System.Drawing.Point(191, 180);
+            this.txtNumero.MaxLength = 50;
+            this.txtNumero.Name = "txtNumero";
+            this.txtNumero.Size = new System.Drawing.Size(211, 23);
+            this.txtNumero.TabIndex = 76;
+            // 
             // frmPagosTransferencias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 321);
+            this.Controls.Add(this.txtNumero);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.labelQuimadh1);
             this.Controls.Add(this.labelQuimadh12);
-            this.Controls.Add(this.txtNumero);
             this.Controls.Add(this.txtImporte);
             this.Name = "frmPagosTransferencias";
             this.Controls.SetChildIndex(this.lblTitulo, 0);
             this.Controls.SetChildIndex(this.txtImporte, 0);
-            this.Controls.SetChildIndex(this.txtNumero, 0);
             this.Controls.SetChildIndex(this.labelQuimadh12, 0);
             this.Controls.SetChildIndex(this.labelQuimadh1, 0);
             this.Controls.SetChildIndex(this.btnAgregar, 0);
+            this.Controls.SetChildIndex(this.txtNumero, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,9 +120,9 @@
         #endregion
 
         private Controles.TextBoxNumerico txtImporte;
-        private Controles.TextBoxNumerico txtNumero;
         private Controles.LabelQuimadh labelQuimadh12;
         private Controles.LabelQuimadh labelQuimadh1;
         private Controles.ButtonQuimadh btnAgregar;
+        private Controles.TextBoxQuimadh txtNumero;
     }
 }
