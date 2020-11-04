@@ -1129,6 +1129,17 @@ namespace ModuloServicios
             graf.Dispose();
         }
 
+        public List<Comprobante_Recibo> BuscarRecibos(long? idCliente, DateTime fd, DateTime fh)
+        {
+            var recibos = _contexto.Comprobante.OfType<Comprobante_Recibo>()
+                .Where(x => x.fechaIngreso >= fd && x.fechaIngreso <= fh);
+
+            if (idCliente.HasValue)
+                recibos = recibos.Where(x => x.Planta.idCliente == idCliente);
+
+            return recibos.ToList();
+        }
+
         #endregion
 
         #region Notas

@@ -52,6 +52,9 @@
             this.clmChqTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmChqEcheq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvFacturas = new System.Windows.Forms.DataGridView();
+            this.clmFactPvNro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmFactTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmFactFCE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelQuimadh9 = new Controles.LabelQuimadh(this.components);
             this.btnMasTransf = new Controles.ButtonQuimadh(this.components);
             this.btnMenosTransf = new Controles.ButtonQuimadh(this.components);
@@ -63,9 +66,6 @@
             this.txtTotal = new Controles.TextBoxQuimadh();
             this.btnMasFact = new Controles.ButtonQuimadh(this.components);
             this.btnMenosFact = new Controles.ButtonQuimadh(this.components);
-            this.clmFactPvNro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmFactTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmFactFCE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).BeginInit();
@@ -319,8 +319,30 @@
             this.dgvFacturas.Margin = new System.Windows.Forms.Padding(4);
             this.dgvFacturas.Name = "dgvFacturas";
             this.dgvFacturas.ReadOnly = true;
+            this.dgvFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvFacturas.Size = new System.Drawing.Size(388, 134);
             this.dgvFacturas.TabIndex = 73;
+            // 
+            // clmFactPvNro
+            // 
+            this.clmFactPvNro.HeaderText = "Nro Factura";
+            this.clmFactPvNro.MaxInputLength = 15;
+            this.clmFactPvNro.Name = "clmFactPvNro";
+            this.clmFactPvNro.ReadOnly = true;
+            // 
+            // clmFactTipo
+            // 
+            this.clmFactTipo.HeaderText = "Letra";
+            this.clmFactTipo.Name = "clmFactTipo";
+            this.clmFactTipo.ReadOnly = true;
+            this.clmFactTipo.Width = 50;
+            // 
+            // clmFactFCE
+            // 
+            this.clmFactFCE.HeaderText = "FCE";
+            this.clmFactFCE.Name = "clmFactFCE";
+            this.clmFactFCE.ReadOnly = true;
+            this.clmFactFCE.Width = 50;
             // 
             // labelQuimadh9
             // 
@@ -431,27 +453,6 @@
             this.btnMenosFact.Text = "-";
             this.btnMenosFact.UseVisualStyleBackColor = true;
             this.btnMenosFact.Click += new System.EventHandler(this.btnMenosFact_Click);
-            // 
-            // clmFactPvNro
-            // 
-            this.clmFactPvNro.HeaderText = "Nro Factura";
-            this.clmFactPvNro.MaxInputLength = 15;
-            this.clmFactPvNro.Name = "clmFactPvNro";
-            this.clmFactPvNro.ReadOnly = true;
-            // 
-            // clmFactTipo
-            // 
-            this.clmFactTipo.HeaderText = "Letra";
-            this.clmFactTipo.Name = "clmFactTipo";
-            this.clmFactTipo.ReadOnly = true;
-            this.clmFactTipo.Width = 50;
-            // 
-            // clmFactFCE
-            // 
-            this.clmFactFCE.HeaderText = "FCE";
-            this.clmFactFCE.Name = "clmFactFCE";
-            this.clmFactFCE.ReadOnly = true;
-            this.clmFactFCE.Width = 50;
             // 
             // frmPagos
             // 

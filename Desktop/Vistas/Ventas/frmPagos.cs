@@ -9,13 +9,15 @@ namespace Desktop.Vistas.Ventas
     public partial class frmPagos : FormBaseSinToolbar
     {
         private Comprobante_Recibo _recibo;
+        private Cliente _cliente;
         private InstrumentoPago _pagoEfectivo;
 
-        public frmPagos(Comprobante_Recibo recibo)
+        public frmPagos(Comprobante_Recibo recibo, Cliente cliente)
         {
             InitializeComponent();
 
             _recibo = recibo;
+            _cliente = cliente;
         }
 
         private void frmPagos_Load(object sender, EventArgs e)
@@ -141,7 +143,7 @@ namespace Desktop.Vistas.Ventas
         {
             _recibo.InstrumentoPago.Clear();
 
-            if (_pagoEfectivo != null)
+            if (_pagoEfectivo != null && _pagoEfectivo.Importe > 0)
             {
                 _recibo.InstrumentoPago.Add(_pagoEfectivo);
             }
@@ -183,10 +185,17 @@ namespace Desktop.Vistas.Ventas
                     AgregarPago(pago);
                 }
             }
+
+            foreach(var factura in _recibo.Comprobante_Factura)
+            {
+                AgregarFactura(factura);
+            }
         }
 
         private void txtEfectivo_Leave(object sender, EventArgs e)
         {
+            var importe = string.IsNullOrEmpty(txtEfectivo.Text) ? 0 : decimal.Parse(txtEfectivo.Text);
+
             if (_pagoEfectivo == null)
             {
                 _pagoEfectivo = new InstrumentoPago();
@@ -194,22 +203,32 @@ namespace Desktop.Vistas.Ventas
             }
             else
             {
+                //resto el total
                 ActualizarTotal(_pagoEfectivo, false);
             }
 
-            _pagoEfectivo.Importe = decimal.Parse(txtEfectivo.Text);
+            _pagoEfectivo.Importe = importe;
+            //sumo el nuevo total
             ActualizarTotal(_pagoEfectivo, true);
         }
 
         private void btnMasFact_Click(object sender, EventArgs e)
         {
             var busq = new frmBusquedaComp();
-            busq.tipo = "factura";
+            busq.Tipo = "factura";
+            busq.Cliente = _cliente;
             busq.ShowDialog();
+            if (busq.comprobanteSeleccionado != null)
+            {
+                AgregarFactura((Comprobante_Factura)busq.comprobanteSeleccionado);
+            }
+        }
 
+        private void AgregarFactura(Comprobante_Factura factura)
+        {
             var rowIndex = dgvFacturas.Rows.Add();
-            dgvFacturas.Rows[rowIndex].Tag = busq.comprobanteSeleccionado;
-            CargarFilaEnGrilla(dgvFacturas, rowIndex);            
+            dgvFacturas.Rows[rowIndex].Tag = factura;
+            CargarFilaEnGrilla(dgvFacturas, rowIndex);
         }
 
         private void btnMenosFact_Click(object sender, EventArgs e)

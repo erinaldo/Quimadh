@@ -131,7 +131,7 @@ namespace Desktop.Vistas.Ventas
         protected override bool cargarBusqueda()
         {
             frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-            frmBusquedaComp.tipo = "remito";
+            frmBusquedaComp.Tipo = "remito";
             DialogResult res = frmBusquedaComp.ShowDialog();
 
             if (res == DialogResult.OK)

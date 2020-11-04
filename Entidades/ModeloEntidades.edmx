@@ -508,7 +508,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="None" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoUsuario">
@@ -3365,7 +3365,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="Byte" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Nullable="false" Type="Byte" annotation:StoreGeneratedPattern="None" />
           <Property Name="Descripcion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
           <NavigationProperty Name="Pago_Tarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" FromRole="TipoTarjeta" ToRole="Pago_Tarjeta" />
         </EntityType>

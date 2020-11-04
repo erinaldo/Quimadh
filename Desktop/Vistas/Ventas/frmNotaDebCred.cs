@@ -224,7 +224,7 @@ namespace Desktop.Vistas.Ventas
             if (cboTipoNota.Text == "Nota Crédito")
             {
                 frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-                frmBusquedaComp.tipo = "notaCredito";
+                frmBusquedaComp.Tipo = "notaCredito";
                 DialogResult res = frmBusquedaComp.ShowDialog();
 
                 if (res == DialogResult.OK)
@@ -239,7 +239,7 @@ namespace Desktop.Vistas.Ventas
             else
             {
                 frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-                frmBusquedaComp.tipo = "notaDebito";
+                frmBusquedaComp.Tipo = "notaDebito";
                 DialogResult res = frmBusquedaComp.ShowDialog();
 
                 if (res == DialogResult.OK)
@@ -1232,7 +1232,7 @@ namespace Desktop.Vistas.Ventas
             }
 
             frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-            frmBusquedaComp.tipo = ((ComboBoxItem)cboTipoCompAsoc.SelectedItem).Value.ToString();            
+            frmBusquedaComp.Tipo = ((ComboBoxItem)cboTipoCompAsoc.SelectedItem).Value.ToString();            
             DialogResult res = frmBusquedaComp.ShowDialog();
 
             Comprobante comprobanteAnul;

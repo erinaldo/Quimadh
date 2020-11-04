@@ -2,12 +2,7 @@
 using Desktop.Vistas;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop
@@ -28,7 +23,7 @@ namespace Desktop
             InitializeComponent();
 
             datosBoton1 = new string[] { "Artículos", "Clientes", "Cotizaciones", "Precios", "Entradas", "Salidas", "Lotes", "Consulta Stock", "Consulta Salidas", "Lotes Cerrados" };
-            datosBoton2 = new string[] { "Facturas", "Remitos", "Recibos", "Notas Deb/Cred", "Reporte Facturas", "Reporte Remitos" };
+            datosBoton2 = new string[] { "Facturas", "Remitos", "Recibos", "Notas Deb/Cred", "Reporte Facturas", "Reporte Remitos", "Reporte Pagos" };
             datosBoton3 = new string[] { "Determinaciones", "Muestras", "Importación de Rutinas", "Firmas" };
             datosBoton4 = new string[] { "Backup", "Parametrizaciones" };
             
@@ -64,10 +59,6 @@ namespace Desktop
                 //Seguridad.tienePermisos(nombreFrm, Global.Formularios);
 
                 Form frm = frmFactory.Get(nombreFrm);
-                //frm.MdiParent = this;
-                //frm.Parent = pnlFondo;
-                //frm.TopMost = true;
-                //frm.BringToFront();
                 frm.Location = new Point(
                                      pnlFondo.Width / 2 - frm.Size.Width / 2,
                                      pnlFondo.Height / 2 - frm.Size.Height / 2);
@@ -185,6 +176,11 @@ namespace Desktop
                             case 6:
                                 {
                                     abrirFormulario("frmReporteRemitos");
+                                    break;
+                                }
+                            case 7:
+                                {
+                                    abrirFormulario("frmRelPagosFacturas");
                                     break;
                                 }
                         }

@@ -16,6 +16,27 @@ namespace Desktop.Vistas.Ventas
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtImporte.Text))
+            {
+
+            }
+
+            if (string.IsNullOrEmpty(txtNumero.Text))
+            {
+
+            }
+
+            if (string.IsNullOrEmpty(txtCuitLib.Text))
+            {
+
+            }
+
+            if (string.IsNullOrEmpty(txtDescLib.Text))
+            {
+
+            }
+
+
             PagoCheque = new Pago_Cheque();
             PagoCheque.Importe = decimal.Parse(txtImporte.Text);
             PagoCheque.Numero = int.Parse(txtNumero.Text);

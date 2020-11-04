@@ -116,7 +116,7 @@ namespace Desktop.Vistas.Ventas
         protected override bool cargarBusqueda()
         {
             frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-            frmBusquedaComp.tipo = "recibo";
+            frmBusquedaComp.Tipo = "recibo";
             DialogResult res = frmBusquedaComp.ShowDialog();
 
             if (res == DialogResult.OK)
@@ -459,7 +459,7 @@ namespace Desktop.Vistas.Ventas
                 return;
             }
 
-            var formPagos = new frmPagos(recibo);
+            var formPagos = new frmPagos(recibo, cliente);
             formPagos.ShowDialog();
         }
     }

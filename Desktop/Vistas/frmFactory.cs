@@ -62,6 +62,8 @@ namespace Desktop.Vistas
                     return new frmReporteFacturacion();
                 case "frmReporteRemitos":
                     return new frmReporteRemitos();
+                case "frmRelPagosFacturas":
+                    return new frmRelPagosFacturas();
 
                 default: return null;
             }

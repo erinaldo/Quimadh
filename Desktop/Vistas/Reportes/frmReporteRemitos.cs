@@ -1,16 +1,12 @@
 ﻿using Controles;
+using Desktop.Vistas.Ventas;
 using Entidades;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop.Vistas.Reportes
@@ -77,6 +73,26 @@ namespace Desktop.Vistas.Reportes
             this.setLocalReport(rpvGeneral, Reporte);
 
             rpvGeneral.RefreshReport();
+
+            CargarGrilla(dataSet);
+        }
+
+        private void CargarGrilla(DataSet dataSet)
+        {
+            var remitos = new HashSet<string>();
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                if (!remitos.Contains(row["numero"].ToString()))
+                {
+                    remitos.Add(row["numero"].ToString());
+                    var rowIndex = dgvRemitos.Rows.Add();
+                    dgvRemitos.Rows[rowIndex].Cells["clmFecha"].Value = row["fechaIngreso"].ToString();
+                    dgvRemitos.Rows[rowIndex].Cells["clmNroRemito"].Value = row["numero"].ToString();
+                    dgvRemitos.Rows[rowIndex].Cells["clmCliente"].Value = row["razonSocial"].ToString();
+                    dgvRemitos.Rows[rowIndex].Cells["clmEstado"].Value = row["estado"].ToString();
+                    dgvRemitos.Rows[rowIndex].Cells["clmFacturas"].Value = row["facturas"].ToString();
+                }                
+            }
         }
 
         public void setLocalReport(ReportViewer reportViewer, LocalReport report)
@@ -133,6 +149,25 @@ namespace Desktop.Vistas.Reportes
         private void btnVerReporte_Click(object sender, EventArgs e)
         {
             cargar();
+        }
+
+        private void dgvRemitos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvRemitos[e.ColumnIndex, e.RowIndex].OwningColumn.Name != "clmFacturar")
+                return;
+
+            var estado = dgvRemitos.Rows[e.RowIndex].Cells["clmEstado"].Value.ToString();
+            if (estado == "TF" || estado == "NF")
+            {
+                Mensaje error = new Mensaje($"No puede facturarse un remito con el estado {estado}", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                error.ShowDialog();
+                return;
+            }
+
+            var remito = dgvRemitos.Rows[e.RowIndex].Cells["clmNroRemito"].Value.ToString();
+
+            var formFacturas = new frmFacturas(remito);
+            formFacturas.ShowDialog();
         }
     }
 }
