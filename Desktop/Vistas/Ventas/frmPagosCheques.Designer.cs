@@ -61,7 +61,7 @@
             this.txtImporte.Margin = new System.Windows.Forms.Padding(4);
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(211, 23);
-            this.txtImporte.TabIndex = 26;
+            this.txtImporte.TabIndex = 0;
             this.txtImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtNumero
@@ -73,7 +73,7 @@
             this.txtNumero.Margin = new System.Windows.Forms.Padding(4);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(211, 23);
-            this.txtNumero.TabIndex = 27;
+            this.txtNumero.TabIndex = 1;
             this.txtNumero.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelQuimadh12
@@ -105,7 +105,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(191, 398);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(111, 35);
-            this.btnAgregar.TabIndex = 75;
+            this.btnAgregar.TabIndex = 8;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -118,7 +118,7 @@
             this.cboBanco.Margin = new System.Windows.Forms.Padding(4);
             this.cboBanco.Name = "cboBanco";
             this.cboBanco.Size = new System.Drawing.Size(211, 25);
-            this.cboBanco.TabIndex = 76;
+            this.cboBanco.TabIndex = 2;
             // 
             // txtCuitLib
             // 
@@ -129,7 +129,7 @@
             this.txtCuitLib.Margin = new System.Windows.Forms.Padding(4);
             this.txtCuitLib.Name = "txtCuitLib";
             this.txtCuitLib.Size = new System.Drawing.Size(211, 23);
-            this.txtCuitLib.TabIndex = 77;
+            this.txtCuitLib.TabIndex = 3;
             this.txtCuitLib.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtDescLib
@@ -138,7 +138,7 @@
             this.txtDescLib.MaxLength = 100;
             this.txtDescLib.Name = "txtDescLib";
             this.txtDescLib.Size = new System.Drawing.Size(211, 23);
-            this.txtDescLib.TabIndex = 78;
+            this.txtDescLib.TabIndex = 4;
             // 
             // cboTipo
             // 
@@ -151,7 +151,7 @@
             this.cboTipo.Margin = new System.Windows.Forms.Padding(4);
             this.cboTipo.Name = "cboTipo";
             this.cboTipo.Size = new System.Drawing.Size(211, 25);
-            this.cboTipo.TabIndex = 79;
+            this.cboTipo.TabIndex = 6;
             // 
             // labelQuimadh19
             // 
@@ -172,7 +172,7 @@
             this.dtpFechaVto.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaVto.Name = "dtpFechaVto";
             this.dtpFechaVto.Size = new System.Drawing.Size(209, 23);
-            this.dtpFechaVto.TabIndex = 80;
+            this.dtpFechaVto.TabIndex = 5;
             // 
             // chkECheq
             // 
@@ -182,7 +182,7 @@
             this.chkECheq.Margin = new System.Windows.Forms.Padding(4);
             this.chkECheq.Name = "chkECheq";
             this.chkECheq.Size = new System.Drawing.Size(156, 21);
-            this.chkECheq.TabIndex = 82;
+            this.chkECheq.TabIndex = 7;
             this.chkECheq.Text = "Electrónico (ECheq)";
             this.chkECheq.UseVisualStyleBackColor = false;
             // 

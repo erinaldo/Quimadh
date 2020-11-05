@@ -20,7 +20,7 @@ namespace Desktop.Vistas.Ventas
 
         protected override void cargar()
         {
-            txtNroRecibo.Text = Global.Servicio.BuscarNroRecibo().ToString();
+            //txtNroRecibo.Text = Global.Servicio.BuscarNroRecibo().ToString();
             txtTotal1.Text = "0";
             txtTotal2.Text = "0";
             Cargador.cargarNombresClientes(txtRazonSocial);
@@ -35,7 +35,7 @@ namespace Desktop.Vistas.Ventas
 
         protected override void agregar()
         {
-            recibo = new Comprobante_Recibo();
+                        
             cliente = null;
             planta = null;
             limpiarControles(gpbDatos);
@@ -48,6 +48,12 @@ namespace Desktop.Vistas.Ventas
             dgvItems.Enabled = true;
             txtNroRecibo.Text = Global.Servicio.BuscarNroRecibo().ToString();
             btnPago.Enabled = true;
+
+            recibo = new Comprobante_Recibo();
+            if (txtNroRecibo.Text != "")
+                recibo.numero = long.Parse(txtNroRecibo.Text);
+            else
+                recibo.numero = 0;
         }
 
         protected override void modificar()
@@ -255,10 +261,11 @@ namespace Desktop.Vistas.Ventas
                     if (Estado == Estados.Agregar)
                     {
                         //recibo = new Comprobante_Recibo();
-                        if (txtNroRecibo.Text != "")
-                            recibo.numero = long.Parse(txtNroRecibo.Text);
-                        else
-                            recibo.numero = 0;
+                        //if (txtNroRecibo.Text != "")
+                        //    recibo.numero = long.Parse(txtNroRecibo.Text);
+                        //else
+                        //    recibo.numero = 0;
+
                         if (txtTotal1.Text != "")
                             recibo.importe = decimal.Parse(txtTotal1.Text);
                         else

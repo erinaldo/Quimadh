@@ -8,8 +8,8 @@ namespace Desktop.Vistas.Ventas
 {
     public partial class frmPagos : FormBaseSinToolbar
     {
-        private Comprobante_Recibo _recibo;
-        private Cliente _cliente;
+        private readonly Comprobante_Recibo _recibo;
+        private readonly Cliente _cliente;
         private InstrumentoPago _pagoEfectivo;
 
         public frmPagos(Comprobante_Recibo recibo, Cliente cliente)
@@ -23,6 +23,7 @@ namespace Desktop.Vistas.Ventas
         private void frmPagos_Load(object sender, EventArgs e)
         {
             txtTotal.Text = "0.00";
+            lblTituloRecibo.Text += $" {_recibo.numero.ToString("00000000")} - {_cliente.razonSocial}";
             CargarPagos();
         }
 

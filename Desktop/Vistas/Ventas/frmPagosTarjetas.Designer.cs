@@ -52,7 +52,7 @@
             this.txtImporte.Margin = new System.Windows.Forms.Padding(4);
             this.txtImporte.Name = "txtImporte";
             this.txtImporte.Size = new System.Drawing.Size(211, 23);
-            this.txtImporte.TabIndex = 1;
+            this.txtImporte.TabIndex = 2;
             this.txtImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelQuimadh12
@@ -72,7 +72,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(222, 228);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(116, 35);
-            this.btnAgregar.TabIndex = 1;
+            this.btnAgregar.TabIndex = 3;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -119,7 +119,7 @@
             this.cboMarca.Margin = new System.Windows.Forms.Padding(4);
             this.cboMarca.Name = "cboMarca";
             this.cboMarca.Size = new System.Drawing.Size(211, 25);
-            this.cboMarca.TabIndex = 87;
+            this.cboMarca.TabIndex = 1;
             // 
             // frmPagosTarjetas
             // 

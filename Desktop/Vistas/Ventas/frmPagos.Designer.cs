@@ -66,6 +66,7 @@
             this.txtTotal = new Controles.TextBoxQuimadh();
             this.btnMasFact = new Controles.ButtonQuimadh(this.components);
             this.btnMenosFact = new Controles.ButtonQuimadh(this.components);
+            this.lblTituloRecibo = new Controles.LabelQuimadh(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).BeginInit();
@@ -166,7 +167,7 @@
             this.labelQuimadh13.AutoSize = true;
             this.labelQuimadh13.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh13.Location = new System.Drawing.Point(536, 195);
+            this.labelQuimadh13.Location = new System.Drawing.Point(555, 195);
             this.labelQuimadh13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh13.Name = "labelQuimadh13";
             this.labelQuimadh13.Size = new System.Drawing.Size(78, 20);
@@ -183,7 +184,7 @@
             this.clmTarjImporte,
             this.clmTarjTipo,
             this.clmTarjMarca});
-            this.dgvTarj.Location = new System.Drawing.Point(622, 195);
+            this.dgvTarj.Location = new System.Drawing.Point(641, 195);
             this.dgvTarj.Margin = new System.Windows.Forms.Padding(4);
             this.dgvTarj.Name = "dgvTarj";
             this.dgvTarj.ReadOnly = true;
@@ -245,7 +246,7 @@
             this.dgvCheques.Name = "dgvCheques";
             this.dgvCheques.ReadOnly = true;
             this.dgvCheques.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCheques.Size = new System.Drawing.Size(762, 127);
+            this.dgvCheques.Size = new System.Drawing.Size(781, 127);
             this.dgvCheques.TabIndex = 68;
             // 
             // clmChqImporte
@@ -378,7 +379,7 @@
             // 
             // btnMenosChq
             // 
-            this.btnMenosChq.Location = new System.Drawing.Point(951, 349);
+            this.btnMenosChq.Location = new System.Drawing.Point(970, 365);
             this.btnMenosChq.Name = "btnMenosChq";
             this.btnMenosChq.Size = new System.Drawing.Size(50, 28);
             this.btnMenosChq.TabIndex = 77;
@@ -388,7 +389,7 @@
             // 
             // btnMasChq
             // 
-            this.btnMasChq.Location = new System.Drawing.Point(951, 315);
+            this.btnMasChq.Location = new System.Drawing.Point(970, 331);
             this.btnMasChq.Name = "btnMasChq";
             this.btnMasChq.Size = new System.Drawing.Size(50, 28);
             this.btnMasChq.TabIndex = 76;
@@ -398,7 +399,7 @@
             // 
             // btnMenosTarj
             // 
-            this.btnMenosTarj.Location = new System.Drawing.Point(951, 229);
+            this.btnMenosTarj.Location = new System.Drawing.Point(970, 229);
             this.btnMenosTarj.Name = "btnMenosTarj";
             this.btnMenosTarj.Size = new System.Drawing.Size(50, 28);
             this.btnMenosTarj.TabIndex = 79;
@@ -408,7 +409,7 @@
             // 
             // btnMasTarj
             // 
-            this.btnMasTarj.Location = new System.Drawing.Point(951, 195);
+            this.btnMasTarj.Location = new System.Drawing.Point(970, 195);
             this.btnMasTarj.Name = "btnMasTarj";
             this.btnMasTarj.Size = new System.Drawing.Size(50, 28);
             this.btnMasTarj.TabIndex = 78;
@@ -454,11 +455,25 @@
             this.btnMenosFact.UseVisualStyleBackColor = true;
             this.btnMenosFact.Click += new System.EventHandler(this.btnMenosFact_Click);
             // 
+            // lblTituloRecibo
+            // 
+            this.lblTituloRecibo.AutoSize = true;
+            this.lblTituloRecibo.BackColor = System.Drawing.Color.Transparent;
+            this.lblTituloRecibo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloRecibo.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblTituloRecibo.Location = new System.Drawing.Point(178, 106);
+            this.lblTituloRecibo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTituloRecibo.Name = "lblTituloRecibo";
+            this.lblTituloRecibo.Size = new System.Drawing.Size(73, 20);
+            this.lblTituloRecibo.TabIndex = 84;
+            this.lblTituloRecibo.Text = "Recibo:";
+            // 
             // frmPagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 609);
+            this.ClientSize = new System.Drawing.Size(1084, 609);
+            this.Controls.Add(this.lblTituloRecibo);
             this.Controls.Add(this.btnMenosFact);
             this.Controls.Add(this.btnMasFact);
             this.Controls.Add(this.txtTotal);
@@ -505,6 +520,7 @@
             this.Controls.SetChildIndex(this.txtTotal, 0);
             this.Controls.SetChildIndex(this.btnMasFact, 0);
             this.Controls.SetChildIndex(this.btnMenosFact, 0);
+            this.Controls.SetChildIndex(this.lblTituloRecibo, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).EndInit();
@@ -552,5 +568,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFactPvNro;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFactTipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFactFCE;
+        private Controles.LabelQuimadh lblTituloRecibo;
     }
 }

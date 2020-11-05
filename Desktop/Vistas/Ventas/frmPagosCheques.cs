@@ -11,31 +11,13 @@ namespace Desktop.Vistas.Ventas
         public frmPagosCheques()
         {
             InitializeComponent();
-            Cargador.CargarBancos(cboBanco);
+            Cargador.CargarBancos(cboBanco, " ");
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtImporte.Text))
-            {
-
-            }
-
-            if (string.IsNullOrEmpty(txtNumero.Text))
-            {
-
-            }
-
-            if (string.IsNullOrEmpty(txtCuitLib.Text))
-            {
-
-            }
-
-            if (string.IsNullOrEmpty(txtDescLib.Text))
-            {
-
-            }
-
+            if (!ValidarEntradas())
+                return;
 
             PagoCheque = new Pago_Cheque();
             PagoCheque.Importe = decimal.Parse(txtImporte.Text);
@@ -50,6 +32,53 @@ namespace Desktop.Vistas.Ventas
 
             ObjetoRetorno = PagoCheque;
             Close();
+        }
+
+        private bool ValidarEntradas()
+        {
+            if (string.IsNullOrEmpty(txtImporte.Text))
+            {
+                var msjErr = new Mensaje("Debe completar el importe", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (txtNumero.Text.Length != 8)
+            {
+                var msjErr = new Mensaje("El número de cheque debe ser de 8 dígitos", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (cboBanco.SelectedIndex == 0)
+            {
+                var msjErr = new Mensaje("Debe seleccionar un banco", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (txtCuitLib.Text.Length != 11)
+            {
+                var msjErr = new Mensaje("el Cuit del librador debe ser de 11 dígitos", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(txtDescLib.Text))
+            {
+                var msjErr = new Mensaje("Debe completar el nombre del librador", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (cboTipo.SelectedIndex == -1)
+            {
+                var msjErr = new Mensaje("Debe seleccionar un tipo", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            return true;
         }
     }
 }

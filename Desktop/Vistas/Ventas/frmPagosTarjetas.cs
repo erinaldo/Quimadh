@@ -1,14 +1,6 @@
 ﻿using Controles;
 using Entidades;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Desktop.Vistas.Ventas
 {
@@ -23,12 +15,15 @@ namespace Desktop.Vistas.Ventas
 
         private void frmPagosTarjetas_Load(object sender, EventArgs e)
         {
-            Cargador.CargarTiposTarjeta(cboTipo, "", -1);
-            Cargador.CargarMarcasTarjeta(cboMarca, "", -1);
+            Cargador.CargarTiposTarjeta(cboTipo, " ");
+            Cargador.CargarMarcasTarjeta(cboMarca, " ");
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (!ValidarEntradas())
+                return;
+
             PagoTarjeta = new Pago_Tarjeta();
             PagoTarjeta.Efectivo = false;
             PagoTarjeta.Importe = decimal.Parse(txtImporte.Text);
@@ -37,6 +32,32 @@ namespace Desktop.Vistas.Ventas
 
             ObjetoRetorno = PagoTarjeta;
             Close();
-        }        
+        }
+
+        private bool ValidarEntradas()
+        {
+            if (cboTipo.SelectedIndex == 0)
+            {
+                var msjErr = new Mensaje("Debe seleccionar un tipo", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (cboMarca.SelectedIndex == 0)
+            {
+                var msjErr = new Mensaje("Debe seleccionar una marca", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(txtImporte.Text))
+            {
+                var msjErr = new Mensaje("Debe completar el importe", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return false;
+            }
+
+            return true;
+        }
     }
 }
