@@ -23,8 +23,20 @@ namespace Desktop.Vistas.Ventas
         private void frmPagos_Load(object sender, EventArgs e)
         {
             txtTotal.Text = "0.00";
+            txtTotalFact.Text = "0.00";
             lblTituloRecibo.Text += $" {_recibo.numero.ToString("00000000")} - {_cliente.razonSocial}";
-            CargarPagos();
+            txtRetenciones.Text = _recibo.Retenciones?.ToString() ?? "0.00";
+            CargarDatos();
+
+            var totalPagos = decimal.Parse(txtTotal.Text) + _recibo.Retenciones;
+            var totalFact = decimal.Parse(txtTotalFact.Text);
+
+            if (totalFact == 0)
+                txtTipoRecibo.Text = "A cuenta";
+            else if (totalFact > totalPagos)
+                txtTipoRecibo.Text = "Parcial";
+            else
+                txtTipoRecibo.Text = "Total";
         }
 
         private void btnMasTarj_Click(object sender, EventArgs e)
@@ -91,6 +103,13 @@ namespace Desktop.Vistas.Ventas
             txtTotal.Text = importe.ToString("0.00");
         }
 
+        private void ActualizarTotalFactura(Comprobante_Factura factura, bool positivo)
+        {
+            var importe = decimal.Parse(txtTotalFact.Text);
+            importe += factura.importe * (positivo ? 1 : -1);
+            txtTotalFact.Text = importe.ToString("0.00");
+        }
+
         private DataGridView ObtenerDataGridView(Type type)
         {
             switch (type.Name)
@@ -134,7 +153,7 @@ namespace Desktop.Vistas.Ventas
                 case nameof(dgvFacturas):
                     var factura = (Comprobante_Factura)grilla.Rows[rowIndex].Tag;
                     grilla.Rows[rowIndex].Cells["clmFactPvNro"].Value = $"{factura.pv:0000}-{factura.numero:00000000}";
-                    grilla.Rows[rowIndex].Cells["clmFactTipo"].Value = factura.tipo;                    
+                    grilla.Rows[rowIndex].Cells["clmFactTipo"].Value = factura.tipo;
                     grilla.Rows[rowIndex].Cells["clmFactFCE"].Value = factura.CE_MiPyme ? "SI" : "NO";
                     break;
             }
@@ -142,7 +161,15 @@ namespace Desktop.Vistas.Ventas
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (decimal.Parse(txtTotal.Text) != _recibo.importe)
+            {
+                var msjErr = new Mensaje("El importe total debe coincidir con el importe del recibo", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msjErr.ShowDialog();
+                return;
+            }
+
             _recibo.InstrumentoPago.Clear();
+            _recibo.Retenciones = decimal.Parse(string.IsNullOrEmpty(txtRetenciones.Text) ? "0" : txtRetenciones.Text);
 
             if (_pagoEfectivo != null && _pagoEfectivo.Importe > 0)
             {
@@ -169,9 +196,9 @@ namespace Desktop.Vistas.Ventas
                 var pago = (InstrumentoPago)fila.Tag;
                 _recibo.InstrumentoPago.Add(pago);
             }
-        }        
+        }
 
-        private void CargarPagos()
+        private void CargarDatos()
         {
             foreach (var pago in _recibo.InstrumentoPago)
             {
@@ -187,7 +214,7 @@ namespace Desktop.Vistas.Ventas
                 }
             }
 
-            foreach(var factura in _recibo.Comprobante_Factura)
+            foreach (var factura in _recibo.Comprobante_Factura)
             {
                 AgregarFactura(factura);
             }
@@ -225,16 +252,19 @@ namespace Desktop.Vistas.Ventas
             }
         }
 
+        private void btnMenosFact_Click(object sender, EventArgs e)
+        {
+            var row = EliminarFilaSeleccionada(dgvFacturas);
+            ActualizarTotalFactura((Comprobante_Factura)row.Tag, false);
+        }
+
         private void AgregarFactura(Comprobante_Factura factura)
         {
             var rowIndex = dgvFacturas.Rows.Add();
             dgvFacturas.Rows[rowIndex].Tag = factura;
             CargarFilaEnGrilla(dgvFacturas, rowIndex);
-        }
 
-        private void btnMenosFact_Click(object sender, EventArgs e)
-        {
-            EliminarFilaSeleccionada(dgvFacturas);
+            ActualizarTotalFactura(factura, true);
         }
 
         private DataGridViewRow EliminarFilaSeleccionada(DataGridView grilla)

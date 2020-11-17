@@ -168,6 +168,7 @@
           <Property Name="formaPago" Type="nvarchar(max)" />
           <Property Name="numero" Type="bigint" Nullable="false" />
           <Property Name="IdTipoPago" Type="tinyint" />
+          <Property Name="Retenciones" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Remito">
           <Key>
@@ -248,7 +249,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdRecibo" Type="bigint" Nullable="false" />
           <Property Name="Importe" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Efectivo" Type="bit" Nullable="false" />
@@ -467,6 +468,15 @@
           <Property Name="Comprobante" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FechaAlta" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Saldos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="IdCliente" Type="bigint" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Saldo" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Salida">
           <Key>
             <PropertyRef Name="id" />
@@ -508,7 +518,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="None" Nullable="false" />
+          <Property Name="Id" Type="tinyint" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoUsuario">
@@ -1275,6 +1285,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Saldos_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Saldos" Type="Self.Saldos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Saldos">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Salida_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
           <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
@@ -1475,6 +1497,7 @@
           <EntitySet Name="Rel_Factura_Recibo" EntityType="Self.Rel_Factura_Recibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rel_Factura_Remito" EntityType="Self.Rel_Factura_Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rel_Pv_Comprobante" EntityType="Self.Rel_Pv_Comprobante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Saldos" EntityType="Self.Saldos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salida" EntityType="Self.Salida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SituacionFrenteIva" EntityType="Self.SituacionFrenteIva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoArticulo" EntityType="Self.TipoArticulo" Schema="dbo" store:Type="Tables" />
@@ -1719,6 +1742,10 @@
           <AssociationSet Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito" Association="Self.FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito">
             <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
             <End Role="Rel_Factura_Remito" EntitySet="Rel_Factura_Remito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Saldos_Cliente" Association="Self.FK_Saldos_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Saldos" EntitySet="Saldos" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_Cliente" Association="Self.FK_Salida_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -2068,6 +2095,11 @@
             <End Role="Comprobante_Factura" EntitySet="Comprobante" />
             <End Role="Comprobante_Recibo" EntitySet="Comprobante" />
           </AssociationSet>
+          <EntitySet Name="Saldos" EntityType="QuimadhModel.Saldos" />
+          <AssociationSet Name="FK_Saldos_Cliente" Association="QuimadhModel.FK_Saldos_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Saldos" EntitySet="Saldos" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CabeceraRutina">
           <Key>
@@ -2109,6 +2141,7 @@
           <NavigationProperty Name="SituacionFrenteIva" Relationship="QuimadhModel.FK_cliente_fk_Cliente_SituacionFrenteIva1" FromRole="Cliente" ToRole="SituacionFrenteIva" />
           <NavigationProperty Name="Planta" Relationship="QuimadhModel.FK_Planta_Cliente" FromRole="Cliente" ToRole="Planta" />
           <NavigationProperty Name="Salida" Relationship="QuimadhModel.FK_Salida_Cliente" FromRole="Cliente" ToRole="Salida" />
+          <NavigationProperty Name="Saldos" Relationship="QuimadhModel.FK_Saldos_Cliente" FromRole="Cliente" ToRole="Saldos" />
         </EntityType>
         <EntityType Name="Comprobante">
           <Key>
@@ -2184,6 +2217,7 @@
           <NavigationProperty Name="TipoPagoCliente" Relationship="QuimadhModel.FK_Comprobante_Comprobante_Recibo_TipoPagoCliente" FromRole="Comprobante_Recibo" ToRole="TipoPagoCliente" />
           <NavigationProperty Name="InstrumentoPago" Relationship="QuimadhModel.FK_InstrumentoPago_PagoCliente" FromRole="Comprobante_Recibo" ToRole="InstrumentoPago" />
           <NavigationProperty Name="Comprobante_Factura" Relationship="QuimadhModel.Rel_Factura_Recibo1" FromRole="Comprobante_Recibo" ToRole="Comprobante_Factura" />
+          <Property Name="Retenciones" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="DatosRutina">
           <Key>
@@ -3425,6 +3459,28 @@
           <End Type="QuimadhModel.Comprobante_Factura" Role="Comprobante_Factura" Multiplicity="*" />
           <End Type="QuimadhModel.Comprobante_Recibo" Role="Comprobante_Recibo" Multiplicity="*" />
         </Association>
+        <EntityType Name="Saldos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="IdCliente" Type="Int64" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saldo" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Cliente" Relationship="QuimadhModel.FK_Saldos_Cliente" FromRole="Saldos" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK_Saldos_Cliente">
+          <End Type="QuimadhModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="QuimadhModel.Saldos" Role="Saldos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Saldos">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3499,7 +3555,8 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Comprobante_Recibo)">
         <MappingFragment StoreEntitySet="Comprobante_Comprobante_Recibo">
-          <ScalarProperty Name="IdTipoPago" ColumnName="IdTipoPago" />
+          <ScalarProperty Name="Retenciones" ColumnName="Retenciones" />
+                <ScalarProperty Name="IdTipoPago" ColumnName="IdTipoPago" />
                 <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="formaPago" ColumnName="formaPago" />
           <ScalarProperty Name="numero" ColumnName="numero" />
@@ -4011,6 +4068,16 @@
               <ScalarProperty Name="id" ColumnName="IdFactura" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Saldos">
+            <EntityTypeMapping TypeName="QuimadhModel.Saldos">
+              <MappingFragment StoreEntitySet="Saldos">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

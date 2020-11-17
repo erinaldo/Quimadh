@@ -871,7 +871,7 @@ namespace Desktop.Vistas.Ventas
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            cliente = Global.Servicio.buscarUnCliente("",txtCUIT.Text);  
+            cliente = Global.Servicio.BuscarUnCliente("",txtCUIT.Text);  
             completarCamposCliente(cliente);
             planta = null;
             completarDatosPlanta(planta);
@@ -883,7 +883,7 @@ namespace Desktop.Vistas.Ventas
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            cliente = Global.Servicio.buscarUnCliente(txtRazonSocial.Text.Trim(),"");
+            cliente = Global.Servicio.BuscarUnCliente(txtRazonSocial.Text.Trim(),"");
             completarCamposCliente(cliente);
             planta = null;
             completarDatosPlanta(planta);
@@ -1030,7 +1030,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
                     solicitudA = service.ConsultarCAE(1, 3, nroCompA);
-                    Comprobante_Factura facturaA = Global.Servicio.buscarFactura(nroCompA, "A", 3, false);
+                    Comprobante_Factura facturaA = Global.Servicio.BuscarFactura(nroCompA, "A", 3, false);
                     facturaA.estadoCarga = 1;
                     facturaA.cae = solicitudA.cae;
                     facturaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1042,7 +1042,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
                     solicitudB = service.ConsultarCAE(6, 3, nroCompB);
-                    Comprobante_Factura facturaB = Global.Servicio.buscarFactura(nroCompB, "B", 3, false);
+                    Comprobante_Factura facturaB = Global.Servicio.BuscarFactura(nroCompB, "B", 3, false);
                     facturaB.estadoCarga = 1;
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1054,7 +1054,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
                     solicitudA = service.ConsultarCAE(201, 3, nroCompAMiPyme);
-                    Comprobante_Factura facturaA = Global.Servicio.buscarFactura(nroCompAMiPyme, "A", 3, true);
+                    Comprobante_Factura facturaA = Global.Servicio.BuscarFactura(nroCompAMiPyme, "A", 3, true);
                     facturaA.estadoCarga = 1;
                     facturaA.cae = solicitudA.cae;
                     facturaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1066,7 +1066,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
                     solicitudB = service.ConsultarCAE(206, 3, nroCompBMiPyme);
-                    Comprobante_Factura facturaB = Global.Servicio.buscarFactura(nroCompBMiPyme, "B", 3, false);
+                    Comprobante_Factura facturaB = Global.Servicio.BuscarFactura(nroCompBMiPyme, "B", 3, false);
                     facturaB.estadoCarga = 1;
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);

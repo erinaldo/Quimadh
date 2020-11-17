@@ -390,7 +390,7 @@ namespace Desktop.Vistas.Ventas
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            cliente = Global.Servicio.buscarUnCliente("", txtCUIT.Text);
+            cliente = Global.Servicio.BuscarUnCliente("", txtCUIT.Text);
             completarCamposCliente(cliente);
             planta = null;
             completarDatosPlanta(planta);
@@ -406,7 +406,7 @@ namespace Desktop.Vistas.Ventas
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            cliente = Global.Servicio.buscarUnCliente(txtRazonSocial.Text.Trim(), "");
+            cliente = Global.Servicio.BuscarUnCliente(txtRazonSocial.Text.Trim(), "");
             completarCamposCliente(cliente);
             planta = null;
             completarDatosPlanta(planta);

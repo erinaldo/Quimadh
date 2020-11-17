@@ -188,6 +188,9 @@
     <Compile Include="Rel_Pv_Comprobante.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="Saldos.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Salida.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>

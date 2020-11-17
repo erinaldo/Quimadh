@@ -67,5 +67,6 @@ namespace Entidades
         public virtual DbSet<TipoTarjeta> TipoTarjeta { get; set; }
         public virtual DbSet<Banco> Banco { get; set; }
         public virtual DbSet<MarcaTarjeta> MarcaTarjeta { get; set; }
+        public virtual DbSet<Saldos> Saldos { get; set; }
     }
 }

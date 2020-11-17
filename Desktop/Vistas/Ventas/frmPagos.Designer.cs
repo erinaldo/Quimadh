@@ -67,6 +67,12 @@
             this.btnMasFact = new Controles.ButtonQuimadh(this.components);
             this.btnMenosFact = new Controles.ButtonQuimadh(this.components);
             this.lblTituloRecibo = new Controles.LabelQuimadh(this.components);
+            this.labelQuimadh1 = new Controles.LabelQuimadh(this.components);
+            this.txtRetenciones = new Controles.TextBoxNumerico();
+            this.txtTotalFact = new Controles.TextBoxQuimadh();
+            this.labelQuimadh2 = new Controles.LabelQuimadh(this.components);
+            this.labelQuimadh3 = new Controles.LabelQuimadh(this.components);
+            this.txtTipoRecibo = new Controles.TextBoxQuimadh();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).BeginInit();
@@ -85,12 +91,13 @@
             this.labelQuimadh10.AutoSize = true;
             this.labelQuimadh10.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh10.Location = new System.Drawing.Point(707, 516);
+            this.labelQuimadh10.Location = new System.Drawing.Point(697, 527);
             this.labelQuimadh10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh10.Name = "labelQuimadh10";
             this.labelQuimadh10.Size = new System.Drawing.Size(63, 20);
             this.labelQuimadh10.TabIndex = 51;
             this.labelQuimadh10.Text = "Total: ";
+            this.labelQuimadh10.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelQuimadh7
             // 
@@ -419,9 +426,9 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(791, 555);
+            this.btnAgregar.Location = new System.Drawing.Point(768, 584);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(153, 45);
+            this.btnAgregar.Size = new System.Drawing.Size(176, 44);
             this.btnAgregar.TabIndex = 80;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -429,7 +436,7 @@
             // 
             // txtTotal
             // 
-            this.txtTotal.Location = new System.Drawing.Point(768, 516);
+            this.txtTotal.Location = new System.Drawing.Point(768, 526);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
             this.txtTotal.Size = new System.Drawing.Size(176, 23);
@@ -468,11 +475,82 @@
             this.lblTituloRecibo.TabIndex = 84;
             this.lblTituloRecibo.Text = "Recibo:";
             // 
+            // labelQuimadh1
+            // 
+            this.labelQuimadh1.AutoSize = true;
+            this.labelQuimadh1.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh1.Location = new System.Drawing.Point(641, 497);
+            this.labelQuimadh1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelQuimadh1.Name = "labelQuimadh1";
+            this.labelQuimadh1.Size = new System.Drawing.Size(119, 20);
+            this.labelQuimadh1.TabIndex = 86;
+            this.labelQuimadh1.Text = "Retenciones:";
+            // 
+            // txtRetenciones
+            // 
+            this.txtRetenciones.Decimales = 2;
+            this.txtRetenciones.Enteros = 16;
+            this.txtRetenciones.EnterTabulacion = true;
+            this.txtRetenciones.Location = new System.Drawing.Point(768, 496);
+            this.txtRetenciones.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRetenciones.Name = "txtRetenciones";
+            this.txtRetenciones.Size = new System.Drawing.Size(176, 23);
+            this.txtRetenciones.TabIndex = 85;
+            this.txtRetenciones.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtTotalFact
+            // 
+            this.txtTotalFact.Location = new System.Drawing.Point(768, 466);
+            this.txtTotalFact.Name = "txtTotalFact";
+            this.txtTotalFact.ReadOnly = true;
+            this.txtTotalFact.Size = new System.Drawing.Size(176, 23);
+            this.txtTotalFact.TabIndex = 87;
+            // 
+            // labelQuimadh2
+            // 
+            this.labelQuimadh2.AutoSize = true;
+            this.labelQuimadh2.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh2.Location = new System.Drawing.Point(650, 467);
+            this.labelQuimadh2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelQuimadh2.Name = "labelQuimadh2";
+            this.labelQuimadh2.Size = new System.Drawing.Size(111, 20);
+            this.labelQuimadh2.TabIndex = 88;
+            this.labelQuimadh2.Text = "Total Fact.: ";
+            // 
+            // labelQuimadh3
+            // 
+            this.labelQuimadh3.AutoSize = true;
+            this.labelQuimadh3.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh3.Location = new System.Drawing.Point(662, 556);
+            this.labelQuimadh3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelQuimadh3.Name = "labelQuimadh3";
+            this.labelQuimadh3.Size = new System.Drawing.Size(99, 20);
+            this.labelQuimadh3.TabIndex = 89;
+            this.labelQuimadh3.Text = "Tipo Pago:";
+            this.labelQuimadh3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // txtTipoRecibo
+            // 
+            this.txtTipoRecibo.Location = new System.Drawing.Point(768, 555);
+            this.txtTipoRecibo.Name = "txtTipoRecibo";
+            this.txtTipoRecibo.ReadOnly = true;
+            this.txtTipoRecibo.Size = new System.Drawing.Size(176, 23);
+            this.txtTipoRecibo.TabIndex = 90;
+            // 
             // frmPagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 609);
+            this.ClientSize = new System.Drawing.Size(1084, 632);
+            this.Controls.Add(this.txtTipoRecibo);
+            this.Controls.Add(this.labelQuimadh3);
+            this.Controls.Add(this.labelQuimadh2);
+            this.Controls.Add(this.txtTotalFact);
+            this.Controls.Add(this.labelQuimadh1);
+            this.Controls.Add(this.txtRetenciones);
             this.Controls.Add(this.lblTituloRecibo);
             this.Controls.Add(this.btnMenosFact);
             this.Controls.Add(this.btnMasFact);
@@ -521,6 +599,12 @@
             this.Controls.SetChildIndex(this.btnMasFact, 0);
             this.Controls.SetChildIndex(this.btnMenosFact, 0);
             this.Controls.SetChildIndex(this.lblTituloRecibo, 0);
+            this.Controls.SetChildIndex(this.txtRetenciones, 0);
+            this.Controls.SetChildIndex(this.labelQuimadh1, 0);
+            this.Controls.SetChildIndex(this.txtTotalFact, 0);
+            this.Controls.SetChildIndex(this.labelQuimadh2, 0);
+            this.Controls.SetChildIndex(this.labelQuimadh3, 0);
+            this.Controls.SetChildIndex(this.txtTipoRecibo, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheques)).EndInit();
@@ -569,5 +653,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFactTipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFactFCE;
         private Controles.LabelQuimadh lblTituloRecibo;
+        private Controles.LabelQuimadh labelQuimadh1;
+        private Controles.TextBoxNumerico txtRetenciones;
+        private Controles.TextBoxQuimadh txtTotalFact;
+        private Controles.LabelQuimadh labelQuimadh2;
+        private Controles.LabelQuimadh labelQuimadh3;
+        private Controles.TextBoxQuimadh txtTipoRecibo;
     }
 }

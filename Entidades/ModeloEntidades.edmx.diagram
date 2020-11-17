@@ -120,6 +120,8 @@
         <EntityTypeShape EntityType="QuimadhModel.MarcaTarjeta" Width="1.5" PointX="20.375" PointY="9.875" />
         <AssociationConnector Association="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta" />
         <AssociationConnector Association="QuimadhModel.Rel_Factura_Recibo1" />
+        <EntityTypeShape EntityType="QuimadhModel.Saldos" Width="1.5" PointX="5.25" PointY="18.5" />
+        <AssociationConnector Association="QuimadhModel.FK_Saldos_Cliente" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

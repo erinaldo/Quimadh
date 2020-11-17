@@ -17,7 +17,7 @@ namespace ModuloServicios
     {
         #region Factura
 
-        public Comprobante_Factura buscarFactura(long numComp, string tipo, int pv, bool ceMipyme)
+        public Comprobante_Factura BuscarFactura(long numComp, string tipo, int pv, bool ceMipyme)
         {
             IQueryable<Comprobante_Factura> queryF;
 
@@ -34,7 +34,17 @@ namespace ModuloServicios
             return queryF.FirstOrDefault();
         }
 
-        public List<Comprobante> buscarComprobantes(string codPlanta, string nomPlanta, long numComp, string tipo, int pv, string nomCliente, int numeroRegistros)
+        public IEnumerable<Comprobante_Factura> BuscarFacturas(long idCliente, DateTime fechaDesde)
+        {
+            return _contexto.Comprobante.OfType<Comprobante_Factura>().Where(x => x.Planta.idCliente == idCliente && x.fechaIngreso >= fechaDesde);
+        }
+
+        public IEnumerable<T> BuscarComprobantes<T>(long idCliente, DateTime fechaDesde) where T : Comprobante
+        {
+            return _contexto.Comprobante.OfType<T>().Where(x => x.Planta.idCliente == idCliente && x.fechaIngreso >= fechaDesde && !(x.anulado.HasValue ? x.anulado.Value : false));
+        }
+
+        public List<Comprobante> BuscarComprobantes(string codPlanta, string nomPlanta, long numComp, string tipo, int pv, string nomCliente, int numeroRegistros)
         {
             IQueryable<Comprobante> query;
             IQueryable<Comprobante_Factura> queryF;
@@ -1125,8 +1135,13 @@ namespace ModuloServicios
             string directorio = paramCarpeta.valor + "/Recibos";
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
-            bm.Save(directorio +"/" + recibo.numero.ToString() + ".png");
+
+            var pathImg = $"{directorio}/{recibo.numero}.png";
+            bm.Save(pathImg);
+
             graf.Dispose();
+
+            GenerarPDF(pathImg);
         }
 
         public List<Comprobante_Recibo> BuscarRecibos(long? idCliente, DateTime fd, DateTime fh)
@@ -1681,5 +1696,17 @@ namespace ModuloServicios
         }
         #endregion
 
+
+        public decimal ObtenerSaldo(Cliente cli)
+        {
+            var saldo = _contexto.Saldos.SingleOrDefault(x => x.IdCliente == cli.id);
+            var fechaDesde = (saldo?.Fecha ?? cli.fechaAlta).Date;
+            var facturas = BuscarComprobantes<Comprobante_Factura>(cli.id, fechaDesde);
+            var notasC = BuscarComprobantes<Comprobante_Devolucion>(cli.id, fechaDesde);
+            var notasD = BuscarComprobantes<Comprobante_Recargo>(cli.id, fechaDesde);
+            var pagos = BuscarComprobantes<Comprobante_Recibo>(cli.id, fechaDesde).SelectMany(x => x.InstrumentoPago);
+
+            return (saldo?.Saldo ?? 0) + facturas.Sum(x => x.importe) - notasC.Sum(x => x.importe) + notasD.Sum(x => x.importe) - pagos.Sum(x => x.Importe);
+        }
     }
 }

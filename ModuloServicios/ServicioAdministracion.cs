@@ -447,7 +447,7 @@ namespace ModuloServicios
             return query.Any() ? query.First().Cliente : null;
         }
 
-        public Cliente buscarUnCliente(string razonSoc, string cuit)
+        public Cliente BuscarUnCliente(string razonSoc, string cuit)
         {
             IQueryable<Cliente> query = _contexto.Cliente.Include("Planta.ArticuloPlanta");//.Include("Localidad").Include("SituacionFrenteIva");
 

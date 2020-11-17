@@ -52,7 +52,7 @@ namespace Desktop.Vistas.Ventas
             try
             {
                 // Obtenemos el resultado                
-                List<Comprobante> resultado = Global.Servicio.buscarComprobantes(codPlanta, nomPlanta, numComp, Tipo, int.Parse(cboPv.Text), nomCliente, numeroRegistros);
+                List<Comprobante> resultado = Global.Servicio.BuscarComprobantes(codPlanta, nomPlanta, numComp, Tipo, int.Parse(cboPv.Text), nomCliente, numeroRegistros);
 
                 // Listamos los clientes
                 foreach (Comprobante comp in resultado)
