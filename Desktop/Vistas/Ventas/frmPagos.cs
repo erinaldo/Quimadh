@@ -28,15 +28,7 @@ namespace Desktop.Vistas.Ventas
             txtRetenciones.Text = _recibo.Retenciones?.ToString() ?? "0.00";
             CargarDatos();
 
-            var totalPagos = decimal.Parse(txtTotal.Text) + _recibo.Retenciones;
-            var totalFact = decimal.Parse(txtTotalFact.Text);
-
-            if (totalFact == 0)
-                txtTipoRecibo.Text = "A cuenta";
-            else if (totalFact > totalPagos)
-                txtTipoRecibo.Text = "Parcial";
-            else
-                txtTipoRecibo.Text = "Total";
+            CalcularTotales();
         }
 
         private void btnMasTarj_Click(object sender, EventArgs e)
@@ -101,6 +93,8 @@ namespace Desktop.Vistas.Ventas
             var importe = decimal.Parse(txtTotal.Text);
             importe += pago.Importe * (positivo ? 1 : -1);
             txtTotal.Text = importe.ToString("0.00");
+
+            CalcularTotales();
         }
 
         private void ActualizarTotalFactura(Comprobante_Factura factura, bool positivo)
@@ -108,6 +102,8 @@ namespace Desktop.Vistas.Ventas
             var importe = decimal.Parse(txtTotalFact.Text);
             importe += factura.importe * (positivo ? 1 : -1);
             txtTotalFact.Text = importe.ToString("0.00");
+
+            CalcularTotales();
         }
 
         private DataGridView ObtenerDataGridView(Type type)
@@ -273,6 +269,25 @@ namespace Desktop.Vistas.Ventas
             grilla.Rows.Remove(row);
 
             return row;
+        }
+
+        private void CalcularTotales()
+        {
+            var retenciones = decimal.Parse(string.IsNullOrEmpty(txtRetenciones.Text) ? "0" : txtRetenciones.Text);
+            var totalPagos = decimal.Parse(txtTotal.Text) + retenciones;
+            var totalFact = decimal.Parse(txtTotalFact.Text);
+
+            if (totalFact == 0)
+                txtTipoRecibo.Text = "A cuenta";
+            else if (totalFact > totalPagos)
+                txtTipoRecibo.Text = "Parcial";
+            else
+                txtTipoRecibo.Text = "Total";
+        }
+
+        private void txtRetenciones_Leave(object sender, EventArgs e)
+        {
+            CalcularTotales();
         }
     }
 }
