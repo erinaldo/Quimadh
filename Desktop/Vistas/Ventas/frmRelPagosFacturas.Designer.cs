@@ -37,6 +37,8 @@
             this.labelQuimadh3 = new Controles.LabelQuimadh(this.components);
             this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
             this.dgvRecibos = new System.Windows.Forms.DataGridView();
+            this.labelQuimadh2 = new Controles.LabelQuimadh(this.components);
+            this.txtSaldo = new Controles.TextBoxQuimadh();
             this.clmFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNroRecibo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,8 +48,6 @@
             this.clmImpTC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmImpTD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmImpChe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelQuimadh2 = new Controles.LabelQuimadh(this.components);
-            this.txtSaldo = new Controles.TextBoxQuimadh();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecibos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(735, 134);
+            this.btnBuscar.Location = new System.Drawing.Point(851, 150);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(108, 30);
@@ -72,7 +72,7 @@
             this.labelQuimadh1.AutoSize = true;
             this.labelQuimadh1.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh1.Location = new System.Drawing.Point(380, 139);
+            this.labelQuimadh1.Location = new System.Drawing.Point(496, 155);
             this.labelQuimadh1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh1.Name = "labelQuimadh1";
             this.labelQuimadh1.Size = new System.Drawing.Size(68, 20);
@@ -81,7 +81,7 @@
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(455, 138);
+            this.txtCliente.Location = new System.Drawing.Point(571, 154);
             this.txtCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(219, 23);
@@ -90,7 +90,7 @@
             // dtpFechaHasta
             // 
             this.dtpFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaHasta.Location = new System.Drawing.Point(720, 98);
+            this.dtpFechaHasta.Location = new System.Drawing.Point(836, 114);
             this.dtpFechaHasta.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaHasta.Name = "dtpFechaHasta";
             this.dtpFechaHasta.Size = new System.Drawing.Size(123, 23);
@@ -101,7 +101,7 @@
             this.labelQuimadh4.AutoSize = true;
             this.labelQuimadh4.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh4.Location = new System.Drawing.Point(590, 99);
+            this.labelQuimadh4.Location = new System.Drawing.Point(706, 115);
             this.labelQuimadh4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh4.Name = "labelQuimadh4";
             this.labelQuimadh4.Size = new System.Drawing.Size(122, 20);
@@ -113,7 +113,7 @@
             this.labelQuimadh3.AutoSize = true;
             this.labelQuimadh3.BackColor = System.Drawing.Color.Transparent;
             this.labelQuimadh3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh3.Location = new System.Drawing.Point(322, 99);
+            this.labelQuimadh3.Location = new System.Drawing.Point(438, 115);
             this.labelQuimadh3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuimadh3.Name = "labelQuimadh3";
             this.labelQuimadh3.Size = new System.Drawing.Size(126, 20);
@@ -123,7 +123,7 @@
             // dtpFechaDesde
             // 
             this.dtpFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaDesde.Location = new System.Drawing.Point(455, 98);
+            this.dtpFechaDesde.Location = new System.Drawing.Point(571, 114);
             this.dtpFechaDesde.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaDesde.Name = "dtpFechaDesde";
             this.dtpFechaDesde.Size = new System.Drawing.Size(123, 23);
@@ -146,12 +146,33 @@
             this.clmImpTD,
             this.clmImpChe});
             this.dgvRecibos.GridColor = System.Drawing.Color.Black;
-            this.dgvRecibos.Location = new System.Drawing.Point(13, 204);
+            this.dgvRecibos.Location = new System.Drawing.Point(13, 214);
             this.dgvRecibos.Margin = new System.Windows.Forms.Padding(4);
             this.dgvRecibos.Name = "dgvRecibos";
             this.dgvRecibos.ReadOnly = true;
-            this.dgvRecibos.Size = new System.Drawing.Size(1139, 336);
+            this.dgvRecibos.Size = new System.Drawing.Size(1417, 409);
             this.dgvRecibos.TabIndex = 73;
+            // 
+            // labelQuimadh2
+            // 
+            this.labelQuimadh2.AutoSize = true;
+            this.labelQuimadh2.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuimadh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuimadh2.Location = new System.Drawing.Point(507, 186);
+            this.labelQuimadh2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelQuimadh2.Name = "labelQuimadh2";
+            this.labelQuimadh2.Size = new System.Drawing.Size(56, 20);
+            this.labelQuimadh2.TabIndex = 75;
+            this.labelQuimadh2.Text = "Saldo";
+            // 
+            // txtSaldo
+            // 
+            this.txtSaldo.Location = new System.Drawing.Point(571, 185);
+            this.txtSaldo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSaldo.Name = "txtSaldo";
+            this.txtSaldo.ReadOnly = true;
+            this.txtSaldo.Size = new System.Drawing.Size(219, 23);
+            this.txtSaldo.TabIndex = 74;
             // 
             // clmFecha
             // 
@@ -165,6 +186,7 @@
             this.clmCliente.HeaderText = "Cliente";
             this.clmCliente.Name = "clmCliente";
             this.clmCliente.ReadOnly = true;
+            this.clmCliente.Width = 200;
             // 
             // clmNroRecibo
             // 
@@ -177,6 +199,7 @@
             this.clmFact.HeaderText = "Facturas";
             this.clmFact.Name = "clmFact";
             this.clmFact.ReadOnly = true;
+            this.clmFact.Width = 250;
             // 
             // clmImpEf
             // 
@@ -213,32 +236,11 @@
             this.clmImpChe.ReadOnly = true;
             this.clmImpChe.Width = 80;
             // 
-            // labelQuimadh2
-            // 
-            this.labelQuimadh2.AutoSize = true;
-            this.labelQuimadh2.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuimadh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuimadh2.Location = new System.Drawing.Point(391, 170);
-            this.labelQuimadh2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelQuimadh2.Name = "labelQuimadh2";
-            this.labelQuimadh2.Size = new System.Drawing.Size(56, 20);
-            this.labelQuimadh2.TabIndex = 75;
-            this.labelQuimadh2.Text = "Saldo";
-            // 
-            // txtSaldo
-            // 
-            this.txtSaldo.Location = new System.Drawing.Point(455, 169);
-            this.txtSaldo.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSaldo.Name = "txtSaldo";
-            this.txtSaldo.ReadOnly = true;
-            this.txtSaldo.Size = new System.Drawing.Size(219, 23);
-            this.txtSaldo.TabIndex = 74;
-            // 
             // frmRelPagosFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1165, 553);
+            this.ClientSize = new System.Drawing.Size(1443, 629);
             this.Controls.Add(this.labelQuimadh2);
             this.Controls.Add(this.txtSaldo);
             this.Controls.Add(this.dgvRecibos);
@@ -278,6 +280,8 @@
         private Controles.LabelQuimadh labelQuimadh3;
         private System.Windows.Forms.DateTimePicker dtpFechaDesde;
         private System.Windows.Forms.DataGridView dgvRecibos;
+        private Controles.LabelQuimadh labelQuimadh2;
+        private Controles.TextBoxQuimadh txtSaldo;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNroRecibo;
@@ -287,7 +291,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmImpTC;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmImpTD;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmImpChe;
-        private Controles.LabelQuimadh labelQuimadh2;
-        private Controles.TextBoxQuimadh txtSaldo;
     }
 }

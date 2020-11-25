@@ -22,6 +22,8 @@ namespace Desktop
         [STAThread]
         static void Main()
         {
+            //Global.Servicio.EnviarMailFactura(null, "flores.marianon@gmail.com","");
+
             string advertencia = string.Empty;
             bool errorConBD = false;
             CultureInfo ci = new System.Globalization.CultureInfo("es-ES");
