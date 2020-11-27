@@ -215,7 +215,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1517, 614);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Vista Reporte";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -226,7 +226,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1517, 614);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Vista Facturable";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // dgvRemitos

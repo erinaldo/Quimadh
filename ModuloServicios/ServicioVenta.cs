@@ -638,6 +638,10 @@ namespace ModuloServicios
                         mail.CC.Add(new MailAddress(mailCopia));
                     }
                 }
+
+                var cco = ConfigurationManager.AppSettings["EmailCco"];
+                if (!string.IsNullOrWhiteSpace(cco))
+                    mail.Bcc.Add(cco);
             }
             catch (FormatException)
             {

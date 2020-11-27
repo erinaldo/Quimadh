@@ -58,7 +58,8 @@ namespace Desktop.Vistas.Ventas
             {
                 cambiarEstado(Estados.Agregar);
                 agregar();
-                dgvRemitos.Rows[0].Cells[0].Value = _nroRemito;
+                dgvRemitos.Rows.Add();
+                dgvRemitos.Rows[0].Cells[0].Value = _nroRemito;                
                 FacturarRemito(_nroRemito);
             }
         }

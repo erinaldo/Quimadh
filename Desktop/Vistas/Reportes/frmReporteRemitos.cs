@@ -148,6 +148,7 @@ namespace Desktop.Vistas.Reportes
 
         private void btnVerReporte_Click(object sender, EventArgs e)
         {
+            dgvRemitos.Rows.Clear();
             cargar();
         }
 
@@ -168,6 +169,7 @@ namespace Desktop.Vistas.Reportes
 
             var formFacturas = new frmFacturas(remito);
             formFacturas.ShowDialog();
+            btnVerReporte_Click(sender, e);
         }
     }
 }
