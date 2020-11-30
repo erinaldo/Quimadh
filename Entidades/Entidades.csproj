@@ -200,9 +200,6 @@
     <Compile Include="TipoArticulo.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoPagoCliente.cs">
-      <DependentUpon>ModeloEntidades.tt</DependentUpon>
-    </Compile>
     <Compile Include="TipoTarjeta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>

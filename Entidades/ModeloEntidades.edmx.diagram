@@ -106,8 +106,6 @@
         <EntityTypeShape EntityType="QuimadhModel.InstrumentoPago" Width="1.5" PointX="20.75" PointY="15.75" />
         <EntityTypeShape EntityType="QuimadhModel.Pago_Cheque" Width="1.5" PointX="24.375" PointY="17.125" />
         <EntityTypeShape EntityType="QuimadhModel.Pago_Transferencia" Width="1.5" PointX="23.625" PointY="15.625" />
-        <EntityTypeShape EntityType="QuimadhModel.TipoPagoCliente" Width="1.5" PointX="18.5" PointY="16.875" />
-        <AssociationConnector Association="QuimadhModel.FK_Comprobante_Comprobante_Recibo_TipoPagoCliente" />
         <AssociationConnector Association="QuimadhModel.FK_InstrumentoPago_PagoCliente" />
         <InheritanceConnector EntityType="QuimadhModel.Pago_Transferencia" />
         <InheritanceConnector EntityType="QuimadhModel.Pago_Cheque" />

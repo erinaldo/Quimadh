@@ -23,11 +23,9 @@ namespace Entidades
     
         public string formaPago { get; set; }
         public long numero { get; set; }
-        public Nullable<byte> IdTipoPago { get; set; }
         public Nullable<decimal> Retenciones { get; set; }
     
         public virtual ICollection<ItemRecibo> ItemRecibo { get; set; }
-        public virtual TipoPagoCliente TipoPagoCliente { get; set; }
         public virtual ICollection<InstrumentoPago> InstrumentoPago { get; set; }
         public virtual ICollection<Comprobante_Factura> Comprobante_Factura { get; set; }
     }

@@ -3,6 +3,7 @@ using Desktop.Vistas.Administracion;
 using Entidades;
 using Frontend.Controles;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Desktop.Vistas.Ventas
@@ -58,7 +59,6 @@ namespace Desktop.Vistas.Ventas
 
         protected override void modificar()
         {
-            //recibo = new Comprobante_Recibo();
             gpbDatos.Enabled = true;
             gpbDatosRec.Enabled = false;
             gpbTotales.Enabled = false;
@@ -256,16 +256,33 @@ namespace Desktop.Vistas.Ventas
                     return false;
                 }
 
+                if (recibo.InstrumentoPago == null || !recibo.InstrumentoPago.Any())
+                {
+                    Mensaje msjErr = new Mensaje("Debe cargar el/los instrumentos de pago", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                    msjErr.ShowDialog();
+                    return false;
+                }
+
+                if (decimal.Parse(txtTotal1.Text) != recibo.InstrumentoPago.Sum(x => x.Importe))
+                {
+                    Mensaje msjErr = new Mensaje("El total del recibo no coincide con el total de pagos", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                    msjErr.ShowDialog();
+                    return false;
+                }
+
+                var primerFactura = recibo.Comprobante_Factura.FirstOrDefault();
+
+                if (primerFactura != null && planta.idCliente != primerFactura.Planta.idCliente)
+                {
+                    Mensaje msjErr = new Mensaje("El cliente del recibo no coincide con el de las facturas asociada/s al pago", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                    msjErr.ShowDialog();
+                    return false;
+                }
+
                 if (cliente != null && planta != null)
                 {
                     if (Estado == Estados.Agregar)
                     {
-                        //recibo = new Comprobante_Recibo();
-                        //if (txtNroRecibo.Text != "")
-                        //    recibo.numero = long.Parse(txtNroRecibo.Text);
-                        //else
-                        //    recibo.numero = 0;
-
                         if (txtTotal1.Text != "")
                             recibo.importe = decimal.Parse(txtTotal1.Text);
                         else

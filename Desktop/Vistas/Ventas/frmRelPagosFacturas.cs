@@ -44,7 +44,7 @@ namespace Desktop.Vistas.Ventas
             }
 
             dgvRecibos.Rows.Clear();
-            var recibos = Global.Servicio.BuscarRecibos(_cliente?.id, dtpFechaDesde.Value, dtpFechaHasta.Value);
+            var recibos = Global.Servicio.BuscarRecibos(_cliente?.id, dtpFechaDesde.Value.Date, dtpFechaHasta.Value.Date);
 
             foreach (var recibo in recibos)
             {

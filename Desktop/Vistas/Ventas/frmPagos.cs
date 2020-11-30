@@ -10,6 +10,7 @@ namespace Desktop.Vistas.Ventas
     {
         private readonly Comprobante_Recibo _recibo;
         private readonly Cliente _cliente;
+
         private InstrumentoPago _pagoEfectivo;
 
         public frmPagos(Comprobante_Recibo recibo, Cliente cliente)
@@ -157,14 +158,8 @@ namespace Desktop.Vistas.Ventas
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (decimal.Parse(txtTotal.Text) != _recibo.importe)
-            {
-                var msjErr = new Mensaje("El importe total debe coincidir con el importe del recibo", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                msjErr.ShowDialog();
-                return;
-            }
-
             _recibo.InstrumentoPago.Clear();
+            _recibo.Comprobante_Factura.Clear();
             _recibo.Retenciones = decimal.Parse(string.IsNullOrEmpty(txtRetenciones.Text) ? "0" : txtRetenciones.Text);
 
             if (_pagoEfectivo != null && _pagoEfectivo.Importe > 0)
