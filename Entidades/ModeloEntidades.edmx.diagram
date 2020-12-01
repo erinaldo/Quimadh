@@ -7,8 +7,8 @@
       <Diagram DiagramId="8ceb3d65d5044a8e8f56d16aca7dfbee" Name="Diagram1" ZoomLevel="62">
         <EntityTypeShape EntityType="QuimadhModel.Cliente" Width="1.5" PointX="3" PointY="17" />
         <EntityTypeShape EntityType="QuimadhModel.Comprobante" Width="2.625" PointX="15.75" PointY="23.375" />
-        <EntityTypeShape EntityType="QuimadhModel.Comprobante_Factura" Width="2.875" PointX="9.5" PointY="30.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuimadhModel.Comprobante_Recibo" Width="1.5" PointX="19.875" PointY="19.125" />
+        <EntityTypeShape EntityType="QuimadhModel.Comprobante_Factura" Width="2.875" PointX="9.75" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuimadhModel.Comprobante_Recibo" Width="2.125" PointX="19.75" PointY="21.25" />
         <EntityTypeShape EntityType="QuimadhModel.DatosRutina" Width="1.5" PointX="13" PointY="10.25" />
         <EntityTypeShape EntityType="QuimadhModel.Determinante" Width="1.5" PointX="10.25" PointY="8.5" />
         <EntityTypeShape EntityType="QuimadhModel.DeterminantesPlanta" Width="1.5" PointX="6.25" PointY="8.875" />
@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="QuimadhModel.FormularioUsuario" Width="1.5" PointX="14.25" PointY="2.5" />
         <EntityTypeShape EntityType="QuimadhModel.Localidad" Width="1.5" PointX="0.75" PointY="15.375" />
         <EntityTypeShape EntityType="QuimadhModel.Log" Width="1.5" PointX="14.25" PointY="6" />
-        <EntityTypeShape EntityType="QuimadhModel.Moneda" Width="3.375" PointX="4.125" PointY="21.625" />
+        <EntityTypeShape EntityType="QuimadhModel.Moneda" Width="2.75" PointX="3.875" PointY="23.5" />
         <EntityTypeShape EntityType="QuimadhModel.Muestra" Width="1.5" PointX="15.75" PointY="10.375" />
         <EntityTypeShape EntityType="QuimadhModel.MuestraPlanta" Width="1.5" PointX="15.75" PointY="16" />
         <EntityTypeShape EntityType="QuimadhModel.Parametros" Width="1.5" PointX="0.75" PointY="24.875" />
@@ -62,7 +62,7 @@
         <EntityTypeShape EntityType="QuimadhModel.Comprobante_Devolucion" Width="2" PointX="19.125" PointY="24" />
         <AssociationConnector Association="QuimadhModel.FK_Comprobante_DevolucionItemNota" />
         <InheritanceConnector EntityType="QuimadhModel.Comprobante_Devolucion" />
-        <EntityTypeShape EntityType="QuimadhModel.ItemNota" Width="2.75" PointX="21.375" PointY="27.875" />
+        <EntityTypeShape EntityType="QuimadhModel.ItemNota" Width="2.75" PointX="22" PointY="24.75" />
         <EntityTypeShape EntityType="QuimadhModel.Comprobante_Remito" Width="2.75" PointX="15" PointY="32.5" />
         <AssociationConnector Association="QuimadhModel.FK_Comprobante_Comprobante_Remito_Moneda" />
         <AssociationConnector Association="QuimadhModel.FK_Comprobante_Comprobante_Remito_Unidad1" />
@@ -72,15 +72,15 @@
         <AssociationConnector Association="QuimadhModel.FK_VentaArticuloPlanta_Comprobante" />
         <AssociationConnector Association="QuimadhModel.FK_VentaArticuloPlanta_Comprobante_Comprobante_Remito" />
         <AssociationConnector Association="QuimadhModel.FK_VentaArticuloPlanta_Moneda" />
-        <EntityTypeShape EntityType="QuimadhModel.TipoArticulo" Width="1.5" PointX="10" PointY="23.25" />
+        <EntityTypeShape EntityType="QuimadhModel.TipoArticulo" Width="1.5" PointX="10.125" PointY="22.875" />
         <AssociationConnector Association="QuimadhModel.FK_Lote_TipoArticulo" />
         <AssociationConnector Association="QuimadhModel.FK_TipoArticulo_Unidad" />
         <AssociationConnector Association="QuimadhModel.FK_TipoArticulo_Unidad1" />
         <AssociationConnector Association="QuimadhModel.FK_VentaArticuloPlantaTipoArticulo" />
-        <EntityTypeShape EntityType="QuimadhModel.ComposicionArticulos" Width="1.5" PointX="12.25" PointY="23.625" />
+        <EntityTypeShape EntityType="QuimadhModel.ComposicionArticulos" Width="1.5" PointX="13.125" PointY="23.5" />
         <AssociationConnector Association="QuimadhModel.FK_ComposicionArticulos_TipoArticulo" />
         <AssociationConnector Association="QuimadhModel.FK_ComposicionArticulos_TipoArticulo1" />
-        <EntityTypeShape EntityType="QuimadhModel.Entrada" Width="1.5" PointX="14.5" PointY="28.125" />
+        <EntityTypeShape EntityType="QuimadhModel.Entrada" Width="1.5" PointX="13.625" PointY="26.875" />
         <AssociationConnector Association="QuimadhModel.FK_Entrada_Lote" />
         <AssociationConnector Association="QuimadhModel.FK_Entrada_Presentacion" />
         <AssociationConnector Association="QuimadhModel.FK_VentaArticuloPlanta_Presentacion" />
@@ -90,8 +90,8 @@
         <AssociationConnector Association="QuimadhModel.FK_Salida_Salida" />
         <AssociationConnector Association="QuimadhModel.FK_Salida_VentaArticuloPlanta" />
         <AssociationConnector Association="QuimadhModel.FK_Salida_Cliente" />
-        <EntityTypeShape EntityType="QuimadhModel.ArticuloPlanta" Width="1.5" PointX="12.25" PointY="19.875" />
-        <EntityTypeShape EntityType="QuimadhModel.ArticuloPlantaHistorico" Width="1.5" PointX="14.5" PointY="20.125" />
+        <EntityTypeShape EntityType="QuimadhModel.ArticuloPlanta" Width="1.5" PointX="13" PointY="18.875" />
+        <EntityTypeShape EntityType="QuimadhModel.ArticuloPlantaHistorico" Width="1.5" PointX="15.75" PointY="19.875" />
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlanta_Moneda" />
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlanta_Planta" />
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlanta_TipoArticulo" />
@@ -101,8 +101,25 @@
         <AssociationConnector Association="QuimadhModel.FK_PreciosAdicionales_Presentacion" />
         <EntityTypeShape EntityType="QuimadhModel.Archivos" Width="1.5" PointX="3.375" PointY="0.75" />
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" />
-        <EntityTypeShape EntityType="QuimadhModel.MailFactura" Width="1.5" PointX="13.125" PointY="39.25" />
+        <EntityTypeShape EntityType="QuimadhModel.MailFactura" Width="1.5" PointX="9.875" PointY="35.375" />
         <AssociationConnector Association="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" />
+        <EntityTypeShape EntityType="QuimadhModel.InstrumentoPago" Width="1.5" PointX="20.75" PointY="15.75" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Cheque" Width="1.5" PointX="24.375" PointY="17.125" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Transferencia" Width="1.5" PointX="23.625" PointY="15.625" />
+        <AssociationConnector Association="QuimadhModel.FK_InstrumentoPago_PagoCliente" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Transferencia" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Cheque" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Tarjeta" PointX="21.125" PointY="13.75" Width="1.5" />
+        <EntityTypeShape EntityType="QuimadhModel.TipoTarjeta" PointX="23" PointY="9.625" Width="1.5" />
+        <AssociationConnector Association="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Tarjeta" />
+        <EntityTypeShape EntityType="QuimadhModel.Banco" Width="1.5" PointX="24.25" PointY="12.125" />
+        <AssociationConnector Association="QuimadhModel.FK_Pago_Cheque_Banco" />
+        <EntityTypeShape EntityType="QuimadhModel.MarcaTarjeta" Width="1.5" PointX="20.375" PointY="9.875" />
+        <AssociationConnector Association="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta" />
+        <AssociationConnector Association="QuimadhModel.Rel_Factura_Recibo1" />
+        <EntityTypeShape EntityType="QuimadhModel.Saldos" Width="1.5" PointX="5.25" PointY="18.5" />
+        <AssociationConnector Association="QuimadhModel.FK_Saldos_Cliente" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

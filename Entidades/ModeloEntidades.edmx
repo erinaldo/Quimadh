@@ -37,6 +37,13 @@
           <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="fechaCambio" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="CabeceraRutina">
           <Key>
             <PropertyRef Name="id" />
@@ -157,9 +164,10 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="formaPago" Type="nvarchar(max)" />
           <Property Name="numero" Type="bigint" Nullable="false" />
-          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="Retenciones" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Remito">
           <Key>
@@ -236,6 +244,15 @@
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="InstrumentoPago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRecibo" Type="bigint" Nullable="false" />
+          <Property Name="Importe" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Efectivo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ItemNota">
           <Key>
             <PropertyRef Name="Id" />
@@ -302,6 +319,13 @@
           <Property Name="Destinatario" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Copia" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="MarcaTarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Moneda">
           <Key>
             <PropertyRef Name="id" />
@@ -327,6 +351,34 @@
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPlanta" Type="bigint" Nullable="false" />
           <Property Name="idMuestra" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pago_Cheque">
+          <Key>
+            <PropertyRef Name="IdInstrumentoPago" />
+          </Key>
+          <Property Name="IdInstrumentoPago" Type="bigint" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="IdBanco" Type="smallint" Nullable="false" />
+          <Property Name="CuitLibrador" Type="numeric" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="NombreLibrador" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaVto" Type="datetime" Nullable="false" />
+          <Property Name="Propio" Type="bit" Nullable="false" />
+          <Property Name="Electronico" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pago_Tarjeta">
+          <Key>
+            <PropertyRef Name="IdInstrumentoPago" />
+          </Key>
+          <Property Name="IdInstrumentoPago" Type="bigint" Nullable="false" />
+          <Property Name="IdTipoTarjeta" Type="tinyint" Nullable="false" />
+          <Property Name="IdMarcaTarjeta" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pago_Transferencia">
+          <Key>
+            <PropertyRef Name="IdInstrumentoPago" />
+          </Key>
+          <Property Name="IdInstrumentoPago" Type="bigint" Nullable="false" />
+          <Property Name="NumeroComprobante" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Parametros">
           <Key>
@@ -390,6 +442,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="litrosEnvase" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Rel_Factura_Recibo">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+            <PropertyRef Name="IdRecibo" />
+          </Key>
+          <Property Name="IdFactura" Type="bigint" Nullable="false" />
+          <Property Name="IdRecibo" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Rel_Factura_Remito">
           <Key>
             <PropertyRef Name="IdFactura" />
@@ -406,6 +466,15 @@
           <Property Name="PuntoVenta" Type="int" Nullable="false" />
           <Property Name="Comprobante" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Saldos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="IdCliente" Type="bigint" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Saldo" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Salida">
           <Key>
@@ -436,6 +505,13 @@
           <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="idUnidad" Type="int" />
           <Property Name="idUnidadStock" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoTarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoUsuario">
           <Key>
@@ -923,6 +999,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InstrumentoPago_PagoCliente">
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" />
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Comprobante_Recibo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InstrumentoPago">
+              <PropertyRef Name="IdRecibo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_log_fk_Log_Usuario1">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Log" Type="Self.Log" Multiplicity="*" />
@@ -980,6 +1068,78 @@
             </Principal>
             <Dependent Role="MuestraPlanta">
               <PropertyRef Name="idPlanta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Cheque_Banco">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Pago_Cheque" Type="Self.Pago_Cheque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Cheque">
+              <PropertyRef Name="IdBanco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Cheque_InstrumentoPago">
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="1" />
+          <End Role="Pago_Cheque" Type="Self.Pago_Cheque" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InstrumentoPago">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Cheque">
+              <PropertyRef Name="IdInstrumentoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Tarjeta_InstrumentoPago">
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="1" />
+          <End Role="Pago_Tarjeta" Type="Self.Pago_Tarjeta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InstrumentoPago">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdInstrumentoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Tarjeta_MarcaTarjeta">
+          <End Role="MarcaTarjeta" Type="Self.MarcaTarjeta" Multiplicity="1" />
+          <End Role="Pago_Tarjeta" Type="Self.Pago_Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaTarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdMarcaTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Tarjeta_TipoTarjeta">
+          <End Role="TipoTarjeta" Type="Self.TipoTarjeta" Multiplicity="1" />
+          <End Role="Pago_Tarjeta" Type="Self.Pago_Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdTipoTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Transferencia_InstrumentoPago">
+          <End Role="InstrumentoPago" Type="Self.InstrumentoPago" Multiplicity="1" />
+          <End Role="Pago_Transferencia" Type="Self.Pago_Transferencia" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InstrumentoPago">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Transferencia">
+              <PropertyRef Name="IdInstrumentoPago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1057,6 +1217,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Factura">
+          <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" />
+          <End Role="Rel_Factura_Recibo" Type="Self.Rel_Factura_Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Comprobante_Factura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rel_Factura_Recibo">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Recibo">
+          <End Role="Comprobante_Comprobante_Recibo" Type="Self.Comprobante_Comprobante_Recibo" Multiplicity="1" />
+          <End Role="Rel_Factura_Recibo" Type="Self.Rel_Factura_Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Comprobante_Recibo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rel_Factura_Recibo">
+              <PropertyRef Name="IdRecibo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Factura">
           <End Role="Comprobante_Comprobante_Factura" Type="Self.Comprobante_Comprobante_Factura" Multiplicity="1" />
           <End Role="Rel_Factura_Remito" Type="Self.Rel_Factura_Remito" Multiplicity="*" />
@@ -1078,6 +1262,18 @@
             </Principal>
             <Dependent Role="Rel_Factura_Remito">
               <PropertyRef Name="IdRemito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Saldos_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Saldos" Type="Self.Saldos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Saldos">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1241,6 +1437,7 @@
           <EntitySet Name="Archivos" EntityType="Self.Archivos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticuloPlanta" EntityType="Self.ArticuloPlanta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticuloPlantaHistorico" EntityType="Self.ArticuloPlantaHistorico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CabeceraRutina" EntityType="Self.CabeceraRutina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CabeceraRutinaFirmantes" EntityType="Self.CabeceraRutinaFirmantes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
@@ -1258,25 +1455,33 @@
           <EntitySet Name="EstadoComprobante" EntityType="Self.EstadoComprobante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Formulario" EntityType="Self.Formulario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormularioUsuario" EntityType="Self.FormularioUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstrumentoPago" EntityType="Self.InstrumentoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemNota" EntityType="Self.ItemNota" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemRecibo" EntityType="Self.ItemRecibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lote" EntityType="Self.Lote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailFactura" EntityType="Self.MailFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarcaTarjeta" EntityType="Self.MarcaTarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MuestraPlanta" EntityType="Self.MuestraPlanta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago_Cheque" EntityType="Self.Pago_Cheque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago_Tarjeta" EntityType="Self.Pago_Tarjeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago_Transferencia" EntityType="Self.Pago_Transferencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parametros" EntityType="Self.Parametros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParametroSistema" EntityType="Self.ParametroSistema" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Planta" EntityType="Self.Planta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreciosAdicionales" EntityType="Self.PreciosAdicionales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Presentacion" EntityType="Self.Presentacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rel_Factura_Recibo" EntityType="Self.Rel_Factura_Recibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rel_Factura_Remito" EntityType="Self.Rel_Factura_Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rel_Pv_Comprobante" EntityType="Self.Rel_Pv_Comprobante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Saldos" EntityType="Self.Saldos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salida" EntityType="Self.Salida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SituacionFrenteIva" EntityType="Self.SituacionFrenteIva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoArticulo" EntityType="Self.TipoArticulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoTarjeta" EntityType="Self.TipoTarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unidad" EntityType="Self.Unidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -1425,6 +1630,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="FormularioUsuario" EntitySet="FormularioUsuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_InstrumentoPago_PagoCliente" Association="Self.FK_InstrumentoPago_PagoCliente">
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+          </AssociationSet>
           <AssociationSet Name="FK_log_fk_Log_Usuario1" Association="Self.FK_log_fk_Log_Usuario1">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Log" EntitySet="Log" />
@@ -1444,6 +1653,30 @@
           <AssociationSet Name="FK_MuestraPlanta_Planta" Association="Self.FK_MuestraPlanta_Planta">
             <End Role="Planta" EntitySet="Planta" />
             <End Role="MuestraPlanta" EntitySet="MuestraPlanta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Cheque_Banco" Association="Self.FK_Pago_Cheque_Banco">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Pago_Cheque" EntitySet="Pago_Cheque" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Cheque_InstrumentoPago" Association="Self.FK_Pago_Cheque_InstrumentoPago">
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+            <End Role="Pago_Cheque" EntitySet="Pago_Cheque" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Tarjeta_InstrumentoPago" Association="Self.FK_Pago_Tarjeta_InstrumentoPago">
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+            <End Role="Pago_Tarjeta" EntitySet="Pago_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Tarjeta_MarcaTarjeta" Association="Self.FK_Pago_Tarjeta_MarcaTarjeta">
+            <End Role="MarcaTarjeta" EntitySet="MarcaTarjeta" />
+            <End Role="Pago_Tarjeta" EntitySet="Pago_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Tarjeta_TipoTarjeta" Association="Self.FK_Pago_Tarjeta_TipoTarjeta">
+            <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
+            <End Role="Pago_Tarjeta" EntitySet="Pago_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Transferencia_InstrumentoPago" Association="Self.FK_Pago_Transferencia_InstrumentoPago">
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+            <End Role="Pago_Transferencia" EntitySet="Pago_Transferencia" />
           </AssociationSet>
           <AssociationSet Name="FK_parametros_fk_Parametros_SituacionFrenteIva1" Association="Self.FK_parametros_fk_Parametros_SituacionFrenteIva1">
             <End Role="SituacionFrenteIva" EntitySet="SituacionFrenteIva" />
@@ -1469,6 +1702,14 @@
             <End Role="Presentacion" EntitySet="Presentacion" />
             <End Role="PreciosAdicionales" EntitySet="PreciosAdicionales" />
           </AssociationSet>
+          <AssociationSet Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Factura" Association="Self.FK_Rel_Factura_Recibo_Comprobante_Comprobante_Factura">
+            <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
+            <End Role="Rel_Factura_Recibo" EntitySet="Rel_Factura_Recibo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_Factura_Recibo_Comprobante_Comprobante_Recibo" Association="Self.FK_Rel_Factura_Recibo_Comprobante_Comprobante_Recibo">
+            <End Role="Comprobante_Comprobante_Recibo" EntitySet="Comprobante_Comprobante_Recibo" />
+            <End Role="Rel_Factura_Recibo" EntitySet="Rel_Factura_Recibo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Factura" Association="Self.FK_Rel_Factura_Remito_Comprobante_Comprobante_Factura">
             <End Role="Comprobante_Comprobante_Factura" EntitySet="Comprobante_Comprobante_Factura" />
             <End Role="Rel_Factura_Remito" EntitySet="Rel_Factura_Remito" />
@@ -1476,6 +1717,10 @@
           <AssociationSet Name="FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito" Association="Self.FK_Rel_Factura_Remito_Comprobante_Comprobante_Remito">
             <End Role="Comprobante_Comprobante_Remito" EntitySet="Comprobante_Comprobante_Remito" />
             <End Role="Rel_Factura_Remito" EntitySet="Rel_Factura_Remito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Saldos_Cliente" Association="Self.FK_Saldos_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Saldos" EntitySet="Saldos" />
           </AssociationSet>
           <AssociationSet Name="FK_Salida_Cliente" Association="Self.FK_Salida_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1796,6 +2041,35 @@
             <End Role="Comprobante_Factura" EntitySet="Comprobante" />
             <End Role="MailFactura" EntitySet="MailFactura" />
           </AssociationSet>
+          <EntitySet Name="InstrumentoPago" EntityType="QuimadhModel.InstrumentoPago" />
+          <AssociationSet Name="FK_InstrumentoPago_PagoCliente" Association="QuimadhModel.FK_InstrumentoPago_PagoCliente">
+            <End Role="Comprobante_Recibo" EntitySet="Comprobante" />
+            <End Role="InstrumentoPago" EntitySet="InstrumentoPago" />
+          </AssociationSet>
+          <EntitySet Name="TipoTarjeta" EntityType="QuimadhModel.TipoTarjeta" />
+          <AssociationSet Name="FK_Pago_Tarjeta_TipoTarjeta" Association="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta">
+            <End EntitySet="TipoTarjeta" Role="TipoTarjeta" />
+            <End EntitySet="InstrumentoPago" Role="Pago_Tarjeta" />
+          </AssociationSet>
+          <EntitySet Name="Banco" EntityType="QuimadhModel.Banco" />
+          <AssociationSet Name="FK_Pago_Cheque_Banco" Association="QuimadhModel.FK_Pago_Cheque_Banco">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Pago_Cheque" EntitySet="InstrumentoPago" />
+          </AssociationSet>
+          <EntitySet Name="MarcaTarjeta" EntityType="QuimadhModel.MarcaTarjeta" />
+          <AssociationSet Name="FK_Pago_Tarjeta_MarcaTarjeta" Association="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta">
+            <End EntitySet="MarcaTarjeta" Role="MarcaTarjeta" />
+            <End EntitySet="InstrumentoPago" Role="Pago_Tarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="Rel_Factura_Recibo1" Association="QuimadhModel.Rel_Factura_Recibo1">
+            <End Role="Comprobante_Factura" EntitySet="Comprobante" />
+            <End Role="Comprobante_Recibo" EntitySet="Comprobante" />
+          </AssociationSet>
+          <EntitySet Name="Saldos" EntityType="QuimadhModel.Saldos" />
+          <AssociationSet Name="FK_Saldos_Cliente" Association="QuimadhModel.FK_Saldos_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Saldos" EntitySet="Saldos" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CabeceraRutina">
           <Key>
@@ -1837,6 +2111,7 @@
           <NavigationProperty Name="SituacionFrenteIva" Relationship="QuimadhModel.FK_cliente_fk_Cliente_SituacionFrenteIva1" FromRole="Cliente" ToRole="SituacionFrenteIva" />
           <NavigationProperty Name="Planta" Relationship="QuimadhModel.FK_Planta_Cliente" FromRole="Cliente" ToRole="Planta" />
           <NavigationProperty Name="Salida" Relationship="QuimadhModel.FK_Salida_Cliente" FromRole="Cliente" ToRole="Salida" />
+          <NavigationProperty Name="Saldos" Relationship="QuimadhModel.FK_Saldos_Cliente" FromRole="Cliente" ToRole="Saldos" />
         </EntityType>
         <EntityType Name="Comprobante">
           <Key>
@@ -1887,6 +2162,7 @@
           <Property Name="pv" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Comprobante_Remito" Relationship="QuimadhModel.Rel_Factura_Remito" FromRole="Comprobante_Factura" ToRole="Comprobante_Remito" />
           <NavigationProperty Name="MailFactura" Relationship="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" FromRole="Comprobante_Factura" ToRole="MailFactura" />
+          <NavigationProperty Name="Comprobante_Recibo" Relationship="QuimadhModel.Rel_Factura_Recibo1" FromRole="Comprobante_Factura" ToRole="Comprobante_Recibo" />
         </EntityType>
         <EntityType Name="Comprobante_Recargo" BaseType="QuimadhModel.Comprobante">
           <Property Name="motivo" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
@@ -1907,6 +2183,9 @@
           <Property Name="formaPago" Type="String" Nullable="true" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="numero" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ItemRecibo" Relationship="QuimadhModel.Comprobante_ReciboItemRecibo" FromRole="Comprobante_Recibo" ToRole="ItemRecibo" />
+          <NavigationProperty Name="InstrumentoPago" Relationship="QuimadhModel.FK_InstrumentoPago_PagoCliente" FromRole="Comprobante_Recibo" ToRole="InstrumentoPago" />
+          <NavigationProperty Name="Comprobante_Factura" Relationship="QuimadhModel.Rel_Factura_Recibo1" FromRole="Comprobante_Recibo" ToRole="Comprobante_Factura" />
+          <Property Name="Retenciones" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="DatosRutina">
           <Key>
@@ -3023,6 +3302,133 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="InstrumentoPago">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRecibo" Type="Int64" Nullable="false" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Efectivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comprobante_Comprobante_Recibo" Relationship="QuimadhModel.FK_InstrumentoPago_PagoCliente" FromRole="InstrumentoPago" ToRole="Comprobante_Recibo" />
+        </EntityType>
+        <EntityType Name="Pago_Cheque" BaseType="QuimadhModel.InstrumentoPago">
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="IdBanco" Type="Int16" Nullable="false" />
+          <Property Name="CuitLibrador" Type="Decimal" Nullable="false" Precision="11" Scale="0" />
+          <Property Name="NombreLibrador" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaVto" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Propio" Type="Boolean" Nullable="false" />
+          <Property Name="Electronico" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Banco" Relationship="QuimadhModel.FK_Pago_Cheque_Banco" FromRole="Pago_Cheque" ToRole="Banco" />
+        </EntityType>
+        <EntityType Name="Pago_Transferencia" BaseType="QuimadhModel.InstrumentoPago">
+          <Property Name="NumeroComprobante" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_InstrumentoPago_PagoCliente">
+          <End Type="QuimadhModel.Comprobante_Recibo" Role="Comprobante_Recibo" Multiplicity="1" />
+          <End Type="QuimadhModel.InstrumentoPago" Role="InstrumentoPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante_Recibo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InstrumentoPago">
+              <PropertyRef Name="IdRecibo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pago_Tarjeta" BaseType="QuimadhModel.InstrumentoPago">
+          <Property Name="IdTipoTarjeta" Nullable="false" Type="Byte" />
+          <NavigationProperty Name="TipoTarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" FromRole="Pago_Tarjeta" ToRole="TipoTarjeta" />
+          <Property Name="IdMarcaTarjeta" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="MarcaTarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta" FromRole="Pago_Tarjeta" ToRole="MarcaTarjeta" />
+        </EntityType>
+        <EntityType Name="TipoTarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" Type="Byte" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Descripcion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="Pago_Tarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" FromRole="TipoTarjeta" ToRole="Pago_Tarjeta" />
+        </EntityType>
+        <Association Name="FK_Pago_Tarjeta_TipoTarjeta">
+          <End Type="QuimadhModel.TipoTarjeta" Multiplicity="1" Role="TipoTarjeta" />
+          <End Type="QuimadhModel.Pago_Tarjeta" Multiplicity="*" Role="Pago_Tarjeta" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdTipoTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pago_Cheque" Relationship="QuimadhModel.FK_Pago_Cheque_Banco" FromRole="Banco" ToRole="Pago_Cheque" />
+        </EntityType>
+        <Association Name="FK_Pago_Cheque_Banco">
+          <End Type="QuimadhModel.Banco" Role="Banco" Multiplicity="1" />
+          <End Type="QuimadhModel.Pago_Cheque" Role="Pago_Cheque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Cheque">
+              <PropertyRef Name="IdBanco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MarcaTarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pago_Tarjeta" Relationship="QuimadhModel.FK_Pago_Tarjeta_MarcaTarjeta" FromRole="MarcaTarjeta" ToRole="Pago_Tarjeta" />
+        </EntityType>
+        <Association Name="FK_Pago_Tarjeta_MarcaTarjeta">
+          <End Type="QuimadhModel.MarcaTarjeta" Multiplicity="1" Role="MarcaTarjeta" />
+          <End Type="QuimadhModel.Pago_Tarjeta" Multiplicity="*" Role="Pago_Tarjeta" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaTarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago_Tarjeta">
+              <PropertyRef Name="IdMarcaTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rel_Factura_Recibo1">
+          <End Type="QuimadhModel.Comprobante_Factura" Role="Comprobante_Factura" Multiplicity="*" />
+          <End Type="QuimadhModel.Comprobante_Recibo" Role="Comprobante_Recibo" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Saldos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="IdCliente" Type="Int64" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saldo" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Cliente" Relationship="QuimadhModel.FK_Saldos_Cliente" FromRole="Saldos" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK_Saldos_Cliente">
+          <End Type="QuimadhModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="QuimadhModel.Saldos" Role="Saldos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Saldos">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3097,7 +3503,8 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Comprobante_Recibo)">
         <MappingFragment StoreEntitySet="Comprobante_Comprobante_Recibo">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Retenciones" ColumnName="Retenciones" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="formaPago" ColumnName="formaPago" />
           <ScalarProperty Name="numero" ColumnName="numero" />
         </MappingFragment>
@@ -3529,6 +3936,83 @@
                 <ScalarProperty Name="Copia" ColumnName="Copia" />
                 <ScalarProperty Name="Destinatario" ColumnName="Destinatario" />
                 <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstrumentoPago">
+            <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.InstrumentoPago)">
+              <MappingFragment StoreEntitySet="InstrumentoPago">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Efectivo" ColumnName="Efectivo" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="IdRecibo" ColumnName="IdRecibo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Pago_Transferencia)">
+              <MappingFragment StoreEntitySet="Pago_Transferencia">
+                <ScalarProperty Name="Id" ColumnName="IdInstrumentoPago" />
+                <ScalarProperty Name="NumeroComprobante" ColumnName="NumeroComprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Pago_Cheque)">
+              <MappingFragment StoreEntitySet="Pago_Cheque">
+                <ScalarProperty Name="Id" ColumnName="IdInstrumentoPago" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="IdBanco" ColumnName="IdBanco" />
+                <ScalarProperty Name="CuitLibrador" ColumnName="CuitLibrador" />
+                <ScalarProperty Name="NombreLibrador" ColumnName="NombreLibrador" />
+                <ScalarProperty Name="FechaVto" ColumnName="FechaVto" />
+                <ScalarProperty Name="Propio" ColumnName="Propio" />
+                <ScalarProperty Name="Electronico" ColumnName="Electronico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Pago_Tarjeta)">
+              <MappingFragment StoreEntitySet="Pago_Tarjeta">
+                <ScalarProperty Name="IdMarcaTarjeta" ColumnName="IdMarcaTarjeta" />
+                <ScalarProperty Name="Id" ColumnName="IdInstrumentoPago" />
+                <ScalarProperty Name="IdTipoTarjeta" ColumnName="IdTipoTarjeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoTarjeta">
+            <EntityTypeMapping TypeName="QuimadhModel.TipoTarjeta">
+              <MappingFragment StoreEntitySet="TipoTarjeta">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banco">
+            <EntityTypeMapping TypeName="QuimadhModel.Banco">
+              <MappingFragment StoreEntitySet="Banco">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarcaTarjeta">
+            <EntityTypeMapping TypeName="QuimadhModel.MarcaTarjeta">
+              <MappingFragment StoreEntitySet="MarcaTarjeta">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Rel_Factura_Recibo1" TypeName="QuimadhModel.Rel_Factura_Recibo1" StoreEntitySet="Rel_Factura_Recibo">
+            <EndProperty Name="Comprobante_Recibo">
+              <ScalarProperty Name="id" ColumnName="IdRecibo" />
+            </EndProperty>
+            <EndProperty Name="Comprobante_Factura">
+              <ScalarProperty Name="id" ColumnName="IdFactura" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Saldos">
+            <EntityTypeMapping TypeName="QuimadhModel.Saldos">
+              <MappingFragment StoreEntitySet="Saldos">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

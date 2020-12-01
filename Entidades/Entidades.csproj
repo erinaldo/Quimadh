@@ -57,6 +57,9 @@
     <Compile Include="ArticuloPlantaHistorico.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="Banco.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="CabeceraRutina.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -108,6 +111,9 @@
     <Compile Include="FormularioUsuario.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="InstrumentoPago.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="ItemNota.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -124,6 +130,9 @@
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="MailFactura.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MarcaTarjeta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="Metadata.cs" />
@@ -151,6 +160,15 @@
     <Compile Include="MuestraPlanta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pago_Cheque.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pago_Tarjeta.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pago_Transferencia.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Parametros.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -170,6 +188,9 @@
     <Compile Include="Rel_Pv_Comprobante.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="Saldos.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Salida.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -177,6 +198,9 @@
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoArticulo.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoTarjeta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoUsuario.cs">

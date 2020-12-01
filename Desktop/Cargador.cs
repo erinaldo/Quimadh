@@ -4,8 +4,6 @@ using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop
@@ -713,6 +711,125 @@ namespace Desktop
                 celda.AutoCompleteCustomSource = numerosLotes;
                 celda.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 celda.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            }
+            catch (Exception ex)
+            {
+                Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
+            }
+        }
+
+        public static void CargarBancos(ComboBox combo, string textoPrimerItem = "", int idBancoPorDefecto = 0)
+        {
+            try
+            {
+                ComboBoxItem item;
+                // Obtiene las localidades
+                var bancos = Global.Servicio.ObtenerTodosBancos();
+
+                // Limpia el contenido del combobox
+                combo.Items.Clear();
+
+                if (textoPrimerItem != "")
+                    combo.Items.Add(textoPrimerItem);
+
+                // Origen de datos para Autocompletado
+                AutoCompleteStringCollection nombreBancos = new AutoCompleteStringCollection();
+
+                int indice = 0;
+
+                // Carga las localidades obtenidas
+                foreach (var banco in bancos)
+                {
+                    item = new ComboBoxItem(banco.Nombre, banco);
+                    combo.Items.Add(item);
+                    nombreBancos.Add(banco.Nombre);
+
+                    if (idBancoPorDefecto == banco.Id)
+                        indice = combo.Items.Count - 1;
+                }
+
+                combo.AutoCompleteCustomSource = nombreBancos;
+                combo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                combo.SelectedIndex = indice;
+            }
+            catch (Exception ex)
+            {
+                Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
+            }
+        }
+
+        public static void CargarTiposTarjeta(ComboBox combo, string textoPrimerItem = "", int idTipoPorDefecto = 0)
+        {
+            try
+            {
+                ComboBoxItem item;
+                // Obtiene las localidades
+                var tiposTarjetas = Global.Servicio.ObtenerTodosTipoTarjetas();
+
+                // Limpia el contenido del combobox
+                combo.Items.Clear();
+
+                if (textoPrimerItem != "")
+                    combo.Items.Add(textoPrimerItem);
+
+                // Origen de datos para Autocompletado
+                //AutoCompleteStringCollection nombreBancos = new AutoCompleteStringCollection();
+
+                int indice = 0;
+
+                // Carga las localidades obtenidas
+                foreach (var tipoTarjeta in tiposTarjetas)
+                {
+                    item = new ComboBoxItem(tipoTarjeta.Descripcion, tipoTarjeta);
+                    combo.Items.Add(item);
+                    //nombreBancos.Add(banco.Nombre);
+
+                    if (idTipoPorDefecto == tipoTarjeta.Id)
+                        indice = combo.Items.Count - 1;
+                }
+
+                //combo.AutoCompleteCustomSource = nombreBancos;
+                //combo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                combo.SelectedIndex = indice;
+            }
+            catch (Exception ex)
+            {
+                Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                unMensaje.ShowDialog();
+            }
+        }
+
+        public static void CargarMarcasTarjeta(ComboBox combo, string textoPrimerItem = "", int idTipoPorDefecto = 0)
+        {
+            try
+            {
+                ComboBoxItem item;
+                // Obtiene las localidades
+                var marcasTarjetas = Global.Servicio.ObtenerTodosMarcaTarjetas();
+
+                // Limpia el contenido del combobox
+                combo.Items.Clear();
+
+                if (textoPrimerItem != "")
+                    combo.Items.Add(textoPrimerItem);
+
+                int indice = 0;
+
+                // Carga las localidades obtenidas
+                foreach (var marca in marcasTarjetas)
+                {
+                    item = new ComboBoxItem(marca.Descripcion, marca);
+                    combo.Items.Add(item);
+
+                    if (idTipoPorDefecto == marca.Id)
+                        indice = combo.Items.Count - 1;
+                }
+
+                combo.SelectedIndex = indice;
             }
             catch (Exception ex)
             {

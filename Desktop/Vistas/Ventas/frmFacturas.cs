@@ -20,8 +20,7 @@ namespace Desktop.Vistas.Ventas
 
         private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
         private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
-        private Moneda MonedaFCE => Global.Servicio.obtenerMoneda(0);
-        //private bool esMiPyme => SujetoObligado && factura.importe >= MontoObligado;
+        private Moneda MonedaFCE => Global.Servicio.obtenerMoneda(0);        
         private bool esMiPyme => SujetoObligado && Global.Servicio.ConviertePrecio(factura.importe, factura.Moneda, MonedaFCE) >= MontoObligado;
         private int tipoAfipA => esMiPyme ? 201 : 1;
         private int tipoAfipB => esMiPyme ? 206 : 6;
@@ -29,9 +28,12 @@ namespace Desktop.Vistas.Ventas
         private long nroFacturaComun = 0;
         private long nroFacturaMiPyme = 0;
 
-        public frmFacturas()
+        private readonly string _nroRemito;
+
+        public frmFacturas(string nroRemito = null)
         {
             InitializeComponent();
+            _nroRemito = nroRemito;                      
         }
 
         protected override void cargar()
@@ -51,6 +53,15 @@ namespace Desktop.Vistas.Ventas
             nroFacturaMiPyme = 0;
             nroFacturaMiPyme = 0;
             sujetoObligado = null;
+
+            if (!string.IsNullOrEmpty(_nroRemito))
+            {
+                cambiarEstado(Estados.Agregar);
+                agregar();
+                dgvRemitos.Rows.Add();
+                dgvRemitos.Rows[0].Cells[0].Value = _nroRemito;                
+                FacturarRemito(_nroRemito);
+            }
         }
 
         protected override void agregar()
@@ -153,7 +164,7 @@ namespace Desktop.Vistas.Ventas
         protected override bool cargarBusqueda()
         {
             frmBusquedaComp frmBusquedaComp = new frmBusquedaComp();
-            frmBusquedaComp.tipo = "factura";
+            frmBusquedaComp.Tipo = "factura";
             DialogResult res = frmBusquedaComp.ShowDialog();
 
             if (res == DialogResult.OK)
@@ -861,7 +872,7 @@ namespace Desktop.Vistas.Ventas
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            cliente = Global.Servicio.buscarUnCliente("",txtCUIT.Text);  
+            cliente = Global.Servicio.BuscarUnCliente("",txtCUIT.Text);  
             completarCamposCliente(cliente);
             planta = null;
             completarDatosPlanta(planta);
@@ -873,7 +884,7 @@ namespace Desktop.Vistas.Ventas
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            cliente = Global.Servicio.buscarUnCliente(txtRazonSocial.Text.Trim(),"");
+            cliente = Global.Servicio.BuscarUnCliente(txtRazonSocial.Text.Trim(),"");
             completarCamposCliente(cliente);
             planta = null;
             completarDatosPlanta(planta);
@@ -1020,7 +1031,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
                     solicitudA = service.ConsultarCAE(1, 3, nroCompA);
-                    Comprobante_Factura facturaA = Global.Servicio.buscarFactura(nroCompA, "A", 3, false);
+                    Comprobante_Factura facturaA = Global.Servicio.BuscarFactura(nroCompA, "A", 3, false);
                     facturaA.estadoCarga = 1;
                     facturaA.cae = solicitudA.cae;
                     facturaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1032,7 +1043,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
                     solicitudB = service.ConsultarCAE(6, 3, nroCompB);
-                    Comprobante_Factura facturaB = Global.Servicio.buscarFactura(nroCompB, "B", 3, false);
+                    Comprobante_Factura facturaB = Global.Servicio.BuscarFactura(nroCompB, "B", 3, false);
                     facturaB.estadoCarga = 1;
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1044,7 +1055,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudA = new FEAfip.DTOSolicitud();
                     solicitudA = service.ConsultarCAE(201, 3, nroCompAMiPyme);
-                    Comprobante_Factura facturaA = Global.Servicio.buscarFactura(nroCompAMiPyme, "A", 3, true);
+                    Comprobante_Factura facturaA = Global.Servicio.BuscarFactura(nroCompAMiPyme, "A", 3, true);
                     facturaA.estadoCarga = 1;
                     facturaA.cae = solicitudA.cae;
                     facturaA.fecVtoCae = DateTime.ParseExact(solicitudA.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1056,7 +1067,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
                     solicitudB = service.ConsultarCAE(206, 3, nroCompBMiPyme);
-                    Comprobante_Factura facturaB = Global.Servicio.buscarFactura(nroCompBMiPyme, "B", 3, false);
+                    Comprobante_Factura facturaB = Global.Servicio.BuscarFactura(nroCompBMiPyme, "B", 3, false);
                     facturaB.estadoCarga = 1;
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1176,15 +1187,21 @@ namespace Desktop.Vistas.Ventas
             long l;
             if (!long.TryParse(dgvRemitos.Rows[e.RowIndex].Cells[0].Value.ToString(), out l))
                 return;
-            
-            Comprobante_Remito remito = Global.Servicio.buscarUnRemito(long.Parse(dgvRemitos.Rows[e.RowIndex].Cells[0].Value.ToString()));
+
+            FacturarRemito(dgvRemitos.Rows[e.RowIndex].Cells[0].Value.ToString());
+        }
+
+        private void FacturarRemito(string nroRemito)
+        {
+            Comprobante_Remito remito = Global.Servicio.buscarUnRemito(long.Parse(nroRemito));
             Mensaje msj;
-            if (remito == null){
+            if (remito == null)
+            {
                 msj = new Mensaje("El remito seleccionado no existe", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 msj.ShowDialog();
                 return;
             }
-            if (planta != null && planta!= remito.Planta)
+            if (planta != null && planta != remito.Planta)
             {
                 msj = new Mensaje("El remito seleccionado pertenece a otra planta.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 msj.ShowDialog();
@@ -1201,7 +1218,6 @@ namespace Desktop.Vistas.Ventas
             {
                 cliente = planta.Cliente;
                 completarCamposCliente(cliente);
-                //obtenerNroFactura();
             }
 
             bool hayItemsPendientes = false;
@@ -1209,7 +1225,7 @@ namespace Desktop.Vistas.Ventas
             foreach (VentaArticuloPlanta item in remito.VentaArticuloPlanta)
             {
                 ArticuloPlanta artPla = Global.Servicio.BuscarUnArticuloPlantaXDesc(item.Comprobante.Planta, item.TipoArticulo.nombre);
-                decimal cantRestante = Global.Servicio.CantidadPendienteFacturacion(item);                
+                decimal cantRestante = Global.Servicio.CantidadPendienteFacturacion(item);
                 if (cantRestante > 0)
                 {
                     hayItemsPendientes = true;
@@ -1224,8 +1240,8 @@ namespace Desktop.Vistas.Ventas
                     dgvItems.Rows[fila].Cells["clmPrecio"].Tag = item.precio;
                     dgvItems[dgvItems.Columns["clmRem"].Index, fila].Value = remito.numero.ToString();
                     dgvItems[dgvItems.Columns["clmIdRem"].Index, fila].Value = remito.id.ToString();
-                    calcularImportes(decimal.Parse(dgvItems[dgvItems.Columns["clmCant"].Index, fila].FormattedValue.ToString()), decimal.Parse(dgvItems[dgvItems.Columns["clmPrecio"].Index, fila].Value.ToString()), fila);     
-                }                
+                    calcularImportes(decimal.Parse(dgvItems[dgvItems.Columns["clmCant"].Index, fila].FormattedValue.ToString()), decimal.Parse(dgvItems[dgvItems.Columns["clmPrecio"].Index, fila].Value.ToString()), fila);
+                }
             }
 
             if (!hayItemsPendientes)

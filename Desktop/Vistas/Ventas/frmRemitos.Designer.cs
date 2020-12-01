@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpbDatos = new System.Windows.Forms.GroupBox();
             this.labelQuimadh19 = new Controles.LabelQuimadh(this.components);
             this.cboTipoRem = new Controles.CustomComboBox(this.components);
@@ -134,10 +134,10 @@
             this.gpbDatos.Controls.Add(this.txtEnviarA);
             this.gpbDatos.Controls.Add(this.labelQuimadh12);
             this.gpbDatos.Controls.Add(this.labelQuimadh11);
-            this.gpbDatos.Location = new System.Drawing.Point(11, 223);
-            this.gpbDatos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbDatos.Location = new System.Drawing.Point(11, 228);
+            this.gpbDatos.Margin = new System.Windows.Forms.Padding(4);
             this.gpbDatos.Name = "gpbDatos";
-            this.gpbDatos.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbDatos.Padding = new System.Windows.Forms.Padding(4);
             this.gpbDatos.Size = new System.Drawing.Size(1163, 213);
             this.gpbDatos.TabIndex = 4;
             this.gpbDatos.TabStop = false;
@@ -160,7 +160,7 @@
             this.cboTipoRem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoRem.FormattingEnabled = true;
             this.cboTipoRem.Location = new System.Drawing.Point(735, 181);
-            this.cboTipoRem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboTipoRem.Margin = new System.Windows.Forms.Padding(4);
             this.cboTipoRem.Name = "cboTipoRem";
             this.cboTipoRem.Size = new System.Drawing.Size(209, 24);
             this.cboTipoRem.TabIndex = 68;
@@ -168,7 +168,7 @@
             // txtOrdenCompra
             // 
             this.txtOrdenCompra.Location = new System.Drawing.Point(189, 178);
-            this.txtOrdenCompra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtOrdenCompra.Margin = new System.Windows.Forms.Padding(4);
             this.txtOrdenCompra.MaxLength = 50;
             this.txtOrdenCompra.Name = "txtOrdenCompra";
             this.txtOrdenCompra.Size = new System.Drawing.Size(209, 22);
@@ -189,7 +189,7 @@
             // btnPlanta
             // 
             this.btnPlanta.Location = new System.Drawing.Point(953, 146);
-            this.btnPlanta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlanta.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlanta.Name = "btnPlanta";
             this.btnPlanta.Size = new System.Drawing.Size(64, 28);
             this.btnPlanta.TabIndex = 28;
@@ -212,7 +212,7 @@
             // txtPlanta
             // 
             this.txtPlanta.Location = new System.Drawing.Point(735, 149);
-            this.txtPlanta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPlanta.Margin = new System.Windows.Forms.Padding(4);
             this.txtPlanta.Name = "txtPlanta";
             this.txtPlanta.ReadOnly = true;
             this.txtPlanta.Size = new System.Drawing.Size(209, 22);
@@ -221,7 +221,7 @@
             // btnBuscarCliente
             // 
             this.btnBuscarCliente.Location = new System.Drawing.Point(408, 16);
-            this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
             this.btnBuscarCliente.Size = new System.Drawing.Size(64, 28);
             this.btnBuscarCliente.TabIndex = 1;
@@ -244,7 +244,7 @@
             // txtRazonSocial
             // 
             this.txtRazonSocial.Location = new System.Drawing.Point(189, 50);
-            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4);
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(209, 22);
             this.txtRazonSocial.TabIndex = 2;
@@ -254,7 +254,7 @@
             // txtDomicilio
             // 
             this.txtDomicilio.Location = new System.Drawing.Point(189, 82);
-            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(4);
             this.txtDomicilio.Name = "txtDomicilio";
             this.txtDomicilio.ReadOnly = true;
             this.txtDomicilio.Size = new System.Drawing.Size(209, 22);
@@ -263,7 +263,7 @@
             // txtLocalidad
             // 
             this.txtLocalidad.Location = new System.Drawing.Point(189, 114);
-            this.txtLocalidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLocalidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.ReadOnly = true;
             this.txtLocalidad.Size = new System.Drawing.Size(209, 22);
@@ -272,7 +272,7 @@
             // txtSitIva
             // 
             this.txtSitIva.Location = new System.Drawing.Point(189, 146);
-            this.txtSitIva.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSitIva.Margin = new System.Windows.Forms.Padding(4);
             this.txtSitIva.Name = "txtSitIva";
             this.txtSitIva.ReadOnly = true;
             this.txtSitIva.Size = new System.Drawing.Size(209, 22);
@@ -331,7 +331,7 @@
             this.txtCUIT.Enteros = 11;
             this.txtCUIT.EnterTabulacion = true;
             this.txtCUIT.Location = new System.Drawing.Point(189, 18);
-            this.txtCUIT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCUIT.Margin = new System.Windows.Forms.Padding(4);
             this.txtCUIT.Name = "txtCUIT";
             this.txtCUIT.Size = new System.Drawing.Size(209, 22);
             this.txtCUIT.TabIndex = 1;
@@ -365,7 +365,7 @@
             // txtObs
             // 
             this.txtObs.Location = new System.Drawing.Point(735, 20);
-            this.txtObs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtObs.Margin = new System.Windows.Forms.Padding(4);
             this.txtObs.MaxLength = 350;
             this.txtObs.Multiline = true;
             this.txtObs.Name = "txtObs";
@@ -375,7 +375,7 @@
             // txtEnviarA
             // 
             this.txtEnviarA.Location = new System.Drawing.Point(735, 114);
-            this.txtEnviarA.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEnviarA.Margin = new System.Windows.Forms.Padding(4);
             this.txtEnviarA.MaxLength = 30;
             this.txtEnviarA.Name = "txtEnviarA";
             this.txtEnviarA.Size = new System.Drawing.Size(209, 22);
@@ -412,7 +412,7 @@
             this.chkImprimirPrecios.Checked = true;
             this.chkImprimirPrecios.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkImprimirPrecios.Location = new System.Drawing.Point(879, 763);
-            this.chkImprimirPrecios.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkImprimirPrecios.Margin = new System.Windows.Forms.Padding(4);
             this.chkImprimirPrecios.Name = "chkImprimirPrecios";
             this.chkImprimirPrecios.Size = new System.Drawing.Size(130, 21);
             this.chkImprimirPrecios.TabIndex = 70;
@@ -422,14 +422,14 @@
             // dgvItems
             // 
             this.dgvItems.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmArt,
@@ -441,27 +441,27 @@
             this.clmMon,
             this.clmPrecio,
             this.clmImp});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvItems.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvItems.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvItems.Enabled = false;
             this.dgvItems.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvItems.Location = new System.Drawing.Point(16, 443);
-            this.dgvItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvItems.Location = new System.Drawing.Point(16, 444);
+            this.dgvItems.Margin = new System.Windows.Forms.Padding(4);
             this.dgvItems.Name = "dgvItems";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvItems.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvItems.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvItems.Size = new System.Drawing.Size(1157, 218);
             this.dgvItems.TabIndex = 12;
             this.dgvItems.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItems_CellLeave);
@@ -475,9 +475,9 @@
             // 
             // clmCant
             // 
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = "0";
-            this.clmCant.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.clmCant.DefaultCellStyle = dataGridViewCellStyle2;
             this.clmCant.HeaderText = "Cant.";
             this.clmCant.MaxInputLength = 9;
             this.clmCant.Name = "clmCant";
@@ -517,17 +517,17 @@
             // 
             // clmPrecio
             // 
-            dataGridViewCellStyle9.Format = "N2";
-            this.clmPrecio.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Format = "N2";
+            this.clmPrecio.DefaultCellStyle = dataGridViewCellStyle3;
             this.clmPrecio.HeaderText = "Precio unid.";
             this.clmPrecio.Name = "clmPrecio";
             this.clmPrecio.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // clmImp
             // 
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = "0";
-            this.clmImp.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = "0";
+            this.clmImp.DefaultCellStyle = dataGridViewCellStyle4;
             this.clmImp.HeaderText = "Importe";
             this.clmImp.MaxInputLength = 9;
             this.clmImp.Name = "clmImp";
@@ -536,7 +536,7 @@
             // btnReimprimir
             // 
             this.btnReimprimir.Location = new System.Drawing.Point(1017, 756);
-            this.btnReimprimir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReimprimir.Margin = new System.Windows.Forms.Padding(4);
             this.btnReimprimir.Name = "btnReimprimir";
             this.btnReimprimir.Size = new System.Drawing.Size(156, 33);
             this.btnReimprimir.TabIndex = 16;
@@ -550,7 +550,7 @@
             this.txtNroRemito.Enteros = 11;
             this.txtNroRemito.EnterTabulacion = true;
             this.txtNroRemito.Location = new System.Drawing.Point(172, 18);
-            this.txtNroRemito.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNroRemito.Margin = new System.Windows.Forms.Padding(4);
             this.txtNroRemito.Name = "txtNroRemito";
             this.txtNroRemito.Size = new System.Drawing.Size(209, 22);
             this.txtNroRemito.TabIndex = 17;
@@ -583,7 +583,7 @@
             // txtCotiz
             // 
             this.txtCotiz.Location = new System.Drawing.Point(527, 17);
-            this.txtCotiz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCotiz.Margin = new System.Windows.Forms.Padding(4);
             this.txtCotiz.Name = "txtCotiz";
             this.txtCotiz.ReadOnly = true;
             this.txtCotiz.Size = new System.Drawing.Size(83, 22);
@@ -631,7 +631,7 @@
             this.txtTotal.Enteros = 12;
             this.txtTotal.EnterTabulacion = true;
             this.txtTotal.Location = new System.Drawing.Point(987, 16);
-            this.txtTotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
             this.txtTotal.Size = new System.Drawing.Size(165, 22);
@@ -644,7 +644,7 @@
             this.txtPeso.Enteros = 12;
             this.txtPeso.EnterTabulacion = true;
             this.txtPeso.Location = new System.Drawing.Point(579, 14);
-            this.txtPeso.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPeso.Margin = new System.Windows.Forms.Padding(4);
             this.txtPeso.Name = "txtPeso";
             this.txtPeso.ReadOnly = true;
             this.txtPeso.Size = new System.Drawing.Size(164, 22);
@@ -657,7 +657,7 @@
             this.txtCantBultos.Enteros = 8;
             this.txtCantBultos.EnterTabulacion = true;
             this.txtCantBultos.Location = new System.Drawing.Point(141, 16);
-            this.txtCantBultos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCantBultos.Margin = new System.Windows.Forms.Padding(4);
             this.txtCantBultos.Name = "txtCantBultos";
             this.txtCantBultos.Size = new System.Drawing.Size(156, 22);
             this.txtCantBultos.TabIndex = 38;
@@ -668,7 +668,7 @@
             this.cboUnidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboUnidad.FormattingEnabled = true;
             this.cboUnidad.Location = new System.Drawing.Point(507, 13);
-            this.cboUnidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboUnidad.Margin = new System.Windows.Forms.Padding(4);
             this.cboUnidad.Name = "cboUnidad";
             this.cboUnidad.Size = new System.Drawing.Size(164, 24);
             this.cboUnidad.TabIndex = 44;
@@ -690,7 +690,7 @@
             // 
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFecha.Location = new System.Drawing.Point(987, 17);
-            this.dtpFecha.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFecha.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(167, 22);
             this.dtpFecha.TabIndex = 65;
@@ -718,10 +718,10 @@
             this.gpbDatosRem.Controls.Add(this.labelQuimadh13);
             this.gpbDatosRem.Controls.Add(this.txtCotiz);
             this.gpbDatosRem.Controls.Add(this.labelQuimadh14);
-            this.gpbDatosRem.Location = new System.Drawing.Point(11, 167);
-            this.gpbDatosRem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbDatosRem.Location = new System.Drawing.Point(11, 180);
+            this.gpbDatosRem.Margin = new System.Windows.Forms.Padding(4);
             this.gpbDatosRem.Name = "gpbDatosRem";
-            this.gpbDatosRem.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbDatosRem.Padding = new System.Windows.Forms.Padding(4);
             this.gpbDatosRem.Size = new System.Drawing.Size(1163, 48);
             this.gpbDatosRem.TabIndex = 66;
             this.gpbDatosRem.TabStop = false;
@@ -731,7 +731,7 @@
             this.cboMoneda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMoneda.FormattingEnabled = true;
             this.cboMoneda.Location = new System.Drawing.Point(747, 15);
-            this.cboMoneda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboMoneda.Margin = new System.Windows.Forms.Padding(4);
             this.cboMoneda.Name = "cboMoneda";
             this.cboMoneda.Size = new System.Drawing.Size(131, 24);
             this.cboMoneda.TabIndex = 69;
@@ -759,9 +759,9 @@
             this.gpbTotales.Controls.Add(this.labelQuimadh18);
             this.gpbTotales.Controls.Add(this.labelQuimadh16);
             this.gpbTotales.Location = new System.Drawing.Point(16, 704);
-            this.gpbTotales.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbTotales.Margin = new System.Windows.Forms.Padding(4);
             this.gpbTotales.Name = "gpbTotales";
-            this.gpbTotales.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbTotales.Padding = new System.Windows.Forms.Padding(4);
             this.gpbTotales.Size = new System.Drawing.Size(1158, 47);
             this.gpbTotales.TabIndex = 67;
             this.gpbTotales.TabStop = false;
@@ -805,7 +805,7 @@
             this.Controls.Add(this.btnReimprimir);
             this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.gpbDatos);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmRemitos";
             this.Text = "";
             this.Controls.SetChildIndex(this.lblTitulo, 0);

@@ -62,5 +62,10 @@ namespace Entidades
         public virtual DbSet<PreciosAdicionales> PreciosAdicionales { get; set; }
         public virtual DbSet<Archivos> Archivos { get; set; }
         public virtual DbSet<MailFactura> MailFactura { get; set; }
+        public virtual DbSet<InstrumentoPago> InstrumentoPago { get; set; }
+        public virtual DbSet<TipoTarjeta> TipoTarjeta { get; set; }
+        public virtual DbSet<Banco> Banco { get; set; }
+        public virtual DbSet<MarcaTarjeta> MarcaTarjeta { get; set; }
+        public virtual DbSet<Saldos> Saldos { get; set; }
     }
 }

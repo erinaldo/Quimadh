@@ -2,12 +2,7 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Desktop.Vistas.Ventas
@@ -15,7 +10,8 @@ namespace Desktop.Vistas.Ventas
     public partial class frmBusquedaComp : FormBusqueda
     {
         public Comprobante comprobanteSeleccionado;
-        public string tipo;
+        public string Tipo { get; set; }
+        public Cliente Cliente { get; set; }
 
         public frmBusquedaComp()
         {
@@ -26,12 +22,16 @@ namespace Desktop.Vistas.Ventas
         {
             if (cboPv.Items.Count == 0)
             {
-                Cargador.cargarPuntosVta(cboPv, tipo);
-                if (tipo == "factura" || tipo.Substring(0,4) == "nota")
+                Cargador.cargarPuntosVta(cboPv, Tipo);
+                if (Tipo == "factura" || Tipo.Substring(0,4) == "nota")
                     cboPv.SelectedIndex = cboPv.FindStringExact("3"); 
-
             }
             
+            if (Cliente != null)
+            {
+                txtNomCliente.Text = Cliente.razonSocial;
+            }
+
             // Obtenemos los datos de búsqueda
             string codPlanta = txtCodPlanta.Text.Trim();
             string nomPlanta = txtNomPlanta.Text.Trim();
@@ -52,14 +52,14 @@ namespace Desktop.Vistas.Ventas
             try
             {
                 // Obtenemos el resultado                
-                List<Comprobante> resultado = Global.Servicio.buscarComprobantes(codPlanta, nomPlanta, numComp, tipo, int.Parse(cboPv.Text), nomCliente, numeroRegistros);
+                List<Comprobante> resultado = Global.Servicio.BuscarComprobantes(codPlanta, nomPlanta, numComp, Tipo, int.Parse(cboPv.Text), nomCliente, numeroRegistros);
 
                 // Listamos los clientes
                 foreach (Comprobante comp in resultado)
                 {
                     long numero;
                     string tipoF;
-                    switch (tipo)
+                    switch (Tipo)
                     {
                         case "factura":
                             numero = ((Comprobante_Factura)comp).numero;
@@ -109,7 +109,7 @@ namespace Desktop.Vistas.Ventas
             try
             {
                 int cant;
-                switch (tipo)
+                switch (Tipo)
                 {
                     case "factura":
                         cant=  Global.Servicio.obtenerTodosComprobantesFact(1).Count();
@@ -118,7 +118,7 @@ namespace Desktop.Vistas.Ventas
                         cant = Global.Servicio.obtenerTodosComprobantesRem(1).Count();
                         break;
                     case "recibo":
-                        cant = Global.Servicio.obtenerTodosComprobantesRec(1).Count();
+                        cant = Global.Servicio.ObtenerTodosComprobantesRec(1).Count();
                         break;
                     case "notaCredito":
                         cant = Global.Servicio.obtenerTodosComprobantesNC(1).Count();

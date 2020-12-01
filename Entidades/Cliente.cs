@@ -40,5 +40,6 @@ namespace Entidades
         public virtual SituacionFrenteIva SituacionFrenteIva { get; set; }
         public virtual ICollection<Planta> Planta { get; set; }
         public virtual ICollection<Salida> Salida { get; set; }
+        public virtual Saldos Saldos { get; set; }
     }
 }

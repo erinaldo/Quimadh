@@ -114,7 +114,7 @@ namespace Desktop.Vistas.Reportes
             if (e.KeyChar != (char)Keys.Enter)
                 return;
 
-            idCliente = ((Cliente)Global.Servicio.buscarUnCliente(txtCliente.Text.Trim(), "")).id;
+            idCliente = ((Cliente)Global.Servicio.BuscarUnCliente(txtCliente.Text.Trim(), "")).id;
         }
 
         private void txtCliente_Leave(object sender, EventArgs e)

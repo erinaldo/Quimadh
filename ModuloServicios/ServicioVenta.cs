@@ -17,7 +17,7 @@ namespace ModuloServicios
     {
         #region Factura
 
-        public Comprobante_Factura buscarFactura(long numComp, string tipo, int pv, bool ceMipyme)
+        public Comprobante_Factura BuscarFactura(long numComp, string tipo, int pv, bool ceMipyme)
         {
             IQueryable<Comprobante_Factura> queryF;
 
@@ -34,7 +34,17 @@ namespace ModuloServicios
             return queryF.FirstOrDefault();
         }
 
-        public List<Comprobante> buscarComprobantes(string codPlanta, string nomPlanta, long numComp, string tipo, int pv, string nomCliente, int numeroRegistros)
+        public IEnumerable<Comprobante_Factura> BuscarFacturas(long idCliente, DateTime fechaDesde)
+        {
+            return _contexto.Comprobante.OfType<Comprobante_Factura>().Where(x => x.Planta.idCliente == idCliente && x.fechaIngreso >= fechaDesde);
+        }
+
+        public IEnumerable<T> BuscarComprobantes<T>(long idCliente, DateTime fechaDesde) where T : Comprobante
+        {
+            return _contexto.Comprobante.OfType<T>().Where(x => x.Planta.idCliente == idCliente && x.fechaIngreso >= fechaDesde && !(x.anulado.HasValue ? x.anulado.Value : false));
+        }
+
+        public List<Comprobante> BuscarComprobantes(string codPlanta, string nomPlanta, long numComp, string tipo, int pv, string nomCliente, int numeroRegistros)
         {
             IQueryable<Comprobante> query;
             IQueryable<Comprobante_Factura> queryF;
@@ -628,6 +638,10 @@ namespace ModuloServicios
                         mail.CC.Add(new MailAddress(mailCopia));
                     }
                 }
+
+                var cco = ConfigurationManager.AppSettings["EmailCco"];
+                if (!string.IsNullOrWhiteSpace(cco))
+                    mail.Bcc.Add(cco);
             }
             catch (FormatException)
             {
@@ -661,7 +675,7 @@ namespace ModuloServicios
             }
             catch (Exception ex)
             {
-                throw ex;
+                //throw ex;
             }
         }
 
@@ -924,13 +938,13 @@ namespace ModuloServicios
 
         #region Recibo
 
-        public Comprobante_Recibo agregarRecibo(Comprobante_Recibo recibo, Metadata metadata)
+        public Comprobante_Recibo AgregarRecibo(Comprobante_Recibo recibo, Metadata metadata)
         {
             Comprobante_Recibo reciboGuardado = null;
 
             using (TransactionScope scope = new TransactionScope())
             {
-                ValidarRecibo(recibo);
+                ValidarRecibo(recibo, Acciones.Log.ALTA);
 
                 reciboGuardado = (Comprobante_Recibo)_contexto.Comprobante.Add(recibo);
                 _contexto.SaveChanges();
@@ -943,6 +957,24 @@ namespace ModuloServicios
             return reciboGuardado;
         }
 
+        public void ActualizarRecibo(Comprobante_Recibo recibo, Metadata metadata)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                ValidarRecibo(recibo, Acciones.Log.MODIFICACION);
+
+                var instrumentosEnRecibo = recibo.InstrumentoPago.Select(x => x.Id);
+                var instrumentosPago = _contexto.InstrumentoPago.Where(v => v.IdRecibo == recibo.id && !instrumentosEnRecibo.Contains(v.Id));
+                _contexto.InstrumentoPago.RemoveRange(instrumentosPago);
+
+                _contexto.SaveChanges();
+
+                GenerarLog<Comprobante_Recibo>(recibo, Acciones.Log.MODIFICACION, metadata);
+
+                scope.Complete();
+            }
+        }
+
         public long BuscarNroRecibo()
         {
             long numero;
@@ -950,12 +982,12 @@ namespace ModuloServicios
             return numero + 1;
         }
 
-        public List<Comprobante_Recibo> obtenerTodosComprobantesRec(int numeroRegistros)
+        public List<Comprobante_Recibo> ObtenerTodosComprobantesRec(int numeroRegistros)
         {
             return _contexto.Comprobante.OfType<Comprobante_Recibo>().Take(numeroRegistros).ToList();
         }
 
-        private void ValidarRecibo(Comprobante_Recibo recibo)
+        private void ValidarRecibo(Comprobante_Recibo recibo, Acciones.Log accion)
         {
             string mensaje = "";
 
@@ -965,26 +997,21 @@ namespace ModuloServicios
             if (recibo.importe == 0)
                 mensaje = "El importe debe ser mayor a cero.";
 
-            //foreach (ItemRecibo item in recibo.ItemRecibo)
-            //{
-            //    if (item.fechaIzq.ToString("yyyyMMdd") == "19000101")
-            //        mensaje = "Alguna fecha del lado izquierdo es incorrecta.";
-            //    if (item.fechaDer.ToString("yyyyMMdd") == "19000101")
-            //        mensaje = "Alguna fecha del lado derecho es incorrecta.";
-            //}
+            if (accion == Acciones.Log.ALTA)
+            {
+                bool existe = (from r in _contexto.Comprobante.OfType<Comprobante_Recibo>()
+                               where r.numero.Equals(recibo.numero)
+                               select r).Any();
 
-            bool existe = (from r in _contexto.Comprobante.OfType<Comprobante_Recibo>()
-                           where r.numero.Equals(recibo.numero)
-                           select r).Any();
-
-            if (existe)
-                mensaje = "Ya existe el número de recibo.";
+                if (existe)
+                    mensaje = "Ya existe el número de recibo.";
+            }
 
             if (mensaje != "")
                 throw new ExcepcionValidacion(mensaje);
         }
 
-        public void imprimirRecibo(Comprobante_Recibo recibo)
+        public void ImprimirRecibo(Comprobante_Recibo recibo)
         {
             DateTime fi;
             DateTime fd;
@@ -1046,7 +1073,7 @@ namespace ModuloServicios
             pd.Print();
         }
 
-        public void imprimirReciboDigital(Comprobante_Recibo recibo)
+        public void ImprimirReciboDigital(Comprobante_Recibo recibo)
         {
             DateTime fi;
             DateTime fd;
@@ -1112,8 +1139,24 @@ namespace ModuloServicios
             string directorio = paramCarpeta.valor + "/Recibos";
             if (!Directory.Exists(directorio))
                 Directory.CreateDirectory(directorio);
-            bm.Save(directorio +"/" + recibo.numero.ToString() + ".png");
+
+            var pathImg = $"{directorio}/{recibo.numero}.png";
+            bm.Save(pathImg);
+
             graf.Dispose();
+
+            GenerarPDF(pathImg);
+        }
+
+        public List<Comprobante_Recibo> BuscarRecibos(long? idCliente, DateTime fd, DateTime fh)
+        {
+            var recibos = _contexto.Comprobante.OfType<Comprobante_Recibo>()
+                .Where(x => x.fechaIngreso >= fd && x.fechaIngreso <= fh);
+
+            if (idCliente.HasValue)
+                recibos = recibos.Where(x => x.Planta.idCliente == idCliente);
+
+            return recibos.ToList();
         }
 
         #endregion
@@ -1657,5 +1700,17 @@ namespace ModuloServicios
         }
         #endregion
 
+
+        public decimal ObtenerSaldo(Cliente cli)
+        {
+            var saldo = _contexto.Saldos.SingleOrDefault(x => x.IdCliente == cli.id);
+            var fechaDesde = (saldo?.Fecha ?? cli.fechaAlta).Date;
+            var facturas = BuscarComprobantes<Comprobante_Factura>(cli.id, fechaDesde);
+            var notasC = BuscarComprobantes<Comprobante_Devolucion>(cli.id, fechaDesde);
+            var notasD = BuscarComprobantes<Comprobante_Recargo>(cli.id, fechaDesde);
+            var pagos = BuscarComprobantes<Comprobante_Recibo>(cli.id, fechaDesde).SelectMany(x => x.InstrumentoPago);
+
+            return (saldo?.Saldo ?? 0) + facturas.Sum(x => x.importe) - notasC.Sum(x => x.importe) + notasD.Sum(x => x.importe) - pagos.Sum(x => x.Importe);
+        }
     }
 }

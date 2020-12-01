@@ -22,7 +22,8 @@ namespace ModuloServicios
             return user;
         }
 
-        public List<TipoUsuario> obtenerTodosTipoUsuario() {
+        public List<TipoUsuario> obtenerTodosTipoUsuario()
+        {
             return _contexto.TipoUsuario.ToList();
         }
 
@@ -446,7 +447,7 @@ namespace ModuloServicios
             return query.Any() ? query.First().Cliente : null;
         }
 
-        public Cliente buscarUnCliente(string razonSoc, string cuit)
+        public Cliente BuscarUnCliente(string razonSoc, string cuit)
         {
             IQueryable<Cliente> query = _contexto.Cliente.Include("Planta.ArticuloPlanta");//.Include("Localidad").Include("SituacionFrenteIva");
 
@@ -1955,6 +1956,29 @@ namespace ModuloServicios
             cantSal = salidas.Count() > 0 ? salidas.Sum(s => s.cantidad) : 0;//salidas.Sum(s => (s.cantidad * s.Presentacion.litrosEnvase)) : 0;
 
             return (cantEnt - cantSal);
+        }
+
+        #endregion
+
+        #region Banco
+
+        public List<Banco> ObtenerTodosBancos()
+        {
+            return _contexto.Banco.ToList();
+        }
+
+        #endregion
+
+        #region Tarjetas
+
+        public List<TipoTarjeta> ObtenerTodosTipoTarjetas()
+        {
+            return _contexto.TipoTarjeta.ToList();
+        }
+
+        public List<MarcaTarjeta> ObtenerTodosMarcaTarjetas()
+        {
+            return _contexto.MarcaTarjeta.ToList();
         }
 
         #endregion

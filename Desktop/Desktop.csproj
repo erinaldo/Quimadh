@@ -375,23 +375,47 @@
     <Compile Include="Vistas\Ventas\frmNotaDebCred.Designer.cs">
       <DependentUpon>frmNotaDebCred.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventas\frmPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagos.Designer.cs">
+      <DependentUpon>frmPagos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTarjetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTarjetas.Designer.cs">
+      <DependentUpon>frmPagosTarjetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosCheques.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosCheques.Designer.cs">
+      <DependentUpon>frmPagosCheques.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTransferencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmPagosTransferencias.Designer.cs">
+      <DependentUpon>frmPagosTransferencias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventas\frmRecibos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Vistas\Ventas\frmRecibos.Designer.cs">
       <DependentUpon>frmRecibos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventas\frmRelPagosFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Ventas\frmRelPagosFacturas.Designer.cs">
+      <DependentUpon>frmRelPagosFacturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventas\frmRemitos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Vistas\Ventas\frmRemitos.Designer.cs">
       <DependentUpon>frmRemitos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Vistas\Ventas\frmRemitosFacturados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vistas\Ventas\frmRemitosFacturados.Designer.cs">
-      <DependentUpon>frmRemitosFacturados.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Reportes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -530,14 +554,26 @@
     <EmbeddedResource Include="Vistas\Ventas\frmNotaDebCred.resx">
       <DependentUpon>frmNotaDebCred.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagos.resx">
+      <DependentUpon>frmPagos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagosTarjetas.resx">
+      <DependentUpon>frmPagosTarjetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagosCheques.resx">
+      <DependentUpon>frmPagosCheques.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmPagosTransferencias.resx">
+      <DependentUpon>frmPagosTransferencias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Ventas\frmRecibos.resx">
       <DependentUpon>frmRecibos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Ventas\frmRelPagosFacturas.resx">
+      <DependentUpon>frmRelPagosFacturas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Ventas\frmRemitos.resx">
       <DependentUpon>frmRemitos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Vistas\Ventas\frmRemitosFacturados.resx">
-      <DependentUpon>frmRemitosFacturados.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
