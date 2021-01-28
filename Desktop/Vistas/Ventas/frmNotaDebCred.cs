@@ -17,20 +17,11 @@ namespace Desktop.Vistas.Ventas
         private Cliente cliente;
         private Planta planta;
 
-        //private FEAfip.DTOConsultaObligadoRespuesta sujetoObligado;
-        //private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
-        //private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
-        //private bool esMiPymeNC => SujetoObligado && notaCred.importe >= MontoObligado;
-        //private bool esMiPymeND => SujetoObligado && notaDeb.importe >= MontoObligado;
-
         private bool EsMiPyme { get; set; }
         private int tipoAfipNCA => EsMiPyme  ? 203 : 3; //esMiPymeNC
         private int tipoAfipNCB => EsMiPyme ? 208 : 8; //esMiPymeNC
         private int tipoAfipNDA => EsMiPyme ? 202 : 2; //esMiPymeND
         private int tipoAfipNDB => EsMiPyme ? 207 : 7; //esMiPymeND
-
-        //private long nroNotaComun = 0;
-        //private long nroNotaMiPyme = 0;
 
         public frmNotaDebCred()
         {
@@ -126,64 +117,58 @@ namespace Desktop.Vistas.Ventas
         {
             if (cboTipoNota.Text == "Nota Crédito")
             {
-                if (notaCred != null)
+                if (!ValidarNotaCredSeleccionada(notaCred))
                 {
-                    Mensaje mensajeConfirmacion = new Mensaje("La Nota de crédito número '" + notaCred.numero.ToString() + "' será anulada ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
-                    mensajeConfirmacion.ShowDialog();
-
-                    if (mensajeConfirmacion.resultado == DialogResult.OK)
-                    {
-                        try
-                        {
-                            Mensaje mensajeExito;
-                            Global.Servicio.anularComprobante(notaCred, Global.DatosSesion);
-                            mensajeExito = new Mensaje("La Nota de crédito número '" + notaCred.numero.ToString() + "' ha sido anulada con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
-                            mensajeExito.ShowDialog();
-
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                            unMensaje.ShowDialog();
-                        }
-                    }
+                    return false;
                 }
-                else
+
+                Mensaje mensajeConfirmacion = new Mensaje("La Nota de crédito número '" + notaCred.numero.ToString() + "' será anulada ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
+                mensajeConfirmacion.ShowDialog();
+
+                if (mensajeConfirmacion.resultado == DialogResult.OK)
                 {
-                    Mensaje unMensaje = new Mensaje("Debe seleccionar una nota de crédito.", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.OK);
-                    unMensaje.ShowDialog();
+                    try
+                    {
+                        Mensaje mensajeExito;
+                        Global.Servicio.anularComprobante(notaCred, Global.DatosSesion);
+                        mensajeExito = new Mensaje("La Nota de crédito número '" + notaCred.numero.ToString() + "' ha sido anulada con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                        mensajeExito.ShowDialog();
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                        unMensaje.ShowDialog();
+                    }
                 }
             }
             else
             {
-                if (notaDeb != null)
+                if (!ValidarNotaDebSeleccionada(notaDeb))
                 {
-                    Mensaje mensajeConfirmacion = new Mensaje("La Nota de débito número '" + notaDeb.numero.ToString() + "' será anulada ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
-                    mensajeConfirmacion.ShowDialog();
-
-                    if (mensajeConfirmacion.resultado == DialogResult.OK)
-                    {
-                        try
-                        {
-                            Mensaje mensajeExito;
-                            Global.Servicio.anularComprobante(notaDeb, Global.DatosSesion);
-                            mensajeExito = new Mensaje("La Nota de débito número '" + notaDeb.numero.ToString() + "' ha sido anulada con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
-                            mensajeExito.ShowDialog();
-
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                            unMensaje.ShowDialog();
-                        }
-                    }
+                    return false;
                 }
-                else
+
+                Mensaje mensajeConfirmacion = new Mensaje("La Nota de débito número '" + notaDeb.numero.ToString() + "' será anulada ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
+                mensajeConfirmacion.ShowDialog();
+
+                if (mensajeConfirmacion.resultado == DialogResult.OK)
                 {
-                    Mensaje unMensaje = new Mensaje("Debe seleccionar una nota de débito.", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.OK);
-                    unMensaje.ShowDialog();
+                    try
+                    {
+                        Mensaje mensajeExito;
+                        Global.Servicio.anularComprobante(notaDeb, Global.DatosSesion);
+                        mensajeExito = new Mensaje("La Nota de débito número '" + notaDeb.numero.ToString() + "' ha sido anulada con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                        mensajeExito.ShowDialog();
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                        unMensaje.ShowDialog();
+                    }
                 }
             }
             
@@ -539,12 +524,22 @@ namespace Desktop.Vistas.Ventas
                     {
                         return false;
                     }
-                }
+                }                
 
                 if (cliente != null && planta != null)
                 {
+                    var tipoLetra = cliente.SituacionFrenteIva.nombre == "Responsable Inscripto" ? "A" : "B";
+
                     if (cboTipoNota.Text=="Nota Crédito")
                     {
+                        var notaExistente = Global.Servicio.buscarNotaCred(long.Parse(txtNroNota.Text), tipoLetra, int.Parse(cboPtoVta.Text), EsMiPyme);
+                        if (notaExistente?.cae != null)
+                        {
+                            var msgError = new Mensaje("El número de nota de crédito ya existe y ya fue autorizado por afip", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                            msgError.ShowDialog();
+                            return false;
+                        }
+
                         if (Estado == Estados.Agregar || cboPtoVta.Text != "3")
                             notaCred = new Comprobante_Devolucion();
 
@@ -554,7 +549,7 @@ namespace Desktop.Vistas.Ventas
                             notaCred.numero = 0;
 
                         notaCred.Planta = planta;
-                        notaCred.fechaIngreso = dtpFecha.Value;//DateTime.Now;
+                        notaCred.fechaIngreso = dtpFecha.Value;
                         notaCred.motivo = txtMotivo.Text;
                         notaCred.condVta = txtCondVta.Text;
                         notaCred.anulado = false;
@@ -562,24 +557,24 @@ namespace Desktop.Vistas.Ventas
                         notaCred.ComprobanteAnul = (Comprobante)txtNroCompAsoc.Tag;
                         notaCred.Moneda = (Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value;
 
-                        if (cliente.SituacionFrenteIva.nombre == "Responsable Inscripto")
+                        notaCred.tipo = tipoLetra;
+                        if (tipoLetra == "A")
                         {
-                            notaCred.tipo = "A";
                             if (txtSubtotal.Text != "")
-                                notaCred.subtotal = Math.Round(decimal.Parse(txtSubtotal.Text),2);
+                                notaCred.subtotal = Math.Round(decimal.Parse(txtSubtotal.Text), 2);
                             else
                                 notaCred.subtotal = 0;
                             if (txtIVA.Text != "")
-                                notaCred.totalIva = Math.Round(decimal.Parse(txtIVA.Text),2);
+                                notaCred.totalIva = Math.Round(decimal.Parse(txtIVA.Text), 2);
                             else
                                 notaCred.totalIva = 0;
                         }
                         else
                         {
-                            notaCred.tipo = "B";
                             notaCred.subtotal = 0;
                             notaCred.totalIva = 0;
                         }
+
                         if (txtTotal.Text != "")
                             notaCred.importe = Math.Round(decimal.Parse(txtTotal.Text),2);
                         else
@@ -774,6 +769,14 @@ namespace Desktop.Vistas.Ventas
                     }
                     else
                     {
+                        var notaExistente = Global.Servicio.buscarNotaDeb(long.Parse(txtNroNota.Text), tipoLetra, int.Parse(cboPtoVta.Text), EsMiPyme);
+                        if (notaExistente?.cae != null)
+                        {
+                            var msgError = new Mensaje("El número de nota de débito ya existe y ya fue autorizado por afip", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                            msgError.ShowDialog();
+                            return false;
+                        }
+
                         if (Estado == Estados.Agregar || cboPtoVta.Text != "3")
                             notaDeb = new Comprobante_Recargo();
                         if (txtNroNota.Text != "")
@@ -790,26 +793,26 @@ namespace Desktop.Vistas.Ventas
                         notaDeb.pv = int.Parse(cboPtoVta.Text);
                         notaDeb.Moneda = (Moneda)((ComboBoxItem)cboMoneda.SelectedItem).Value;
 
-                        if (cliente.SituacionFrenteIva.nombre == "Responsable Inscripto")
+                        notaDeb.tipo = tipoLetra;
+                        if (tipoLetra == "A")
                         {
-                            notaDeb.tipo = "A";
                             if (txtSubtotal.Text != "")
-                                notaDeb.subtotal = Math.Round(decimal.Parse(txtSubtotal.Text),2);
+                                notaDeb.subtotal = Math.Round(decimal.Parse(txtSubtotal.Text), 2);
                             else
                                 notaDeb.subtotal = 0;
                             if (txtIVA.Text != "")
-                                notaDeb.totalIva = Math.Round(decimal.Parse(txtIVA.Text),2);
+                                notaDeb.totalIva = Math.Round(decimal.Parse(txtIVA.Text), 2);
                             else
                                 notaDeb.totalIva = 0;
                         }
                         else
                         {
-                            notaDeb.tipo = "B";
                             notaDeb.subtotal = 0;
                             notaDeb.totalIva = 0;
                         }
+
                         if (txtTotal.Text != "")
-                            notaDeb.importe = Math.Round(decimal.Parse(txtTotal.Text),2);
+                            notaDeb.importe = Math.Round(decimal.Parse(txtTotal.Text), 2);
                         else
                             notaDeb.importe = 0;
 
@@ -1461,10 +1464,8 @@ namespace Desktop.Vistas.Ventas
             int tipo;
             if (cboTipoNota.Text == "Nota Crédito")
             {
-                if (notaCred == null)
-                {
-                    Mensaje msg = new Mensaje("Debe seleccionar una Nota de Crédito.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                    msg.Show();
+                if (!ValidarNotaCredSeleccionada(notaCred))
+                {                    
                     return;
                 }
 
@@ -1489,10 +1490,8 @@ namespace Desktop.Vistas.Ventas
             }
             else
             {
-                if (notaDeb == null)
+                if (!ValidarNotaDebSeleccionada(notaDeb))
                 {
-                    Mensaje msg = new Mensaje("Debe seleccionar una Nota de Débito.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                    msg.Show();
                     return;
                 }
 
@@ -1521,10 +1520,8 @@ namespace Desktop.Vistas.Ventas
         {
             if (cboTipoNota.Text == "Nota Crédito")
             {
-                if (notaCred == null)
+                if (!ValidarNotaCredSeleccionada(notaCred))
                 {
-                    Mensaje msg = new Mensaje("Debe seleccionar una Nota de Crédito.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                    msg.Show();
                     return;
                 }
 
@@ -1539,7 +1536,7 @@ namespace Desktop.Vistas.Ventas
                 try
                 {
                     FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
-                    solicitud = service.ConsultarCAE(tipo, int.Parse(cboPtoVta.Text), long.Parse(txtNroNota.Text));
+                    solicitud = service.ConsultarCAE(tipo, notaCred.pv, notaCred.numero);
                     if (solicitud != null)
                     {
                         if (notaCred.estadoCarga != 1)
@@ -1569,10 +1566,8 @@ namespace Desktop.Vistas.Ventas
 
             if (cboTipoNota.Text == "Nota Débito")
             {
-                if (notaDeb == null)
+                if (!ValidarNotaDebSeleccionada(notaDeb))
                 {
-                    Mensaje msg = new Mensaje("Debe seleccionar una Nota de Débito.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                    msg.Show();
                     return;
                 }
 
@@ -1587,7 +1582,7 @@ namespace Desktop.Vistas.Ventas
                 try
                 {
                     FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
-                    solicitud = service.ConsultarCAE(tipo, int.Parse(cboPtoVta.Text), long.Parse(txtNroNota.Text));
+                    solicitud = service.ConsultarCAE(tipo, notaDeb.pv, notaDeb.numero);
                     if (solicitud != null)
                     {
                         if (notaDeb.estadoCarga != 1)
@@ -1639,6 +1634,44 @@ namespace Desktop.Vistas.Ventas
             txtNroCompAsoc.Text = "";
             EsMiPyme = false;
             txtNroCompAsoc.Tag = null;
-        }        
+        }
+
+        private bool ValidarNotaCredSeleccionada(Comprobante_Devolucion notaCredito)
+        {
+            if (notaCredito == null)
+            {
+                Mensaje msg = new Mensaje("Debe seleccionar una Nota de Crédito.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msg.Show();
+                return false;
+            }
+
+            if (notaCredito.pv != int.Parse(cboPtoVta.Text) || notaCredito.numero != long.Parse(txtNroNota.Text))
+            {
+                var msg = new Mensaje("El pto vta y número de la nota de crédito está modificado, guarde los cambios antes de consultar el CAE", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msg.Show();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidarNotaDebSeleccionada(Comprobante_Recargo notaDebito)
+        {
+            if (notaDebito == null)
+            {
+                Mensaje msg = new Mensaje("Debe seleccionar una Nota de Débito.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msg.Show();
+                return false;
+            }
+
+            if (notaDebito.pv != int.Parse(cboPtoVta.Text) || notaDebito.numero != long.Parse(txtNroNota.Text))
+            {
+                var msg = new Mensaje("El pto vta y número de la nota de débito está modificado, guarde los cambios antes de consultar el CAE", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msg.Show();
+                return false;
+            }
+
+            return true;
+        }
     }
 }

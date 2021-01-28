@@ -24,6 +24,7 @@ namespace Entidades
         public string formaPago { get; set; }
         public long numero { get; set; }
         public Nullable<decimal> Retenciones { get; set; }
+        public Nullable<decimal> TipoCambio { get; set; }
     
         public virtual ICollection<ItemRecibo> ItemRecibo { get; set; }
         public virtual ICollection<InstrumentoPago> InstrumentoPago { get; set; }

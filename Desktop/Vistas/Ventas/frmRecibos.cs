@@ -327,6 +327,7 @@ namespace Desktop.Vistas.Ventas
                     {
                         Global.Servicio.ActualizarRecibo(recibo, Global.DatosSesion);
                         Mensaje unMensaje = new Mensaje("Recibo modificado con éxito", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                        unMensaje.ShowDialog();
                     }
                     
                     return true;

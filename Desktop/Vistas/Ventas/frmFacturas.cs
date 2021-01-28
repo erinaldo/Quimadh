@@ -109,34 +109,31 @@ namespace Desktop.Vistas.Ventas
 
         protected override bool eliminar()
         {
-            if (factura != null)
+            if (!ValidarFacturaSeleccionada(factura))
             {
-                Mensaje mensajeConfirmacion = new Mensaje("La Factura tipo '"+ factura.tipo +"', número '" + factura.numero.ToString() + "' será anulada ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
-                mensajeConfirmacion.ShowDialog();
-
-                if (mensajeConfirmacion.resultado == DialogResult.OK)
-                {
-                    try
-                    {
-                        Mensaje mensajeExito;
-                        //se pudo eliminar Cliente físicamente
-                        Global.Servicio.anularComprobante(factura, Global.DatosSesion);
-                        mensajeExito = new Mensaje("La Factura tipo '"+ factura.tipo +"', número '" + factura.numero.ToString() + "' ha sido anulada con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
-                        mensajeExito.ShowDialog();
-
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                        unMensaje.ShowDialog();
-                    }
-                }
+                return false;
             }
-            else
+
+            Mensaje mensajeConfirmacion = new Mensaje("La Factura tipo '" + factura.tipo + "', número '" + factura.numero.ToString() + "' será anulada ¿Está seguro?", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.SiNo);
+            mensajeConfirmacion.ShowDialog();
+
+            if (mensajeConfirmacion.resultado == DialogResult.OK)
             {
-                Mensaje unMensaje = new Mensaje("Debe seleccionar una factura.", Mensaje.TipoMensaje.Alerta, Mensaje.Botones.OK);
-                unMensaje.ShowDialog();
+                try
+                {
+                    Mensaje mensajeExito;
+                    //se pudo eliminar Cliente físicamente
+                    Global.Servicio.anularComprobante(factura, Global.DatosSesion);
+                    mensajeExito = new Mensaje("La Factura tipo '" + factura.tipo + "', número '" + factura.numero.ToString() + "' ha sido anulada con éxito.", Mensaje.TipoMensaje.Exito, Mensaje.Botones.OK);
+                    mensajeExito.ShowDialog();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                    unMensaje.ShowDialog();
+                }
             }
 
             return false;
@@ -544,10 +541,20 @@ namespace Desktop.Vistas.Ventas
                     {
                         return false;
                     }
-                }
+                }                
 
                 if (cliente != null && planta != null)
                 {
+                    var tipoLetra = cliente.SituacionFrenteIva.nombre == "Responsable Inscripto" ? "A" : "B";
+
+                    var facturaExistente = Global.Servicio.BuscarFactura(long.Parse(txtNroFactura.Text), tipoLetra, int.Parse(cboPtoVenta.Text), esMiPyme);
+                    if (facturaExistente?.cae != null)
+                    {
+                        var msgError = new Mensaje("El número de factura ya existe y ya fue autorizado por afip", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                        msgError.ShowDialog();
+                        return false;
+                    }
+
                     if (Estado == Estados.Agregar || cboPtoVenta.Text != "3")
                         factura = new Comprobante_Factura();
  
@@ -556,15 +563,14 @@ namespace Desktop.Vistas.Ventas
                     else
                         factura.numero = 0;
 
-                    if (cliente.SituacionFrenteIva.nombre == "Responsable Inscripto")
+                    factura.tipo = tipoLetra;
+                    if (tipoLetra == "A")
                     {
-                        factura.tipo = "A";
-                        factura.subtotal = Math.Round(decimal.Parse(txtSubTotal.Text),2);
-                        factura.totalIva = Math.Round(decimal.Parse(txtIva.Text),2);
+                        factura.subtotal = Math.Round(decimal.Parse(txtSubTotal.Text), 2);
+                        factura.totalIva = Math.Round(decimal.Parse(txtIva.Text), 2);
                     }
                     else
                     {
-                        factura.tipo = "B";
                         factura.subtotal = 0;
                         factura.totalIva = 0;
                     }
@@ -983,10 +989,8 @@ namespace Desktop.Vistas.Ventas
 
         private void btnVerErrores_Click(object sender, EventArgs e)
         {
-            if (factura == null)
+            if (!ValidarFacturaSeleccionada(factura))
             {
-                Mensaje msg = new Mensaje("Debe seleccionar una factura.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                msg.Show();
                 return;
             }
 
@@ -1067,7 +1071,7 @@ namespace Desktop.Vistas.Ventas
                 {
                     FEAfip.DTOSolicitud solicitudB = new FEAfip.DTOSolicitud();
                     solicitudB = service.ConsultarCAE(206, 3, nroCompBMiPyme);
-                    Comprobante_Factura facturaB = Global.Servicio.BuscarFactura(nroCompBMiPyme, "B", 3, false);
+                    Comprobante_Factura facturaB = Global.Servicio.BuscarFactura(nroCompBMiPyme, "B", 3, true);
                     facturaB.estadoCarga = 1;
                     facturaB.cae = solicitudB.cae;
                     facturaB.fecVtoCae = DateTime.ParseExact(solicitudB.FecVtoCAE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -1086,10 +1090,8 @@ namespace Desktop.Vistas.Ventas
 
         private void btnConsultarCAE_Click(object sender, EventArgs e)
         {
-            if (factura == null)
+            if (!ValidarFacturaSeleccionada(factura))
             {
-                Mensaje msg = new Mensaje("Debe seleccionar una factura.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                msg.Show();
                 return;
             }
 
@@ -1104,7 +1106,7 @@ namespace Desktop.Vistas.Ventas
             try
             { 
                 FEAfip.ServicioCAEClient service = new FEAfip.ServicioCAEClient();
-                solicitud = service.ConsultarCAE(tipo, int.Parse(cboPtoVenta.Text), long.Parse(txtNroFactura.Text));
+                solicitud = service.ConsultarCAE(tipo, factura.pv, factura.numero);
                 if (solicitud != null)
                 {                    
                     if (factura.estadoCarga != 1)
@@ -1263,6 +1265,25 @@ namespace Desktop.Vistas.Ventas
                 Mensaje unMensaje = new Mensaje("Debe seleccionar una Factura Electrónica para enviar por mail.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 unMensaje.ShowDialog();
             }
+        }
+
+        private bool ValidarFacturaSeleccionada(Comprobante_Factura facturaSeleccionada)
+        {
+            if (facturaSeleccionada == null)
+            {
+                Mensaje msg = new Mensaje("Debe seleccionar una factura.", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msg.Show();
+                return false;
+            }
+
+            if (facturaSeleccionada.pv != int.Parse(cboPtoVenta.Text) || facturaSeleccionada.numero != long.Parse(txtNroFactura.Text))
+            {
+                var msg = new Mensaje("El pto vta y número de la factura está modificado, guarde los cambios antes de consultar el CAE", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msg.Show();
+                return false;
+            }
+
+            return true;
         }
     }
 }

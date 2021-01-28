@@ -12,6 +12,8 @@ namespace Desktop.Vistas.Ventas
         private readonly Cliente _cliente;
 
         private InstrumentoPago _pagoEfectivo;
+        private decimal TipoCambio => string.IsNullOrEmpty(txtTipoCambio.Text) ? 0 : decimal.Parse(txtTipoCambio.Text);
+        private decimal Retenciones => string.IsNullOrEmpty(txtRetenciones.Text) ? 0 : decimal.Parse(txtRetenciones.Text);
 
         public frmPagos(Comprobante_Recibo recibo, Cliente cliente)
         {
@@ -27,6 +29,8 @@ namespace Desktop.Vistas.Ventas
             txtTotalFact.Text = "0.00";
             lblTituloRecibo.Text += $" {_recibo.numero.ToString("00000000")} - {_cliente.razonSocial}";
             txtRetenciones.Text = _recibo.Retenciones?.ToString() ?? "0.00";
+            txtTipoCambio.Text = (_recibo.TipoCambio ?? Global.Servicio.obtenerCotizacionMoneda(1)).ToString("0.00000");
+
             CargarDatos();
 
             CalcularTotales();
@@ -100,8 +104,9 @@ namespace Desktop.Vistas.Ventas
 
         private void ActualizarTotalFactura(Comprobante_Factura factura, bool positivo)
         {
+            var tipoCambio = factura.idMoneda == 0 ? 1 : TipoCambio;
             var importe = decimal.Parse(txtTotalFact.Text);
-            importe += factura.importe * (positivo ? 1 : -1);
+            importe += factura.importe * tipoCambio * (positivo ? 1 : -1);
             txtTotalFact.Text = importe.ToString("0.00");
 
             CalcularTotales();
@@ -160,7 +165,8 @@ namespace Desktop.Vistas.Ventas
         {
             _recibo.InstrumentoPago.Clear();
             _recibo.Comprobante_Factura.Clear();
-            _recibo.Retenciones = decimal.Parse(string.IsNullOrEmpty(txtRetenciones.Text) ? "0" : txtRetenciones.Text);
+            _recibo.Retenciones = Retenciones;
+            _recibo.TipoCambio = TipoCambio;
 
             if (_pagoEfectivo != null && _pagoEfectivo.Importe > 0)
             {
@@ -268,8 +274,7 @@ namespace Desktop.Vistas.Ventas
 
         private void CalcularTotales()
         {
-            var retenciones = decimal.Parse(string.IsNullOrEmpty(txtRetenciones.Text) ? "0" : txtRetenciones.Text);
-            var totalPagos = decimal.Parse(txtTotal.Text) + retenciones;
+            var totalPagos = decimal.Parse(txtTotal.Text) + Retenciones;
             var totalFact = decimal.Parse(txtTotalFact.Text);
 
             if (totalFact == 0)
@@ -283,6 +288,17 @@ namespace Desktop.Vistas.Ventas
         private void txtRetenciones_Leave(object sender, EventArgs e)
         {
             CalcularTotales();
+        }
+
+        private void txtTipoCambio_Leave(object sender, EventArgs e)
+        {
+            txtTotalFact.Text = "0.00";
+            //recalcular total facturas
+            foreach (DataGridViewRow fila in dgvFacturas.Rows)
+            {
+                var factura = (Comprobante_Factura)fila.Tag;
+                ActualizarTotalFactura(factura, true);
+            }
         }
     }
 }

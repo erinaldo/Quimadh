@@ -71,6 +71,7 @@
             this.txtNumero.EnterTabulacion = true;
             this.txtNumero.Location = new System.Drawing.Point(191, 158);
             this.txtNumero.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNumero.MaxLength = 8;
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(211, 23);
             this.txtNumero.TabIndex = 1;

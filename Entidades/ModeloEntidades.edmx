@@ -168,6 +168,7 @@
           <Property Name="formaPago" Type="nvarchar(max)" />
           <Property Name="numero" Type="bigint" Nullable="false" />
           <Property Name="Retenciones" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="TipoCambio" Type="decimal" Precision="18" Scale="5" />
         </EntityType>
         <EntityType Name="Comprobante_Comprobante_Remito">
           <Key>
@@ -2186,6 +2187,7 @@
           <NavigationProperty Name="InstrumentoPago" Relationship="QuimadhModel.FK_InstrumentoPago_PagoCliente" FromRole="Comprobante_Recibo" ToRole="InstrumentoPago" />
           <NavigationProperty Name="Comprobante_Factura" Relationship="QuimadhModel.Rel_Factura_Recibo1" FromRole="Comprobante_Recibo" ToRole="Comprobante_Factura" />
           <Property Name="Retenciones" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TipoCambio" Type="Decimal" Precision="18" Scale="5" />
         </EntityType>
         <EntityType Name="DatosRutina">
           <Key>
@@ -3503,7 +3505,8 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(QuimadhModel.Comprobante_Recibo)">
         <MappingFragment StoreEntitySet="Comprobante_Comprobante_Recibo">
-          <ScalarProperty Name="Retenciones" ColumnName="Retenciones" />
+          <ScalarProperty Name="TipoCambio" ColumnName="TipoCambio" />
+                <ScalarProperty Name="Retenciones" ColumnName="Retenciones" />
                 <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="formaPago" ColumnName="formaPago" />
           <ScalarProperty Name="numero" ColumnName="numero" />
