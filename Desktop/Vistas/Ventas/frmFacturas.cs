@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -20,7 +21,7 @@ namespace Desktop.Vistas.Ventas
 
         private bool SujetoObligado => sujetoObligado?.Obligado ?? false;
         private decimal MontoObligado => sujetoObligado?.MontoDesde ?? 0;
-        private Moneda MonedaFCE => Global.Servicio.obtenerMoneda(0);        
+        private Moneda MonedaFCE => Global.Servicio.obtenerMoneda(0);
         private bool esMiPyme => SujetoObligado && Global.Servicio.ConviertePrecio(factura.importe, factura.Moneda, MonedaFCE) >= MontoObligado;
         private int tipoAfipA => esMiPyme ? 201 : 1;
         private int tipoAfipB => esMiPyme ? 206 : 6;
@@ -522,7 +523,7 @@ namespace Desktop.Vistas.Ventas
         }
 
         protected override bool guardar()
-        {
+        {            
             try
             {
                 if (dgvItems.Rows.Count <= 1)
@@ -545,15 +546,7 @@ namespace Desktop.Vistas.Ventas
 
                 if (cliente != null && planta != null)
                 {
-                    var tipoLetra = cliente.SituacionFrenteIva.nombre == "Responsable Inscripto" ? "A" : "B";
-
-                    var facturaExistente = Global.Servicio.BuscarFactura(long.Parse(txtNroFactura.Text), tipoLetra, int.Parse(cboPtoVenta.Text), esMiPyme);
-                    if (facturaExistente?.cae != null)
-                    {
-                        var msgError = new Mensaje("El número de factura ya existe y ya fue autorizado por afip", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
-                        msgError.ShowDialog();
-                        return false;
-                    }
+                    var tipoLetra = cliente.SituacionFrenteIva.nombre == "Responsable Inscripto" ? "A" : "B";                    
 
                     if (Estado == Estados.Agregar || cboPtoVenta.Text != "3")
                         factura = new Comprobante_Factura();
@@ -585,6 +578,14 @@ namespace Desktop.Vistas.Ventas
                     factura.anulado = false;
                     factura.ordenCompra = txtOrdenCompra.Text;
                     factura.pv = int.Parse(cboPtoVenta.Text);
+
+                    var facturaExistente = Global.Servicio.BuscarFactura(long.Parse(txtNroFactura.Text), tipoLetra, int.Parse(cboPtoVenta.Text), esMiPyme);
+                    if (facturaExistente?.cae != null)
+                    {
+                        var msgError = new Mensaje("El número de factura ya existe y ya fue autorizado por afip", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                        msgError.ShowDialog();
+                        return false;
+                    }
 
                     List<double[]> arregloIva = new List<double[]>();
                     List<decimal> ivaUsados = new List<decimal>();
@@ -799,6 +800,15 @@ namespace Desktop.Vistas.Ventas
             }
             catch (Exception ex)
             {
+                using (var outputFile = new StreamWriter("C:\\Quimadh\\error.txt", false))
+                {
+                    outputFile.WriteLine(ex.Message);
+                    if (ex.InnerException != null)
+                        outputFile.WriteLine(ex.InnerException.Message);
+
+                    outputFile.WriteLine(ex.StackTrace);
+                }
+
                 Mensaje unMensaje = new Mensaje(ex.Message, Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 unMensaje.ShowDialog();
                 return false;
@@ -1092,6 +1102,14 @@ namespace Desktop.Vistas.Ventas
         {
             if (!ValidarFacturaSeleccionada(factura))
             {
+                return;
+            }
+
+            var facturaExistente = Global.Servicio.BuscarFactura(factura.numero, factura.tipo, factura.pv, esMiPyme);
+            if (factura.id != facturaExistente?.id)
+            {
+                var msgError = new Mensaje("Ya existe otra factura con la misma numeración autorizada por AFIP", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                msgError.ShowDialog();
                 return;
             }
 

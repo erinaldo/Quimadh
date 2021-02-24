@@ -43,9 +43,9 @@ namespace Desktop.Vistas.Ventas
                 return false;
             }
 
-            if (txtNumero.Text.Length < 3 || txtNumero.Text.Length > 8)
+            if (txtNumero.Text.Length < 1 || txtNumero.Text.Length > 8)
             {
-                var msjErr = new Mensaje("El número de cheque debe ser de entre 3 y 8 dígitos", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
+                var msjErr = new Mensaje("El número de cheque debe ser de entre 1 y 8 dígitos", Mensaje.TipoMensaje.Error, Mensaje.Botones.OK);
                 msjErr.ShowDialog();
                 return false;
             }
