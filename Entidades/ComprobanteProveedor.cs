@@ -12,15 +12,21 @@ namespace Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class InstrumentoPago
+    public partial class ComprobanteProveedor
     {
-        public long Id { get; set; }
-        public Nullable<long> IdRecibo { get; set; }
-        public Nullable<long> IdOrdenPago { get; set; }
-        public decimal Importe { get; set; }
-        public bool Efectivo { get; set; }
+        public ComprobanteProveedor()
+        {
+            this.OrdenPagoProveedor = new HashSet<OrdenPagoProveedor>();
+        }
     
-        public virtual Comprobante_Recibo Comprobante_Comprobante_Recibo { get; set; }
-        public virtual OrdenPagoProveedor OrdenPagoProveedor { get; set; }
+        public long Id { get; set; }
+        public short PtoVta { get; set; }
+        public int Numero { get; set; }
+        public System.DateTime FechaComprobante { get; set; }
+        public decimal Importe { get; set; }
+        public decimal Retencion { get; set; }
+        public string Tipo { get; set; }
+    
+        public virtual ICollection<OrdenPagoProveedor> OrdenPagoProveedor { get; set; }
     }
 }

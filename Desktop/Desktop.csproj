@@ -143,6 +143,12 @@
     <Compile Include="Vistas\Administracion\frmBusquedaArticulo.Designer.cs">
       <DependentUpon>frmBusquedaArticulo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Administracion\frmBusquedaProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Administracion\frmBusquedaProveedor.Designer.cs">
+      <DependentUpon>frmBusquedaProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Administracion\frmBusquedaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,12 @@
     <Compile Include="Vistas\Administracion\frmBusquedaSalida.Designer.cs">
       <DependentUpon>frmBusquedaSalida.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Administracion\frmProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Administracion\frmProveedores.Designer.cs">
+      <DependentUpon>frmProveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Administracion\frmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +226,18 @@
     </Compile>
     <Compile Include="Vistas\Administracion\frmSalidas.Designer.cs">
       <DependentUpon>frmSalidas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Proveedores\frmComprobantesProv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Proveedores\frmComprobantesProv.Designer.cs">
+      <DependentUpon>frmComprobantesProv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Proveedores\frmOrdenesPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\Proveedores\frmOrdenesPago.Designer.cs">
+      <DependentUpon>frmOrdenesPago.cs</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Reportes\frmLotesCerrados.cs">
       <SubType>Form</SubType>
@@ -428,6 +452,9 @@
     <EmbeddedResource Include="Vistas\Administracion\frmBusquedaArticulo.resx">
       <DependentUpon>frmBusquedaArticulo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Administracion\frmBusquedaProveedor.resx">
+      <DependentUpon>frmBusquedaProveedor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Administracion\frmBusquedaCliente.resx">
       <DependentUpon>frmBusquedaCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -446,6 +473,9 @@
     <EmbeddedResource Include="Vistas\Administracion\frmBusquedaSalida.resx">
       <DependentUpon>frmBusquedaSalida.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Administracion\frmProveedores.resx">
+      <DependentUpon>frmProveedores.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Administracion\frmClientes.resx">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -463,6 +493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Administracion\frmSalidas.resx">
       <DependentUpon>frmSalidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\Proveedores\frmComprobantesProv.resx">
+      <DependentUpon>frmComprobantesProv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\Reportes\frmLotesCerrados.resx">
       <DependentUpon>frmLotesCerrados.cs</DependentUpon>

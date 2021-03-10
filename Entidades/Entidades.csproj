@@ -75,6 +75,9 @@
     <Compile Include="Comprobante.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComprobanteProveedor.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Comprobante_Devolucion.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -160,6 +163,9 @@
     <Compile Include="MuestraPlanta.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrdenPagoProveedor.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pago_Cheque.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
@@ -185,6 +191,9 @@
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs">
+      <DependentUpon>ModeloEntidades.tt</DependentUpon>
+    </Compile>
     <Compile Include="Rel_Pv_Comprobante.cs">
       <DependentUpon>ModeloEntidades.tt</DependentUpon>
     </Compile>

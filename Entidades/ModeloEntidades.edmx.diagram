@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="QuimadhModel.Log" Width="1.5" PointX="14.25" PointY="6" />
         <EntityTypeShape EntityType="QuimadhModel.Moneda" Width="2.75" PointX="3.875" PointY="23.5" />
         <EntityTypeShape EntityType="QuimadhModel.Muestra" Width="1.5" PointX="15.75" PointY="10.375" />
-        <EntityTypeShape EntityType="QuimadhModel.MuestraPlanta" Width="1.5" PointX="15.75" PointY="16" />
+        <EntityTypeShape EntityType="QuimadhModel.MuestraPlanta" Width="1.5" PointX="15.625" PointY="13.875" />
         <EntityTypeShape EntityType="QuimadhModel.Parametros" Width="1.5" PointX="0.75" PointY="24.875" />
         <EntityTypeShape EntityType="QuimadhModel.ParametroSistema" Width="1.5" PointX="1.375" PointY="2.125" />
         <EntityTypeShape EntityType="QuimadhModel.SituacionFrenteIva" Width="1.5" PointX="0.75" PointY="18.375" />
@@ -103,16 +103,11 @@
         <AssociationConnector Association="QuimadhModel.FK_ArticuloPlantaHistorico_Moneda" />
         <EntityTypeShape EntityType="QuimadhModel.MailFactura" Width="1.5" PointX="9.875" PointY="35.375" />
         <AssociationConnector Association="QuimadhModel.FK_MailFactura_Comprobante_Comprobante_Factura" />
-        <EntityTypeShape EntityType="QuimadhModel.InstrumentoPago" Width="1.5" PointX="20.75" PointY="15.75" />
-        <EntityTypeShape EntityType="QuimadhModel.Pago_Cheque" Width="1.5" PointX="24.375" PointY="17.125" />
-        <EntityTypeShape EntityType="QuimadhModel.Pago_Transferencia" Width="1.5" PointX="23.625" PointY="15.625" />
-        <AssociationConnector Association="QuimadhModel.FK_InstrumentoPago_PagoCliente" />
-        <InheritanceConnector EntityType="QuimadhModel.Pago_Transferencia" />
-        <InheritanceConnector EntityType="QuimadhModel.Pago_Cheque" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Cheque" Width="1.5" PointX="22.25" PointY="17.5" />
+        <EntityTypeShape EntityType="QuimadhModel.Pago_Transferencia" Width="1.5" PointX="22.25" PointY="16" />
         <EntityTypeShape EntityType="QuimadhModel.Pago_Tarjeta" PointX="21.125" PointY="13.75" Width="1.5" />
         <EntityTypeShape EntityType="QuimadhModel.TipoTarjeta" PointX="23" PointY="9.625" Width="1.5" />
         <AssociationConnector Association="QuimadhModel.FK_Pago_Tarjeta_TipoTarjeta" />
-        <InheritanceConnector EntityType="QuimadhModel.Pago_Tarjeta" />
         <EntityTypeShape EntityType="QuimadhModel.Banco" Width="1.5" PointX="24.25" PointY="12.125" />
         <AssociationConnector Association="QuimadhModel.FK_Pago_Cheque_Banco" />
         <EntityTypeShape EntityType="QuimadhModel.MarcaTarjeta" Width="1.5" PointX="20.375" PointY="9.875" />
@@ -120,6 +115,18 @@
         <AssociationConnector Association="QuimadhModel.Rel_Factura_Recibo1" />
         <EntityTypeShape EntityType="QuimadhModel.Saldos" Width="1.5" PointX="5.25" PointY="18.5" />
         <AssociationConnector Association="QuimadhModel.FK_Saldos_Cliente" />
+        <EntityTypeShape EntityType="QuimadhModel.ComprobanteProveedor" Width="2" PointX="3" PointY="9.25" />
+        <EntityTypeShape EntityType="QuimadhModel.OrdenPagoProveedor" Width="2.25" PointX="5.25" PointY="14.375" />
+        <EntityTypeShape EntityType="QuimadhModel.Proveedor" Width="1.5" PointX="3" PointY="13.125" />
+        <AssociationConnector Association="QuimadhModel.FK_Proveedor_Localidad" />
+        <AssociationConnector Association="QuimadhModel.FK_OrdenPagoProveedor_Proveedor" />
+        <AssociationConnector Association="QuimadhModel.Rel_ComprobanteProveedor_OrdenPago" />
+        <EntityTypeShape EntityType="QuimadhModel.InstrumentoPago" Width="1.5" PointX="17.625" PointY="17.125" />
+        <AssociationConnector Association="QuimadhModel.FK_InstrumentoPago_PagoCliente" />
+        <AssociationConnector Association="QuimadhModel.FK_InstrumentoPago_OrdenPagoProveedor" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Cheque" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Transferencia" />
+        <InheritanceConnector EntityType="QuimadhModel.Pago_Tarjeta" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

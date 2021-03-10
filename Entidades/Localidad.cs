@@ -18,6 +18,7 @@ namespace Entidades
         {
             this.Cliente = new HashSet<Cliente>();
             this.Planta1 = new HashSet<Planta>();
+            this.Proveedor = new HashSet<Proveedor>();
         }
     
         public long id { get; set; }
@@ -27,5 +28,6 @@ namespace Entidades
     
         public virtual ICollection<Cliente> Cliente { get; set; }
         public virtual ICollection<Planta> Planta1 { get; set; }
+        public virtual ICollection<Proveedor> Proveedor { get; set; }
     }
 }
