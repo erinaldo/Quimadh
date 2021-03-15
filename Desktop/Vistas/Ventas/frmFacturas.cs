@@ -768,7 +768,7 @@ namespace Desktop.Vistas.Ventas
                     //imprime la version digital
                     if (result)
                     {
-                        Global.Servicio.imprimirFacturaDigital(factura);
+                        Global.Servicio.ImprimirFacturaDigital(factura);
 
                         if (factura.pv == 3)
                         {
@@ -964,7 +964,7 @@ namespace Desktop.Vistas.Ventas
                 }
                 if (factura.pv == 3)
                 {
-                    Global.Servicio.imprimirFacturaDigital(factura);
+                    Global.Servicio.ImprimirFacturaDigital(factura);
                 }                
             }
             else
