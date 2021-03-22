@@ -570,7 +570,7 @@ namespace ModuloServicios
             var qrCode = new QRCode(qrCodeData);
             var qrCodeImage = qrCode.GetGraphic(2);
 
-            //var textAsBytes = Convert.FromBase64String(qrUrl);
+            //var textAsBytes = Convert.FromBase64String(base64JsonCode);
             //var decode = System.Text.Encoding.UTF8.GetString(textAsBytes);
 
             return qrCodeImage;
