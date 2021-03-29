@@ -1,5 +1,7 @@
 ﻿using Base;
 using Entidades;
+using Newtonsoft.Json;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -290,7 +292,7 @@ namespace ModuloServicios
                 decimal subtotal = factura.subtotal;
                 decimal iva = factura.totalIva;
                 decimal total = factura.importe;
-                //if (factura.Planta.Cliente.SituacionFrenteIva.nombre == "Responsable Inscripto")
+
                 if (factura.tipo == "A")
                 {
                     e.Graphics.DrawString(factura.vencimiento.ToString("dd/MM/yyyy"), printFont, printSolid, new Rectangle(x + 235, y + 22, 500, 500));
@@ -315,7 +317,7 @@ namespace ModuloServicios
             pd.Print();
         }
 
-        public void imprimirFacturaDigital(Comprobante_Factura factura)
+        public void ImprimirFacturaDigital(Comprobante_Factura factura)
         {
             string remitos = "";
             foreach (Comprobante_Remito rem in factura.Comprobante_Remito)
@@ -340,18 +342,16 @@ namespace ModuloServicios
                 y = -7;
             }
             else
-            {                
+            {
                 x = 535;
                 y = 10;
             }
-                
+
             Bitmap bm = new Bitmap(imagen, imagen.Size);
             Graphics graf = Graphics.FromImage(bm);
 
             Font printFont = new Font("Arial", 20);
             Font printFontG = new Font("Arial", 20, FontStyle.Bold);
-            Font printFontCBNro = new Font("Arial", 15);
-            Font printFontCB = new Font("Dobson2OF5", 25, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Millimeter, 0);//, ((byte)(0))
             SolidBrush printSolid = new SolidBrush(Color.Black);
             string fecha = factura.fechaIngreso.Day.ToString("00") + "      " + factura.fechaIngreso.Month.ToString("00") + "     " + factura.fechaIngreso.Year.ToString();
             decimal precio;
@@ -359,19 +359,19 @@ namespace ModuloServicios
             graf.DrawString(factura.pv.ToString("0000") + " - " + factura.numero.ToString("00000000"), printFontG, printSolid, new RectangleF(x + 500, y + 105, 500, 500));
 
             graf.DrawString(fecha, printFont, printSolid, new Rectangle(x + 686, y + 192, 2000, 2000));
-            graf.DrawString(factura.Planta.Cliente.razonSocial, printFont, printSolid, new Rectangle(x - 350 , y + 363, 500, 500));
+            graf.DrawString(factura.Planta.Cliente.razonSocial, printFont, printSolid, new Rectangle(x - 350, y + 363, 500, 500));
             graf.DrawString(factura.Planta.Cliente.direccion, printFont, printSolid, new Rectangle(x + 440, y + 366, 500, 500));
             graf.DrawString(factura.Planta.Cliente.Localidad.nombre, printFont, printSolid, new Rectangle(x + 440, y + 450, 500, 500));
             graf.DrawString(factura.Planta.Cliente.SituacionFrenteIva.nombre, printFont, printSolid, new Rectangle(x - 350, y + 510, 500, 500));
             if (remitos != "")
                 graf.DrawString("Rto: " + remitos + " / oc: " + factura.ordenCompra, printFont, printSolid, new Rectangle(x + 230, y + 500, 550, 550));
             graf.DrawString(factura.Planta.Cliente.cuit, printFont, printSolid, new Rectangle(x - 340, y + 550, 200, 200));
-            graf.DrawString(factura.condVta, printFont, printSolid, new Rectangle(x - 225, y + 591, 500, 500));            
+            graf.DrawString(factura.condVta, printFont, printSolid, new Rectangle(x - 225, y + 591, 500, 500));
 
             y += 695;
             foreach (VentaArticuloPlanta venta in factura.VentaArticuloPlanta)
             {
-                graf.DrawString(venta.cantidad.ToString(), printFont, printSolid, new Rectangle(x - 480 , y, 500, 500));
+                graf.DrawString(venta.cantidad.ToString(), printFont, printSolid, new Rectangle(x - 480, y, 500, 500));
                 graf.DrawString(venta.TipoArticulo.nombre + " " + venta.descripAdicional, printFont, printSolid, new Rectangle(x - 250, y, 600, 600));
                 if (factura.tipo == "A")
                 {
@@ -389,17 +389,16 @@ namespace ModuloServicios
                 y += 30;
             }
 
-            y = 1370;
-
             graf.DrawString(factura.observacion, printFont, printSolid, new Rectangle(x - 250, y, 1000, 1000));
             if (factura.tipo == "A")
             {
-                y = 1535;
+                y = 1435;
             }
             else
             {
-                y = 1585;
+                y = 1490;
             }
+
             decimal subtotal = factura.subtotal;
             decimal iva = factura.totalIva;
             decimal total = factura.importe;
@@ -412,26 +411,21 @@ namespace ModuloServicios
                 graf.DrawString(subtotal.ToString("0.00"), printFont, printSolid, new Rectangle(x + 728, y + 149, 500, 500));
                 graf.DrawString(iva.ToString("0.00"), printFont, printSolid, new Rectangle(x + 728, y + 209, 500, 500));
                 graf.DrawString("0.00", printFont, printSolid, new Rectangle(x + 728, y + 272, 500, 500));
+                graf.DrawString(factura.Moneda.simbologia + " " + total.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 720, y + 334, 500, 500));
+            }
+            else
+            {
+                graf.DrawString(factura.Moneda.simbologia + " " + total.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 720, y + 340, 500, 500));
             }
 
-            graf.DrawString(factura.Moneda.simbologia + " " + total.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 720, y + 334, 500, 500));
-            
             if (factura.pv == 3 && !string.IsNullOrEmpty(factura.cae))
             {
-                var prefijo = factura.CE_MiPyme ? "2" : "0";
-
-                string codigoAfip = factura.tipo == "A" ? $"{prefijo}01" : $"{prefijo}06";
-                string codBarras = "30678363673" + codigoAfip + factura.pv.ToString("00000") + factura.cae + ((DateTime)factura.fecVtoCae).ToString("yyyyMMdd");
-                string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
-                codBarras = CodificarI2Of5(codBarrasSinCod);
-
-                var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
-                graf.DrawImage(imagenCB, x - 450, y + 420);
-                graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300 , y + 480, 500, 500));
-
                 graf.DrawString("CAE: " + factura.cae, printFontG, printSolid, new Rectangle(x + 480, y + 430, 500, 500));
                 graf.DrawString("VENC.: " + ((DateTime)factura.fecVtoCae).ToString("dd/MM/yyyy"), printFontG, printSolid, new Rectangle(x + 480, y + 465, 500, 500));
-            }            
+
+                var qrCode = GenerarQR(factura);
+                graf.DrawImage(qrCode, x - 500, y + 420);
+            }
 
             ParametroSistema paramCarpeta = obtenerParametroSistemaPorNombre("CarpetaComprobantes");
 
@@ -526,7 +520,96 @@ namespace ModuloServicios
                 }
             }
 
-            return ms; //.ToArray();
+            return ms;
+        }
+
+        private Bitmap GenerarQR(Comprobante_Factura factura)
+        {
+            var prefijo = factura.CE_MiPyme ? 200 : 0;
+            var codigoAfip = prefijo + (factura.tipo == "A" ? 1 : 6);
+
+            var quimadhCodeData = new QuimadhQRCode(
+                factura.fechaIngreso, factura.pv, codigoAfip, factura.numero, factura.importe, factura.Moneda.abrevAfip,
+                factura.Moneda.cotizacion, factura.Planta.Cliente.cuit, factura.cae);
+
+            return GenerarImagenQR(quimadhCodeData);
+        }
+
+        private Bitmap GenerarQR(Comprobante_Recargo notaCredito)
+        {
+            var prefijo = notaCredito.CE_MiPyme ? 200 : 0;
+            var codigoAfip = prefijo + (notaCredito.tipo == "A" ? 2 : 7);
+
+            var quimadhCodeData = new QuimadhQRCode(
+                notaCredito.fechaIngreso, notaCredito.pv, codigoAfip, notaCredito.numero, notaCredito.importe, notaCredito.Moneda.abrevAfip,
+                notaCredito.Moneda.cotizacion, notaCredito.Planta.Cliente.cuit, notaCredito.cae);
+
+            return GenerarImagenQR(quimadhCodeData);
+        }
+
+        private Bitmap GenerarQR(Comprobante_Devolucion notaDebito)
+        {
+            var prefijo = notaDebito.CE_MiPyme ? 200 : 0;
+            var codigoAfip = prefijo + (notaDebito.tipo == "A" ? 3 : 8);
+
+            var quimadhCodeData = new QuimadhQRCode(
+                notaDebito.fechaIngreso, notaDebito.pv, codigoAfip, notaDebito.numero, notaDebito.importe, notaDebito.Moneda.abrevAfip,
+                notaDebito.Moneda.cotizacion, notaDebito.Planta.Cliente.cuit, notaDebito.cae);
+
+            return GenerarImagenQR(quimadhCodeData);
+        }
+
+        private Bitmap GenerarImagenQR(QuimadhQRCode quimadhCodeData)
+        {
+            var jsonCode = JsonConvert.SerializeObject(quimadhCodeData);
+            var base64JsonCode = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(jsonCode));
+            var qrUrl = $"https://www.afip.gob.ar/fe/qr/?p={base64JsonCode}";
+
+            var qrGenerator = new QRCodeGenerator();
+            var qrCodeData = qrGenerator.CreateQrCode(qrUrl, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeData);
+            var qrCodeImage = qrCode.GetGraphic(2);
+
+            //var textAsBytes = Convert.FromBase64String(base64JsonCode);
+            //var decode = System.Text.Encoding.UTF8.GetString(textAsBytes);
+
+            return qrCodeImage;
+        }
+
+        private class QuimadhQRCode
+        {
+            public int ver { get; set; }
+            public string fecha { get; set; }
+            public long cuit { get; set; }
+            public int ptoVta { get; set; }
+            public int tipoCmp { get; set; }
+            public int nroCmp { get; set; }
+            public decimal importe { get; set; }
+            public string moneda { get; set; }
+            public decimal ctz { get; set; }
+            public short tipoDocRec { get; set; }
+            public long nroDocRec { get; set; }
+            public string tipoCodAut { get; set; }
+            public long codAut { get; set; }
+
+            public QuimadhQRCode(
+                DateTime fechaIngreso, int pv, int codigoAfip, long numero, decimal importe,
+                string abrevMonedaAfip, decimal cotizacion, string cuitCliente, string cae)
+            {
+                ver = 1;
+                fecha = fechaIngreso.ToString("yyyy-MM-dd");
+                cuit = 30678363673;
+                ptoVta = pv;
+                tipoCmp = codigoAfip;
+                nroCmp = (int)numero;
+                this.importe = importe;
+                moneda = abrevMonedaAfip;
+                ctz = cotizacion;
+                tipoDocRec = 80;
+                nroDocRec = long.Parse(cuitCliente);
+                tipoCodAut = "E";
+                codAut = long.Parse(cae);
+            }
         }
 
         private string AgregarDigitoVerificador(string codigo)
@@ -1524,7 +1607,8 @@ namespace ModuloServicios
 
                 y += 40;
             }
-            y = 1580;
+
+            y = 1505;
             if (nota.tipo == "A")
             {
                 graf.DrawString(nota.subtotal.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 690, y + 125, 500, 500));
@@ -1535,22 +1619,12 @@ namespace ModuloServicios
 
             if (nota.pv == 3 && !string.IsNullOrEmpty(nota.cae))
             {
-                Font printFontCBNro = new Font("Arial", 15);
-
-                var prefijo = nota.CE_MiPyme ? "2" : "0";
-                string codigoAfip = nota.tipo == "A" ? $"{prefijo}03" : $"{prefijo}08";
-                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("00000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
-                string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
-                codBarras = CodificarI2Of5(codBarrasSinCod);
-
-                //graf.DrawString(codBarras, printFontCB, printSolid, new Rectangle(x + 180, y + 500, 1000, 200));
-                var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
-                graf.DrawImage(imagenCB, x - 450, y + 405);
-                graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300, y + 465, 500, 500));
-
                 graf.DrawString("CAE: " + nota.cae, printFontG, printSolid, new Rectangle(x + 480, y + 400, 500, 500));
                 graf.DrawString("VENC.: " + ((DateTime)nota.fecVtoCae).ToString("dd/MM/yyyy"), printFontG, printSolid, new Rectangle(x + 480, y + 440, 500, 500));
-            }   
+
+                var qrCode = GenerarQR(nota);
+                graf.DrawImage(qrCode, x - 500, 1900);
+            }
 
             ParametroSistema paramCarpeta = obtenerParametroSistemaPorNombre("CarpetaComprobantes");
             
@@ -1624,7 +1698,8 @@ namespace ModuloServicios
 
                 y += 40;
             }
-            y = 1580;
+
+            y = 1520;
             if (nota.tipo == "A")
             {
                 graf.DrawString(nota.subtotal.ToString("0.00"), printFontG, printSolid, new Rectangle(x + 690, y + 125, 500, 500));
@@ -1635,22 +1710,12 @@ namespace ModuloServicios
 
             if (nota.pv == 3 && !string.IsNullOrEmpty(nota.cae))
             {
-                Font printFontCBNro = new Font("Arial", 15);
-
-                var prefijo = nota.CE_MiPyme ? "2" : "0";
-                string codigoAfip = nota.tipo == "A" ? $"{prefijo}02" : $"{prefijo}07";
-                string codBarras = "30678363673" + codigoAfip + nota.pv.ToString("00000") + nota.cae + ((DateTime)nota.fecVtoCae).ToString("yyyyMMdd");
-                string codBarrasSinCod = AgregarDigitoVerificador(codBarras);
-                codBarras = CodificarI2Of5(codBarrasSinCod);
-
-                //graf.DrawString(codBarras, printFontCB, printSolid, new Rectangle(x + 180, y + 500, 1000, 200));
-                var imagenCB = Image.FromStream(GenerateImage("Dobson2OF5", codBarras));
-                graf.DrawImage(imagenCB, x - 450, y + 415);
-                graf.DrawString(codBarrasSinCod, printFontCBNro, printSolid, new Rectangle(x - 300, y + 475, 500, 500));
-
                 graf.DrawString("CAE: " + nota.cae, printFontG, printSolid, new Rectangle(x + 480, y + 400, 500, 500));
                 graf.DrawString("VENC.: " + ((DateTime)nota.fecVtoCae).ToString("dd/MM/yyyy"), printFontG, printSolid, new Rectangle(x + 480, y + 440, 500, 500));
-            }  
+
+                var qrCode = GenerarQR(nota);
+                graf.DrawImage(qrCode, x - 500, 1910);
+            }
 
             ParametroSistema paramCarpeta = obtenerParametroSistemaPorNombre("CarpetaComprobantes");
 
